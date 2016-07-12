@@ -1,0 +1,129 @@
+Let us rephrase Ramsey's theorem \index{Ramsey's theorem} in a way that
+anticipates a particular generalization.
+Let $\omega$ be the usual ordering of the natural numbers.
+A chain of length $n$, or $n$-chain for short, in $\omega$ is a sequence
+$\langle a_1,a_2,\ldots,a_n\rangle$ of natural numbers
+such that $a_i<a_{i+1}$ for each $1\leq i<n$.
+Let $[\omega]^n$ denote the set of $n$-chains of $\omega$.
+Ramsey's theorem for $n$-tuples says that for any
+coloring of $[\omega]^n$ with finitely many colors,
+there is a subset of natural numbers $H$ such that
+$H$ is isomorphic (with respect to the ordering it
+inherits from $\omega$) to $\omega$ and such that
+$c$ is constant on the set of $n$-chains of $H$.
+The idea of the following generalization of Ramsey's
+theorem is to replace $\omega$ with another partial ordering.
+Recall that a partial ordering is a pair $(\Po,\leq_{\Po})$,
+where $\Po$ is a set and $\leq_{\Po}$ is a binary relation on $\Po$
+which is reflexive, antisymmetric, and transitive.
+Often times we will conflate $\Po$ and $\leq_{\Po}$.
+We write $a_1<_{\Po}a_2$ to mean that $a_1\leq_{\Po}a_2$ and $a_1\neq a_2$.
+
+\begin{definition}
+Let $(\Po,\leq_{\Po})$ be a partial ordering and fix $n\in\NN$.
+The set of $n$\textit{-chains} of $\Po$ is the set
+$$[\Po]^n=\set{\seq{a_1,a_2\ldots,a_n}\in\Po^n}{a_1<_{\Po}a_2<_{\Po}\ldots <_{\Po}a_n}.$$
+A $k$\textit{-coloring} of $[\Po]^n$ is a map
+$$c:[\Po]^n\to\{0,1,\ldots,k-1\}.$$
+A subset $H\subseteq\Po$ is \textit{homogeneous} for $c$ if there
+is a $j<k$ such that $c(\tup{a})=j$ for all $\tup{a}\in[H]^n$.
+We say that a set $H\subseteq\Po$ is a \textit{homogeneous copy} of $\Po$
+for $c$ if $H$ is homogeneous and the partial ordering
+$(H,\leq_{\Po}\uhr H)$ is isomorphic to $\Po$.
+\end{definition}
+
+\begin{definition}\label{D:RamseyPOsets} \index{$RT^n(\Po)$}
+We say that a partial ordering $\Po$ has the $(n,k)$\textit{-Ramsey property}
+if for every $k$-coloring of the $n$-chains of $[\Po]^n$
+there is a homogeneous copy of $\Po$ for $c$.
+We let $RT^n_k(\Po)$ denote the statement that $\Po$ has
+the $(n,k)$-Ramsey property, and we let $RT^n(\Po)$
+denote the statement that $\Po$ has the $(n,k)$-Ramsey property for all $k\geq 1$.
+\end{definition}
+
+Note that we require only that the partial ordering $(H,\leq_{\Po}\uhr H)$
+be isomorphic to $\Po$ as a partial ordering.
+We do not require the isomorphism to preserve lower bounds, etc.
+
+Using this new notation, Ramsey's theorem for $n$-tuples
+is denoted $RT^n(\omega)$.
+It turns out that for $n\geq 2$, $\omega$ is essentially
+the only countable linear ordering with the $n$-Ramsey property.
+To see this, let $\Po=(\NN,\leq_{\Po})$ be a countable linear
+ordering such that $RT^2(\Po)$ holds and consider the 2-coloring
+$c(a,b)=0$ if and only if $a\leq_\Po b\leftrightarrow a\leq b$,
+where $\leq$ is the usual ordering on $\NN$.
+Notice then that every infinite 0-homogeneous set for $c$
+is isomorphic to $\omega$, and every infinite 1-homogeneous set for $c$
+is isomorphic to $\omega^*$
+($\omega^*$ is the ordering $\leq^*$ of $\NN$
+where $a\leq^*b$ if and only if $a\geq b$).
+Therefore if $\Po=(\NN,\leq_{\Po})$ is a countable linear ordering such that
+$RT^2(\Po)$ holds, then $\Po$ is isomorphic to either $\omega$ or $\omega^*$.
+In Chapter~\ref{Ords} we will have more to say about
+coloring problems for other linear orderings.
+
+It is worth mentioning why we consider $n$-chains and not merely
+$n$-element subsets of $\Po$.
+Consider the following coloring of the pairs of a partial ordering $\Po$ with two
+colors: let $c(a,b)=0$ exactly when $a$ is comparable to $b$
+(we say that $a$ is comparable to $b$ if either $a\leq b$ or $b\leq a$).
+The existence of a $0$-homogeneous copy of $\Po$ for this coloring
+implies that $\Po$ is a linear ordering, while
+existence of a $1$-homogeneous copy of $\Po$ implies that $\Po$ is a
+countable antichain.
+Therefore defining the Ramsey property in terms of coloring
+of $n$-element \textit{subsets} is too restrictive to be of interest.
+One could also consider coloring other substructures besides $n$-chains,
+but these are usually too restrictive as well.
+
+Chubb, Hirst, and McNichol investigated the statement
+$RT^n(\bin)$, where $\bin$ is the \textit{complete binary tree}
+(the set of finite binary sequences ordered by inclusion) \cite{CHM}.
+They proved that $RT^n(\bin)$ holds for all $n\geq 1$
+and that $RT^n_k(\bin)$ behaves very similarly to
+$RT^n_k(\omega)$.
+In particular, for all $n\geq 3$, they showed that the
+statement $RT^3(\bin)$ is equivalent to \ACAo,
+and that $RT^1(\bin)$ is provable from
+$\Ind{\BSigma^0_2}$ and implies $\Bnd{\BSigma^0_2}$.
+
+Groszek, Mileti and I considered the statement $RT^n(T)$
+for arbitrary trees \cite{CGM}.
+A \textit{tree} is a downward closed subset of $\omega^{<\omega}$
+(the set of finite sequences, ordered by inclusion), and
+a tree is \textit{nontrivial}\index{nontrivial tree} if it is not linearly ordered and
+has at least one element on every level.
+Two partial orderings are \textit{biembeddable}\index{biembeddable} if each
+partial ordering can be embedded in the other.
+We showed that for all $n\geq 1$, $k\geq 2$, \RCAo\ proves the following:
+for all nontrivial trees $T$, $RT^n_k(T)$ holds if and only if $T$ is
+biembeddable with $\bin$ and $RT^n_k(\bin)$ holds.
+By the results of Chubb, Hirst, and McNichol it then
+follows that for all $n\geq 3$, \ACAo\ is equivalent, over \RCAo, to the
+statement:
+\begin{quote}
+If $T$ is a nontrivial tree, then $RT^n(T)$
+holds if and only if there is an embedding of $\bin$ into $T$.
+\end{quote}
+We also showed that $RT^1(\bin)$ is strictly stronger than $\Bnd{\BSigma^0_2}$
+(in other words, the reverse implication does not hold).
+Recall that $RT^1(\omega)$ is equivalent to $\Bnd{\BSigma^0_2}$,
+and so $RT^1(\bin)$ is a stronger statement than $RT^1(\omega)$.
+This is in contrast with the fact that $RT^n(\omega)$
+is equivalent to $RT^n(\bin)$ for $n\geq 3$, the result of Chubb, Hirst, and McNichol
+mentioned earlier.
+
+In Section~\ref{POMult} we investigate a partial ordering which
+is not a tree, but is very similar to $\bin$.
+We call this partial ordering \textit{the binary tree with multiplicities}.
+We classify all suborderings (modulo some nontriviality requirements)
+of the binary tree with multiplicities that have the Ramsey property for $n\geq 2$.
+In Section~\ref{POAmenable} we investigate another family of partial
+orderings satisfying the $(n,k)$-Ramsey property for each $n\geq 1$ and $k\geq 2$.
+In Sections \ref{ElemIndec} and \ref{Indec&Embed} we consider some linear orderings
+with the 1-Ramsey property.
+More specifically, we consider the finite (ordinal) powers of $\omega$.
+In each of these sections the investigation includes
+analyzing, with respect to Reverse Mathematics, the strength of the
+important statements.

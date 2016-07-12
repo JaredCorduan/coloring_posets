@@ -1,0 +1,127 @@
+In this section we examine persistent notions of forcing which satisfy
+a property we call \MCP.
+The main result of this section is Proposition~\ref{P:PacaSigma2SkolemNames}.
+Though somewhat technical, Proposition~\ref{P:PacaSigma2SkolemNames} is the key
+to showing that if $\MM$ is a model of $\ACAo$ and $\Forc$ is a
+persistent notion of forcing satisfying \MCP,
+then the generic extension of $\MM$ is also a model of $\ACAo$.
+
+Before we can define \MCP\ we must define what a set of layers for a condition $T$ is.
+Two important examples to keep in mind are the levels of a tree
+and the splitting levels of a tree.
+
+\begin{definition}
+Given a condition $T$, a \textit{set of layers} for $T$ is a
+sequence $\seq{X_i:i\in\NN}$ of subsets of $T$ such that
+\begin{itemize}
+\item for each extension $T'\leq T$ and $i\in\NN$, $X_i\cap T'$ is a maximal antichain of $T'$,
+\item if $\tau\in X_{i+1}$ then $\tau$ is a proper extension of some $\sigma\in X_i$.
+\end{itemize}
+Given a set of layers for $T$ and a $\tau\in T$,
+we say that $\tau$ is above layer $n$ if $\tau\supseteq\sigma$
+for some $\sigma\in X_n$.
+\end{definition}
+
+\begin{definition}
+Given a condition $T$, we say that a coloring $c:T\to\{0,1\}$
+is \textit{monotone} if $c(\tau)=1$ implies that $c(\sigma)=1$ for
+all $\sigma\supseteq\tau$.
+\end{definition}
+
+\begin{definition}
+\MCP\ (for Monotone coloring principle\index{Monotone coloring principle}\index{$\MCP$})
+is the following statement:
+For any condition $T$ and any infinite sequence $\langle c_i:i\in\NN\rangle$ of monotone
+colorings $c_i:T\rightarrow \{0,1\}$,
+there is a condition $T'\leq T$ and a set of layers for $T'$ such that
+for every $i$ there is a $k$ such that if $\tau\in T'$ is above layer $k$
+then $c_i$ is constant on $T'_\tau$.
+\end{definition}
+
+We now prove the existence of $\BSigma^0_2$ Skolem names.
+
+\begin{prop}[\ACAo]\label{P:PacaSigma2SkolemNames}
+Let $\Forc$ be a persistent notion of forcing which satisfies \MCP.
+Then $\Forc$ has $\BSigma^0_2$ Skolem names.
+In other words, for every $T$-local $\BSigma^0_2$ formula $\theta(\tup{v})$ of the
+forcing relation there is an extension $T'\leq T$ and a name $W(\tup{v},t)$
+such that for all extensions $S\leq T'$ and all $\tup{x}$,
+if $S\Vdash\theta(\tup{x})$ then $\lambda tW(\tup{x},t)$
+is $S$-local and $S\Vdash\theta_S(\lambda tW(\tup{x},t);\tup{x})$.
+\end{prop}
+
+\begin{proof}
+Let $\theta(\tup{v})=\exists y\forall z\phi(\tup{v},y,z)$,
+where $\phi$ is bounded.
+Let $U=U_\phi$ be the normal form name from Proposition~\ref{P:PR:normalForm}.
+Consider the sequence of monotone colorings
+$c_{\seq{\tup{x},y}}:T\to\{0,1\}$ defined by
+$$c_{\seq{\tup{x},y}}(\tau)=\begin{cases}
+0&\text{if }(\forall z\leq|\tau|)U(\tup{x},y,z)\not>0,\\
+1&\text{otherwise.}
+\end{cases}$$
+By \MCP\ there is a condition $T'\leq T$ and a set of layers
+$X_0,X_1,\ldots$ for $T'$ such that
+for every $\seq{\tup{x},y}$ there is a $k$ such that if $\tau\in T'$ is above layer $k$
+then $c_{\seq{\tup{x},y}}$ is constant on $T'_\tau$.
+
+We now define $W(\tup{x},t)$ in stages.
+At stage $n=\langle \tup{x},y\rangle$ we consider the nodes in $X_n$.
+If $W^\tau(\tup{x},0)$ is undefined for $\tau\in X_n$,
+and $c_n(\sigma)=0$ for all $\sigma\in T'_\tau$,
+then we let $W^\sigma(\tup{x},0)=y$ for every $\sigma\in T'_\tau$,
+and we let $W(\tup{x},t+1)=W^\psi_S(\tup{x},W(\tup{x},0),t)$,
+where $\psi(\tup{x},w)=\forall a\phi(\tup{x},w,a)$ and
+$W^\psi_S$ is defined as in Proposition~\ref{P:witnessPi2}.
+
+We now show that if $S\leq T'$ and $S\Vdash\theta(\tup{x})$,
+then $\lambda tW(\tup{x},t)$ is $S$-local.
+Since $\Forc$ is persistent, it suffices to show that if $S'\leq S$
+then there is a $\sigma\in S'$ such that $W^\sigma(\tup{x},0)$ is defined.
+Suppose that no such $\sigma$ exists.
+For each $i\in\NN$ let $Y_i=X_i\cap S$.
+Since $\seq{X_i:i\in\NN}$ is a set of layers for $T'$,
+then $\seq{Y_i:i\in\NN}$ is a set of layers for $S$.
+Therefore for every layer $n$ such that $n=\seq{\tup{x},y}$
+for some $y$, we have that $c_n(\tau)=1$ for all $\tau\in Y_n$.
+Then $S'\Vdash\forall y\exists z(1\dotminus U(\tup{x},y,z)=0)$,
+contradicting that $S'\Vdash\theta(\tup{x})$.
+
+Finally, we show that if $S\leq T'$ and $S\Vdash\theta(\tup{x})$,
+then $S\Vdash\theta_S(\lambda tW(\tup{x},t);\tup{x})$.
+We know that there is a $S'\leq S$ and a $y$ such that
+$S'\Vdash\psi(\tup{x},y)$.
+Therefore $W^\sigma(\tup{x},0)$ is defined for all $\sigma\in S'$
+above layer $\seq{\tup{x},y}$.
+Moreover $S'\Vdash\psi(\tup{x},W(\tup{x},0))$.
+So by Proposition~\ref{P:witnessPi2},
+$S'\Vdash\psi_S(\lambda tW^\psi_S(\tup{x},W(\tup{x},0),t);\tup{x},W(\tup{x},0))$.
+Unraveling definitions, we see that $S\Vdash\theta_S(\lambda tW^\theta_S(\tup{x},t);\tup{x})$.
+\end{proof}
+
+We now improve Proposition~\ref{P:PacaSigma2SkolemNames}
+by extending it to $\BPi^0_3$ formulas.
+
+\begin{prop}[\ACAo]\label{P:PacaPi3SkolemNames}
+Let $\Forc$ be a persistent notion of forcing which satisfies \MCP.
+Then $\Forc$ has $\BPi^0_3$ Skolem names.
+In other words, for every $T$-local $\BPi^0_3$ formula $\theta(v)$ of the
+forcing relation there is an extension $T'\leq T$ and a name $W(v,t)$
+such that for all extensions $S\leq T'$ and all $x$,
+if $S\Vdash\theta(x)$ then $\lambda tW(x,t)$
+is $S$-local and $S\Vdash\theta_S(\lambda tW(x,t);x)$.
+\end{prop}
+\begin{proof}
+Let $\theta(\tup{v})=\forall w\phi(\tup{v},w)$ where $\phi(\tup{v},w)$ is $\BSigma^0_2$.
+We define $W^\theta_S(\tup{x},t)$ by
+$W^\theta_S(\tup{x},t)=W^\phi_S(\tup{v},\first{t},\second{t})$,
+where $W^\phi_S$ is defined as in Proposition~\ref{P:PacaSigma2SkolemNames}.
+\end{proof}
+
+\begin{cor}\label{C:Pi2unif}
+Let $\Forc$ be a persistent notion of forcing which satisfies \MCP.
+Let $\theta(\tup{v},w)$ be a $\BSigma^0_2$ formula of the forcing relation
+such that $T\Vdash\forall\tup{v}\exists w\theta(\tup{v},w)$.
+There is a $T$-local name $W(\tup{v})$ such that
+$T\Vdash\forall\tup{v}\theta(\tup{v},W(\tup{v}))$.
+\end{cor}

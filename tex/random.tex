@@ -1,0 +1,365 @@
+The conditions of random forcing are the closed subsets of
+Cantor space with positive Lebesgue measure.
+We now make this precise.
+
+Given a tree $T\subseteq\bin$, let
+$$\mu_n(T) = |\{\tau\in T:|\tau|=n\}|\ /\ 2^n.$$
+In other words, $\mu_n(T)$ is the number of nodes on level $n$
+of $T$, divided by $2^n$.
+
+We say that a tree $T\subseteq 2^{<\omega}$ has \textit{positive measure} if
+$$\text{there is an }\epsilon>0\text{ such that } \mu_n(T)>\epsilon \text{ for all }n.$$
+If $T$ does not have positive measure, we say that $T$ has \textit{measure zero}.
+The \textit{conditions for random forcing} are the trees $T\subseteq 2^{<\omega}$ with positive measure.
+
+Note that for any tree $T\subseteq 2^{<\omega}$,
+$\mu_n(T)$ is monotonically decreasing.
+From this it follows that if $T$ has measure zero then
+$\displaystyle \lim_{n\to\infty} \mu_n(T)=0$.
+
+The first thing to notice about random forcing is that
+it fails to be persistent.
+In other words, it could be the case that $T_\tau$ does not have positive measure
+for some condition $T$ and $\tau\in T$.
+We now show that it is, however, almost persistent.
+
+\begin{lem}[\RCAo]\label{L:R:locallem}
+Let $T$ be an subtree of $2^{<\omega}$ with positive measure,
+$F$ be a $k$-ary $T$-local name, and $\tup{x}\in\NN^k$.
+The tree
+$$T_{F(\tup{x})}=\set{\tau\in T}{F^\tau(\tup{x})\text{ is undefined at stage }|\tau|}$$
+has measure zero.
+(Recall that we consider $F^\tau(\tup{x})$ undefined at stage $n$ if
+there are no $w,y\leq n$ and $\sigma\subseteq\tau$
+such that $w$ witnesses that $F^\sigma(\tup{x})=y$.)
+\end{lem}
+\begin{proof}
+Suppose for the sake of contradiction that $T_{F(\tup{x})}$ has positive measure.
+Then $T_{F(\tup{x})}$ is an extension of $T$.
+Therefore, since $F$ is $T$-local, there is a $\tau\in T_{F(\tup{x})}$
+such that $F^\tau(\tup{x})$ is defined by stage $|\tau|$,
+contradicting the definition of $T_{F(\tup{x})}$.
+\end{proof}
+
+Recall that composition and primitive recursion for names
+was defined in Definition~\ref{D:comp&pr}.
+
+\begin{prop}[$\RCAo$]\label{P:R:comp&pr}
+For any condition $T$,
+the names defined by composition and primitive recursion
+using $T$-local names are themselves $T$-local.
+\end{prop}
+\begin{proof}
+First we consider composition.
+Let $F_0$ be an $\ell$-ary $T$-local name, $F_1,\ldots,F_\ell$ be $k$-ary $T$-local names,
+and $H=F_0\circ(F_1,\ldots,F_\ell)$.
+We show that $H$ is $T$-local.
+In other words, we let $T'\leq T$ and $\tup{x}\in\NN^k$
+and show that there is a $\tau\in T'$ such that $H^\tau(\tup{x})$ is defined.
+
+By Lemma~\ref{L:H:locallem}, given a $T$-local name $F$ we can define a function
+$B_F(\tup{x};\epsilon)=b$ so that $F^\tau(\tup{x})$ is defined by stage $b$ for all
+but $(\epsilon\cdot 2^b)$-many $\tau$ on level $b$ of $T'$.
+Fix $\epsilon>0$.
+Let $m_0=\max\{B_{F_1}(\tup{x};\epsilon/2\ell),\ldots,B_{F_\ell}(\tup{x};\epsilon/2\ell)\}$, and
+let $R$ be the set of all $\tup{y}\in\NN^\ell$ such that
+for some $\tau$ on level $m_0$ of $T'$, $F_i^\tau(\tup{x})=y_i\leq m_0$ for each $1\leq i\leq \ell$.
+Notice that there are at most $(\frac{\epsilon}{2}\cdot 2^{m_0})$-many elements $\tau$ on level
+$m_0$ of $T'$ such that $\seq{F_1^\tau(\tup{x}),\ldots,F_\ell^\tau(\tup{x})}$ is not defined.
+Let $m_1=\max\set{B_{F_0}\left(\tup{y};\frac{\epsilon}{2|R|}\right)}{\tup{y}\in R}$.
+Then $H^\tau(\tup{x})$ is defined for all
+but $(\epsilon\cdot 2^{m_1})$-many $\tau$ on level $m_1$ of $T'$.
+
+Now we consider primitive recursion.
+Let $F_0$ be an $(k-1)$-ary $T$-local name, $F_1$ be a $(k+1)$-ary $T$-local name,
+and $H$ be the $k$-ary name defined by primitive recursion with $F_0$ and $F_1$.
+We now show that $H$ is $T$-local.
+In other words, we let $T'\leq T$, $\tup{x}\in\NN^{k-1}$, and $y\in\NN$
+and we show that there is a $\tau\in T'$ such that $H^\tau(\tup{x},y)$ is defined.
+
+Fix $\epsilon>0$.
+Let $m_0=B_{F_0}\left(\tup{x};\frac{\epsilon}{y+1}\right)$ and let $R_0$ be the set of all
+$z_0$ such that $F_0^\tau(\tup{x})=z_0\leq m_0$ for some $\tau$ is on level $m_0$ of $T'$.
+Notice that there are at most $\left(\frac{\epsilon}{y+1}\cdot 2^{m_0}\right)$-many elements $\tau$ on level
+$m_0$ of $T'$ such that $F_0^\tau(\tup{x})$ is not defined.
+Let $m_1=\max\set{B_{F_1}\left(\tup{x},0,z_0;\frac{\epsilon}{(y+1)|R_0|}\right)}{z_0\in R_0}$
+and let $R_1$ be the set of all $z_1$ such that $F_1^\tau(\tup{x},0,z_0)=z_1\leq m_1$
+for some $\tau$ is on level $m_1$ of $T'$ and $z_0\in R_0$.
+Notice that there are at most $\left(\frac{2\epsilon}{y+1}\cdot 2^{m_1}\right)$-many elements $\tau$ on level
+$m_1$ of $T'$ such that $H^\tau(\tup{x},1)=F_1(\tup{x},0,F_0^\tau(\tup{x}))$ is not defined.
+Continuing in this way, we let
+$m_{i+1}=\max\set{B_{F_1}\left(\tup{x},i,z_i;\frac{\epsilon}{(y+1)|R_i|}\right)}{z_i\in R_i}$
+and let $R_{i+1}$ be the set of all $z_{i+1}$ such that $F_1^\tau(\tup{x},i,z_i)=z_{i+1}\leq m_{i+1}$
+for some $\tau$ is on level $m_{i+1}$ of $T'$ and $z_i\in R_i$.
+Notice that there are at most $\left(\frac{(i+2)\epsilon}{y+1}\cdot 2^{m_{i+1}}\right)$-many elements $\tau$ on level
+$m_{i+1}$ of $T'$ such that $H^\tau(\tup{x},i+1)$ is not defined.
+Then $H^\tau(\tup{x},y)$ is defined for all
+but $(\epsilon\cdot 2^{m_y})$-many $\tau$ on level $m_y$ of $T'$.
+\end{proof}
+
+\begin{prop}[\RCAo]\label{P:R:almostPersistent2}
+For every $n\in\NN$ and condition $T$ there is a $\tau\in T$ such that
+$|\tau|\geq n$ and $T_\tau$ is a condition.
+\end{prop}
+
+Note that this proposition is slightly stronger
+than the second requirement for being
+an almost persistent notion of forcing.
+
+\begin{proof}
+Suppose, for the sake of contradiction, that $T_\tau$ has measure zero
+for all $\tau\in T$ such that $|\tau|\geq n$.
+Fix $\epsilon>0$.
+Let $\tau_1,\ldots,\tau_k$ be the elements on level $n$ of $T$.
+Since $T_{\tau_i}$ has measure zero for each $1\leq i\leq k$,
+there is an $m\geq n$ such that the number of nodes on level $m$ of $T_{\tau_i}$,
+divided by $2^m$, is less than $\epsilon/k$.
+Therefore the total number of nodes of $T$ on level $m$, divided by $2^m$,
+is less than $k(\epsilon/k)=\epsilon$,
+contradicting that $T$ has positive measure.
+\end{proof}
+
+\begin{prop}[\RCAo]\label{P:R:almostPersistent3}
+Let $T$ be an infinite subtree of $2^{<\omega}$,
+$F$ be a $k$-ary $T$-local name, and $\tup{x}\in\NN^k$.
+There is a $\tau\in T$ such that $F^\tau(\tup{x})$ is defined
+and $T_\tau$ has positive measure.
+\end{prop}
+
+\begin{proof}
+Suppose, for the sake of contradiction, that $T_\tau$ has measure zero
+for all $\tau\in T$ such that $F^\tau(\tup{x})$ is defined.
+Fix $\epsilon>0$.
+By Lemma~\ref{L:R:locallem} $T_{F(\tup{x})}$ has measure zero,
+so there is a level $N$ of $T$ such that the number of nodes $\tau$ on level
+$N$ such that $F^\tau(\tup{x})$ is undefined at stage $|\tau|$,
+divided by $2^N$, is less than $\epsilon/2$.
+
+Let $\tau_1,\ldots,\tau_k$ be the elements on level $N$ of $T$
+such that $F^{\tau_i}(\tup{x})$ is defined at stage $|\tau_i|$.
+By assumption $T_{\tau_i}$ has measure zero for each $1\leq i\leq k$.
+Therefore there is an $M\geq N$ such that for each $1\leq i\leq k$,
+the number of nodes on level $M$ of $T_{\tau_i}$, divided by $2^M$,
+is less than $\epsilon/2k$.
+
+Therefore the total number of nodes of $T$ on level $M$, divided by $2^M$,
+is less than $\epsilon/2+k(\epsilon/2k)=\epsilon$, contradicting that
+$T$ has positive measure.
+\end{proof}
+
+\begin{cor}[\RCAo]\label{C:R:almost persistent}
+Random forcing is almost persistent.
+\end{cor}
+\begin{proof}
+Follows immediately from Propositions~\ref{P:R:comp&pr}, \ref{P:R:almostPersistent2}, and \ref{P:R:almostPersistent3}.
+\end{proof}
+
+\begin{lem}\label{L:R:realForc}
+For every $\BSigma^0_2$-generic filter over a model of \RCAo\
+there exists a generic real for random forcing.
+\end{lem}
+
+\begin{proof}
+By Lemma~\ref{L:Gen:realForc} it
+suffices to show that if $T$ is a condition, then
+$$\mathcal{D}_T=\{S:S\cap T\text{ is finite }\lor\ S\leq T\}$$
+is open dense.
+
+Suppose that $T'$ is a condition and that
+$T'\cap T$ has measure zero.
+Since $T'$ has positive measure
+there is a $\tau\in T'\setminus(T'\cap T)$ such that $T'_\tau$ also has positive measure.
+Then $T'_\tau\leq T'$ and $T'_\tau\cap T$ is finite,
+so $T'_\tau\in\mathcal{D}_T$.
+\end{proof}
+
+\begin{thm}
+Let $\MM$ be a model of \RCAo\
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$ for random forcing.
+
+Then $\MM[G]$ is a model of $\RCAo$.
+\end{thm}
+\begin{proof}
+Follows from Corollary~\ref{C:R:almost persistent}, Lemma~\ref{L:R:realForc}, and Proposition~\ref{T:presRCA}.
+\end{proof}
+
+Over models of $\ACAo$ we can actually assume that
+random forcing is persistent.
+More precisely, the next propositions shows that for every condition $T$
+there is an extension $T\leq T'$ with the same measure which obeys the persistent criterion.
+
+\begin{prop}[\ACAo]\label{P:R:makePersistent}
+Let $T$ have measure at least $\epsilon$.
+Let $$T'=\set{\tau\in T}{T_\tau\text{ has positive measure}}.$$
+Then $T'$ has measure at least $\epsilon$.
+\end{prop}
+\begin{proof}
+Suppose that $\mu_n(T')<\epsilon$ for some $n$.
+Let $\tau_0,\ldots,\tau_k$ be the nodes on level $n$ of $T\setminus T'$.
+Since $T_{\tau_i}$ has measure zero for all $i\leq k$,
+for any $\delta>0$ there is a level $m_\delta$ such that
+$\mu_{m_\delta}(\bigcup_{i\leq k}T_{\tau_i})<\delta$.
+Therefore there is a level $m$ such that
+$$\mu_m(T)=\mu_m(T')+\mu_{m}\left(\bigcup_{i\leq k}T_{\tau_i}\right)<\epsilon.$$
+But this contradicts that $T$ has measure at least $\epsilon$.
+\end{proof}
+
+We now proceed to show that random forcing satisfies $\MCP$.
+We begin with some lemmas.
+
+\begin{lem}[\RCAo]\label{L:R:subConditionPartition}
+Let $T$ have measure at least $\epsilon>0$ and
+let $S$ be a subtree of $T$, possibly with measure zero.
+Let $$R(n)=\bigcup_{\tau\in X_n}T_\tau$$
+where $X_n$ is the set of all $\tau\in (T\setminus S)$ such that $|\tau|=n$.
+Then for all $\delta>0$ there is an $n$ such that the
+the measure of $S\cup R(n)$ is at least $\epsilon-\delta$.
+\end{lem}
+\begin{proof}
+Note that the elements of $T\setminus(S\cup R(n))$ are precisely
+the elements $\tau\in T\setminus S$ such that $\tau\uhr n\in S$.
+
+Suppose that $S$ has measure at least $\delta_1$ and has
+measure no greater than $\delta_2$ for some
+$0\leq \delta_1<\delta_2\leq \epsilon$.
+We will show that there is an $n$ such that
+$S\cup R(n)$ has measure at least $\delta_1+(\epsilon-\delta_2)$.
+The lemma then follows by choosing $\delta_1$ and $\delta_2$
+to be as close as is necessary.
+
+Since $T$ has measure at least $\epsilon$,
+and since $S$ has measure no greater than $\delta_2$,
+there is a level $n$ such that for every $m\geq n$
+there are at least $\lfloor(\epsilon-\delta_2)\cdot 2^m\rfloor$-many
+elements of $(T\setminus S)$ on level $m$.
+Moreover, since $S$ has measure at least $\delta_1$,
+there are at least $\lfloor\delta_1\cdot 2^m\rfloor$-many
+elements of $S$ on level $m$ for every $m\geq n$.
+Therefore $S\cup R(n)$ has measure at least $\delta_1+(\epsilon-\delta_2)$.
+\end{proof}
+
+\begin{lem}[\RCAo]\label{L:R:preMCP}
+Suppose that $c:T\to\{0,1\}$ is a monotone coloring
+of a tree $T$ which has measure at least $\epsilon$.
+For any $\delta>0$ there is a level $n$ and values
+$y_0,y_1,\ldots,y_k\in\{0,1\}$ such that
+$$\mu\left(\bigcup_{i=0}^k\set{\sigma\in T_{\tau_i}}{c(\sigma)=y_i}\right)>\epsilon-\delta,$$
+where $\tau_0,\tau_1,\ldots,\tau_k$ are the nodes of $T$ on level $n$.
+\end{lem}
+\begin{proof}
+Let $S=\set{\tau\in T}{c(\tau)=0}$.
+Let $n$ be the level guaranteed by Lemma~\ref{L:R:subConditionPartition}.
+Since $c$ is a monotone coloring, if $c(\tau)=1$ then
+$\set{\sigma\in T_\tau}{c(\sigma)=1}=T_\tau$.
+The lemma then follows by letting $y_i=0$ if and only $\tau_i\in S$.
+\end{proof}
+
+
+\begin{prop}[\ACAo]\label{P:R:MCP}
+Random forcing satisfies $\MCP$.
+
+In fact, for any condition $T$ and any infinite sequence $\langle c_i:i\in\NN\rangle$ of monotone
+colorings $c_i:T\rightarrow \{0,1\}$, there is a condition $T'\leq T$
+whose measure is arbitrarily close to the measure of $T$ such that
+for every $i$ there is a $k$ such that if $\tau\in T'$ is above level $k$
+then $c_i$ is constant on $T'_\tau$.
+\end{prop}
+
+\begin{proof}
+Fix $k\in\NN$.
+We will construct $T'\leq T$ so that if $T$ has measure
+at least $\epsilon$, then $T'$ has measure at least $\epsilon-1/k$.
+We define $T'$ and $H$ in stages.
+
+At stage $0$ we find a level $m_0$ and values $y_0,y_1,\ldots,y_\ell\in\{0,1\}$ such that
+$$\mu\left(\bigcup_{i=0}^\ell\set{\sigma\in T_{\tau_i}}{c_0(\sigma)=y_i}\right)>\epsilon-1/(k+1),$$
+where $\tau_0,\tau_1,\ldots,\tau_\ell$ are the nodes of $T$ on level $m_0$.
+Such nodes and numbers exist by Lemma~\ref{L:R:preMCP}.
+We then let
+$$T^0=\bigcup_{i=0}^\ell\set{\sigma\in T_{\tau_i}}{c_0(\sigma)=y_i}.$$
+
+At stage $n+1$ we find a level $m_{n+1}>m_n$ and values $y_0,y_1,\ldots,y_\ell\in\{0,1\}$ such that
+$$\mu\left(\bigcup_{i=0}^\ell\set{\sigma\in T^n_{\tau_i}}{c_0(\sigma)=y_i}\right)>\epsilon-1/(k+1)^{n+2},$$
+where $\tau_0,\tau_1,\ldots,\tau_\ell$ are the nodes of $T$ on level $m_n$.
+Such nodes and numbers exist by Lemma~\ref{L:R:preMCP}.
+We then let
+$$T^{n+1}=\bigcup_{i=0}^\ell\set{\sigma\in T^n_{\tau_i}}{c_0(\sigma)=y_i}.$$
+
+Finally, we let $T'=\bigcap T^n$.
+Notice that $T'\leq T$, $T'$ has measure at least
+$\epsilon-\sum_{i=0}^\infty1/(k+1)^{i+1}=\epsilon-1/k$,
+and $T'$ thus satisfies the conclusion of $\MCP$.
+\end{proof}
+
+\begin{thm}
+Let $\MM$ be a model of \ACAo\
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$ for random forcing.
+
+Then $\MM[G]$ is a model of $\ACAo$.
+\end{thm}
+\begin{proof}
+Follows from Proposition~\ref{P:R:makePersistent}, Lemma~\ref{L:R:realForc}, and Proposition~\ref{T:presACA}.
+\end{proof}
+
+We finish this example by showing that random
+forcing does not add unbounded reals.
+
+\begin{thm}[\RCAo]\label{P:R:bndedNames}
+Let $T$ have measure at least $\epsilon$,
+$F$ be a $T$-local name, and $0<\delta<\epsilon$.
+There is an extension $T'\leq T$ with measure at least $\epsilon-\delta$
+and a function $B$
+such that $$T' \Vdash (\forall\tup{v})[F(\tup{v}) \leq \check{B}(\tup{v})].$$
+\end{thm}
+\begin{proof}
+The proof is very similar to the proof of Proposition~\ref{P:R:MCP}.
+Fix $k\in\NN$.
+We will construct $T'\leq T$ so that if $T$ has measure
+at least $\epsilon$, then $T'$ has measure at least $\epsilon-1/k$.
+We define $T'$ and $H$ in stages.
+
+For ease of notation we assume that $F$ is a $1$-ary name.
+By Lemma~\ref{L:R:locallem}, for each $x\in\NN$ the tree
+$T_{F(x)}=\set{\tau\in T}{F^\tau(x)\text{ is undefined at stage }|\tau|}$
+has measure zero.
+
+We begin at stage 0.
+Let $S_0=T_{F(0)}$.
+By Lemma~\ref{L:R:subConditionPartition} there is a level $m_0$ such that
+$$\mu\left(\bigcup_{\tau\in C_0}T_\tau\right)> \epsilon-1/(k+1),$$
+where $C_0$ is the set of nodes on level $m_0$ of $T$ such that
+$F^\tau(0)$ is defined at stage $|\tau|$.
+Let $\displaystyle T^0=\left(\bigcup_{\tau\in C_0}T_\tau\right)$ and
+$B(0)=\max\set{F^\tau(0)}{\tau\in C_0}$.
+
+At stage $n+1$ we do the following.
+Let
+$$S_{n+1}=T^n_{F(n+1)}=\set{\tau\in T^n}{F^\tau(n+1)\text{ is undefined at stage }|\tau|}.$$
+By Lemma~\ref{L:R:subConditionPartition} there is a level $m_{n+1}>m_n$ such that
+$$\mu\left(\bigcup_{\tau\in C_{n+1}}T_\tau\right)> \epsilon-1/(k+1)^{n+2},$$
+where $C_{n+1}$ is the set of nodes on level $m_{n+1}$ of $T^n$ such that
+$F^\tau(n+1)$ is defined at stage $|\tau|$.
+Let $\displaystyle T^{n+1}=\left(\bigcup_{\tau\in C_{n+1}}T_\tau\right)$ and
+$B(n+1)=\max\set{F^\tau(n+1)}{\tau\in C_{n+1}}$.
+
+Finally, we let $T'=\bigcap T^n$.
+Note that the intersection $\bigcap T^n$ is well defined in \RCAo\
+since $\displaystyle \tau\in \bigcap_{n\in\NN} T^n$ if and only if
+$\displaystyle \tau\in \bigcap_{n\leq k} T^n$ for some $k$ such that $|\tau|\leq m_k$.
+Notice also that $T'\leq T$, $T'$ has measure at least
+$\displaystyle \epsilon-\sum_{i=0}^\infty1/(k+1)^{i+1}=\epsilon-1/k$,
+and that $F^\tau(x)\leq B(x)$ for every $x\in\NN$ and
+every $\tau\in T'$ such that $F^\tau(x)$ is defined.
+\end{proof}
+
+\begin{cor}
+Let $\MM$ be a model of \RCAo\
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a generic filter $\mathcal{G}$ for random forcing.
+
+For every function $f:\NN\to\NN$ in $\MM[G]$
+there is a function $b$ in $\MM$ such that
+$f(x)\leq b(x)$ for all $x$.
+\end{cor}

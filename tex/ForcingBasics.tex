@@ -1,0 +1,255 @@
+A notion of forcing is usually defined as a partial ordering.
+Many of the notions of forcing that have been useful in set theory,
+particularly those that add generic reals,
+can be thought of as collections of subtrees of $\OO$, ordered by inclusion.
+We restrict ourselves to such notions of forcing.
+
+\begin{definition}
+We write $\OO$\index{$\OO$} for the set of all finite, increasing sequences from $\NN$.
+A subset $T\subseteq\OO$ is a \textit{tree}
+if it is downward closed, meaning that if
+$\sigma\subseteq\tau$ and $\tau\in T$, then $\sigma\in T$.
+
+Given a model $\MM$ of second order arithmetic,
+a \textit{notion of forcing}\index{notion of forcing} $\Forc$ is a collection of trees in $\MM$.
+The elements of $\Forc$ are called \textit{conditions}\index{condition} and are ordered by inclusion.
+If $T$ and $T'$ are conditions and and $T'\subseteq T$, we say that $T'$ \textit{extends} $T$
+and we write $T'\leq T$.
+When there is a possibility that either $T$ or $T'$ is not a condition,
+we write $T'\subseteq T$, thus reserving the notation $T'\leq T$ only
+for the case when both $T'$ and $T$ are conditions.
+\end{definition}
+
+Note that a notion of forcing is a third-order object,
+and is therefore never an element of the model in question.
+The conditions, however, are elements of the model.
+
+The following notation will be useful in dealing with conditions.
+\begin{definition}\label{D:treestuff}
+Let $T\subseteq\OO$ be a tree.
+A \textit{path}\index{path} through $T$ is a function $f:\NN\to\NN$
+such that $f[n]=\seq{f(0),f(1),\ldots,f(n-1)}\in T$ for all $n\in\NN$.
+The collection of all paths through $T$ is denoted by $[T]$\index{$[T]$}.
+
+Let $\tau\in T$.
+We use $T_\tau$\index{$T_\tau$} to denote the tree consisting of all nodes
+$\sigma\in T$ such that either $\sigma\supseteq\tau$ or $\sigma\subseteq\tau$.
+\end{definition}
+
+Given a model $\MM$ and a notion of forcing $\Forc$,
+we define a formal language, called the forcing language, inside $\MM$.
+We start by describing the \textit{symbols of the forcing language}.
+The forcing language contains \textit{constant symbols} $0,1,2,\ldots$ for
+the natural numbers, and symbols for \textit{number variables},
+which we will usually denote by lowercase letters late in the alphabet,
+such as $v$ and $w$.
+The \textit{logical symbols} of the forcing language will consist of
+=, $\land$, $\neg$, and $\forall v$ (where $v$ is a number variable).
+There are also symbols that behave like function parameters.
+More specifically, there is a
+\textit{symbol $F$ for each $k$-ary name} in $\MM$, which we will now define.
+\begin{definition}\label{D:names}\index{name}
+A \textit{$k$-ary name} is a $\BSigma^0_1$ set $F\subseteq \OO\times\NN^{k}\times\NN$ such that
+\begin{itemize}
+\item If $(\tau,\tup{x},y)\in F$ and $\tau\subseteq\tau'$ then $(\tau',\tup{x},y)\in F$
+\item If $(\tau,\tup{x},y),(\tau,\tup{x},y')\in F$ then $y=y'$.
+\end{itemize}
+To each subset $A\subseteq\NN$ we associate an element \rune$\in[\OO]$
+by letting \rune$(n)$ be the $n$-th least element of $A$.
+Given $\tau\in\OO$, we write $\tau\leq A$ to mean that $\tau$ is an initial segment of \rune.
+
+The \textit{domain of $F$} is the class
+$$\dom(F)=\{A\subseteq\NN:\forall\tup{x}\exists\tau,y(\tau\leq A\land(\tau,\tup{x},y)\in F)\}.$$
+Given $A\in\dom(F)$, the \textit{evaluation}\index{evaluation of a name}
+$$F^A(\tup{x})=y\ \Leftrightarrow \ \exists\tau(\tau\leq A\land(\tau,\tup{x},y)\in F).$$
+is a total $k$-ary function.
+\end{definition}
+
+Note that all ground model functions $G$ (meaning that $G\in\MM$)
+have \textit{canonical names}\index{canonical names} $\check{G}$ defined by
+$$(\tau,\tup{x},y)\in\check{G}\Leftrightarrow y=G(\tup{x}).$$
+$\check{G}$ is a name for $G$ in the sense that $\check{G}^A=G$ for all sets $A$.
+We usually write $F^\tau(x)=y$\index{$F^\tau(x)$} in place of $(\tau,\tup{x},y)\in F$.
+In light of the fact that $F$ is a $\BSigma^0_1$ set,
+we will say that $F^\tau(\tup{x})$ is \textit{defined by stage $n$}
+if there are $w,y\leq n$ and a $\sigma\subseteq\tau$
+such that $w$ witnesses that $F^\sigma(\tup{x})=y$.
+We use the abbreviation $F^\tau(\tup{x})\neq y$ to mean that
+either $F^\tau(\tup{x})$ is not defined at stage $n=|\tau|$,
+or it is defined at stage $n=|\tau|$ and is distinct from $y$.
+
+We now define what it means for a name to be local for a condition.
+
+\begin{definition}\label{D:localNames}
+Let $T$ be a condition.
+A $k$-ary name $F$ is $T$\textit{-local}\index{$T$-local}\index{locality}
+if for every $\tup{x}\in\NN^k$ and extension $T'\leq T$,
+there is a $\tau\in T'$ and a $y$ such that
+$F^\tau(\tup{x})$ is defined by stage $|\tau|$ and $F^\tau(x)=y$.
+\end{definition}
+
+Notice that if $G$ is a ground model function then its canonical name
+$\check{G}$ is a $T$-local name for every condition $T$.
+
+For many of the notions of forcing that we will be concerned with,
+there is a convenient definition of locality which is equivalent
+to the definition just given.
+We explain this in detail with the following definition and proposition.
+
+\begin{definition}
+A notion of forcing $\Forc$ is \textit{persistent}\index{persistent}
+if it satisfies the following two properties:
+\begin{itemize}
+\item $T_\tau\in\Forc$ whenever $T\in\Forc$ and $\tau\in T$,
+\item for every $n\in\NN$ and condition $T$ there is a
+		$\tau\in T$ such that $|\tau|\geq n$.
+\end{itemize}
+\end{definition}
+The first property above is the one that really
+characterizes persistent notions of forcing.
+The second property ensures that the
+atomic forcing relation is not trivially satisfied.
+
+\begin{prop}[\RCAo]\label{P:PersistentLocalNames}
+Let $\Forc$ be a persistent notion of forcing, $T\in\Forc$,
+and $F$ be a $k$-ary name.
+Then $F$ is $T$-local if and only if $[T']\cap\dom(F)$ is nonempty
+for every extension $T'\leq T$.
+\end{prop}
+
+\begin{proof}
+For the purposes of the proof only, we say that a $k$-ary name $F$ is
+$T$-local$_2$ if $[T']\cap\dom(F)$ is nonempty for every extension $T'\leq T$.
+It follows immediately that if $F$ is $T$-local$_2$ then $F$ is also $T$-local.
+Therefore we assume that $F$ is $T$-local and show that $F$ is also $T$-local$_2$.
+
+Let $T'\leq T$ be given.  We will construct an $A\in[T']\cap\dom(F)$ in stages.
+For notational convenience we assume that $F$ is a $1$-ary name.
+We begin at stage $0$ by finding a $\tau_0\in T'$ and a $y_0\in\NN$ such that $F^{\tau_0}(0)=y_0$.
+Such $\tau_0$ and $y_0$ are guaranteed to exist since $F$ is $T$-local.
+Let $T^1=T'_{\tau_0}$.
+We now proceed to stage $1$ where we find a $\tau_1\in T^1$
+and a $y_1\in\NN$ such that $F^{\tau_1}(1)=y_1$.
+Such $\tau_1$ and $y_1$ are guaranteed to exist since $F$ is $T$-local.
+Let $T^2=T^1_{\tau_1}$.
+Continuing in this way, at stage $n+1$ we find a $\tau_{n+1}\in T^n$
+and a $y_{n+1}\in\NN$ such that $F^{\tau_{n+1}}(n+1)=y_{n+1}$.
+Finally, we let $\displaystyle A=\bigcup_{n\in\NN}\tau_n$.
+Then $\Ind{\BSigma^0_1}$ suffices to show that $A\in[T']\cap\dom(F)$.
+\end{proof}
+
+Whenever we have a persistent notion of forcing,
+we will use the alternate definition of locality as given
+by Proposition~\ref{P:PersistentLocalNames}.
+We now define the formulas of the forcing language and the forcing relation.
+
+\begin{definition}\label{D:forcingLang}\index{forcing language}
+The \textit{formulas of the forcing language} are the smallest family which is closed under the following rules:
+\begin{itemize}
+\item Let $F$ be a $k$-ary  name, $F'$ be a $k'$-ary name, and let
+		$\tup{w}=w_1,\ldots,w_k$, $\tup{w}'=w_1',\ldots,w_{k'}'$, where each $w_i$ and $w_i'$
+		is either a variable symbol or a constant symbol.
+		Then $F(\tup{w})=F'(\tup{w}')$ is a formula.
+\item If $\varphi$ is a formula, then so is $\neg\varphi$.
+\item If $\varphi$ and $\psi$ are formulas, then so is $\varphi\land\psi$.
+\item If $\varphi$ is a formula and $x$ is a variable, then $\forall x\varphi$ is a formula.
+\end{itemize}
+\end{definition}
+
+We now define locality for formulas.
+
+\begin{definition}\label{D:localFormulas}\index{locality}
+Let $T$ be a condition.
+A formula $\varphi$ of the forcing language is a $T$\textit{-local formula}
+of the forcing language if every name that occurs in $\varphi$ is $T$-local.
+
+We say that $\varphi$ is a $T$\textit{-local sentence} of the forcing language
+if $\varphi$ is obtained from a $T$-local formula by replacing all the
+free variables with constant symbols.
+\end{definition}
+
+\begin{definition}\label{D:forcingRel}\index{forcing relation}
+The \textit{forcing relation} $T\Vdash\varphi$ is defined by induction on complexity of the
+$T$-local sentences of the forcing language.
+Assume that all names that occur in the sentences below are $T$-local.
+\begin{itemize}
+\item $T\Vdash F(\tup{x})=F'(\tup{x}')$ if $y_1=y_2$ whenever
+	$\tau\in T$, $(\tau,\tup{x},y_1)\in F$, and $(\tau,\tup{x}',y_2)\in F'$.
+\item $T\Vdash \varphi\land\psi$ if $T\Vdash \varphi$ and $T\Vdash \psi$.
+\item $T\Vdash \forall v \varphi(v)$ if $T\Vdash \varphi(x)$ for all $x\in\NN$.
+\item $T\Vdash\neg\varphi$ if there is no $T'\leq T$ such that $T'\Vdash\varphi$.
+\end{itemize}
+\end{definition}
+
+The first thing to notice about the forcing relation is that if
+$T\Vdash\varphi$ and $T'\leq T$, then $T'\Vdash\varphi$.
+(This is an easy proof by induction on the complexity of $\varphi$.)
+
+Notice also that from the definition of forcing the negation
+of a sentence it immediately follows that
+if $T\in\Forc$ and $\varphi$ is a $T$-local sentence,
+then either $T\Vdash\neg\phi$ or $T'\Vdash\phi$ for some $T'\leq T$.
+
+We have defined the forcing language in terms of
+negation, conjunction, and universal quantification.
+We consider disjunction, implication, and
+existential quantification as abbreviations in the usual way.
+It is worthwhile to unravel the abbreviations and
+see what they mean in the context of the forcing language.
+
+First consider the statement that $T\Vdash\varphi\lor\psi$.
+This statement is shorthand for $T\Vdash\neg(\neg\varphi\land\neg\psi)$.
+Unpacking the definitions, we see that this means that
+there is no $T'\leq T$ such that $T'\Vdash\neg\varphi$ and
+$T'\Vdash\neg\psi$.
+Therefore for every $T'\leq T$, there is a $T''\leq T'$
+such that either $T''\Vdash\varphi$ or $T''\Vdash\psi$.
+
+Now consider the statement that $T\Vdash\varphi\rightarrow \psi$.
+This statement is shorthand for $T\Vdash\neg(\varphi\land\neg\psi)$.
+Unpacking the definitions, we see that this means that
+there is no $T'\leq T$ such that $T'\Vdash\varphi$ and $T'\Vdash\neg\psi$.
+Therefore every $T'\leq T$, if $T'\Vdash\varphi$ then
+there is some $T''\Vdash T'$ such that $T''\Vdash\psi$.
+
+Now consider the statement that $T\Vdash\exists x\varphi(x)$.
+This statement is shorthand for $T\Vdash\neg\forall x\neg(\varphi(x))$.
+Unpacking the definitions, we see that this means that
+there is no $T'\leq T$ such that $T'\Vdash\neg\varphi(x)$ for all $x$.
+Therefore for every $T'\leq T$ there is an $x$ and a $T''\leq T$
+such that $T''\Vdash\varphi(x)$.
+
+Double negation is not a shorthand,
+though it is still helpful to unravel its definition.
+If $T\Vdash\neg\neg\varphi$, then there is no $T'\leq T$
+such that $T'\Vdash\neg\varphi$.
+Therefore for all $T'\leq T$, there is a $T''\leq T'$
+such that $T''\Vdash\varphi$.
+
+In order to prove the usual rule about double negation,
+we assume that the notion of forcing in question is persistent.
+
+\begin{prop}[\RCAo]\label{P:2neg}
+Let $\Forc$ be a persistent notion of forcing.
+Let $T\in\Forc$ and $\varphi$ be a $T$-local sentence.
+$T\Vdash\neg\neg\varphi$ if and only if $T\Vdash\varphi$.
+\end{prop}
+\begin{proof}
+First we show that if $T\nVdash\varphi$ then there is a condition
+$T'\leq T$ such that $T'\Vdash\neg\varphi$.
+The proof is by induction on the complexity of $\varphi$,
+though only the atomic case merits description.
+Suppose that $T\nVdash F_1(\tup{x})=F_2(\tup{x})$.
+Then there is a $\tau\in T$ and numbers $\tup{x}$, $y_1$, and $y_2$
+such that $F_1^\tau(\tup{x})=y_1$, $F_2^\tau(\tup{x})=y_2$, and $y_1\neq y_2$.
+Therefore $T_\tau\Vdash F_1(\tup{x}) \neq F_2(\tup{x})$.
+
+We now show that $T\Vdash\neg\neg\varphi$ if and only if $T\Vdash\varphi$.
+The backwards direction follows from the fact that
+if $T\Vdash \varphi$, then $T'\Vdash \varphi$ for every $T'\leq T$.
+So suppose that $T\nVdash\varphi$.
+By the first paragraph we know that there is a
+$T'\leq T$ such that $T'\Vdash\neg\varphi$.
+Thus $T'\Vdash\neg\neg\neg\varphi$, and so $T'\nVdash\neg\neg\varphi$.
+Therefore $T\nVdash\neg\neg\varphi$.
+\end{proof}

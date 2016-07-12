@@ -1,0 +1,74 @@
+The \textit{conditions for Miller forcing} are superperfect subtrees of $\omega^{<\omega}$.
+In other words, perfect subtrees of $\omega^{<\omega}$ such that
+every splitting node is infinitely splitting.
+Notice that Miller forcing is persistent.
+
+\begin{prop}[\ACAo]\label{P:M:MCP}
+Miller forcing satisfies \MCP.
+\end{prop}
+\begin{proof}
+Given a Miller condition $S$ and a $\sigma\in S$,
+we let $Sp(S,\sigma)$ be the set of all immediate successors of $\tau$,
+where $\tau$ is the first splitting node above $\sigma$.
+
+Let $T$ be a Miller condition and $\langle c_i:i\in\NN\rangle$ be an
+infinite sequence of monotone colorings $c_i:T\rightarrow \{0,1\}$.
+We will construct $T'\leq T$ and a set of layers $X_0,X_1,\ldots$ for $T'$ in stages.
+
+At stage 0 we do the following.
+For each $\tau\in Sp(T,\langle\rangle)$,
+if there is a $\sigma\in T_\tau$ such that $c_0(\sigma)=1$,
+then we place $\sigma$ into $X_0$.
+Otherwise, if $c_0(\sigma)=0$ for all $\sigma\in T_\tau$,
+then we place $\tau\in X_0$.
+This completely defines $X_0$.
+We now define a new condition $T^0$ to be the set of all
+nodes comparable to some element of $X_0$.
+
+At stage $(n+1)$ we consider all
+$\tau\in \bigcup_{\rho\in X_n}Sp(T^n,\rho)$.
+If there is a $\sigma\in T^n_\tau$ such that $c_0(\sigma)=1$,
+then we place $\sigma$ into $X_{n+1}$.
+Otherwise, if $c_0(\sigma)=0$ for all $\sigma\in T^n_\tau$,
+then we place $\tau\in X_{n+1}$.
+This completely defines $X_{n+1}$.
+We now define a new condition $T^{n+1}$ to be the set of all
+nodes comparable to some element of $X_{n+1}$.
+
+Finally, we let $T'=\bigcap_n T^n$.
+Notice that $T'$ is a Miller condition, $T'\leq T$,
+and $X_0,X_1,\ldots$ are a set of layers for $T'$
+that satisfy the conclusion of \MCP.
+\end{proof}
+
+\begin{lem}\label{L:M:realForc}
+For every $\BSigma^0_2$-generic filter over a model of \RCAo\
+there exists a generic real for Miller forcing.
+\end{lem}
+
+\begin{proof}
+By Lemma~\ref{L:Gen:realForc} it
+suffices to show that if $T$ is a condition, then
+$$\mathcal{D}_T=\{S:S\cap T\text{ is finite }\lor\ S\leq T\}$$
+is open dense.
+
+Suppose that $T'\cap T$ contains no superperfect subtree.
+If $T'\cap T$ is empty, then we're done.
+Otherwise we can choose a $\sigma\in T'\cap T$ such that no
+$\tau\supseteq\sigma$ splits infinitely in $T'\cap T$.
+We can therefore find a $\tau\supseteq\sigma$ such that
+$\tau\in T'\setminus T$.
+Then $T'_\tau\leq T'$ and $T'_\tau\cap T$ is finite,
+so $T'_\tau\in\mathcal{D}_T$.
+\end{proof}
+
+\begin{thm}
+Let $\MM$ be a model of \RCAo\ (\ACAo)
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$ for Miller forcing.
+
+Then $\MM[G]$ is a model of \RCAo\ (\ACAo).
+\end{thm}
+\begin{proof}
+Follows from Propositions \ref{T:presRCA} and Proposition~\ref{T:presACA}.
+\end{proof}

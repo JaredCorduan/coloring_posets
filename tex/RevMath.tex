@@ -1,0 +1,84 @@
+Reverse Mathematics is a framework for asking and answering
+questions of interest in the foundations of mathematics.
+To quote Stephen Simpson from his encyclopedic reference book
+on the subject, Reverse Mathematics is primarily motivated
+by the following question:
+\begin{quote}
+Which set existence axioms are needed to
+prove the theorems of ordinary, non-set-theoretic mathematics?
+(page 2 of \cite{SOSOA}.)
+\end{quote}
+The words `ordinary' and `non-set-theoretic' are
+not being used in a precise sense here,
+though they are nonetheless very important.
+
+Insofar as anything in mathematics can be seen as having
+a definite beginning, the Reverse Mathematics program began
+in 1975 with with Harvey Friedman's
+``Some systems of second order arithmetic and their use"
+\cite{Friedman:SomeSystems}.
+Many of the results in Reverse Mathematics were foreshadowed
+by results in Recursion Theory, and the two fields still
+enjoy a close relationship today.
+See Rogers \cite{Rogers} for the Recursion Theory notation
+and definitions implicitly used in anything that follows.
+
+Reverse Mathematics exists inside second order arithmetic.
+The language of second order arithmetic is a two-sorted language
+which has variable symbols intended to range over the natural numbers,
+and set variables which are intended to range over \textit{sets} of natural numbers.
+The language also includes the constant symbols 0 and 1, the function symbols
+$+$ and $\cdot$, the predicates $=$, $<$, and $\in$, and the usual logical
+symbols (including quantifiers for both number and set variables).
+Full second order arithmetic is the theory whose axioms are those of
+Robinson Arithmetic together with comprehension and induction axioms for all formulas.
+
+Full second order arithmetic suffices to prove the majority
+of the theorems in non-set-theoretic countable mathematics.
+We use the term `countable mathematics' in a very broad sense
+here, for though continuous real-valued functions are
+third-order objects, we can make use of the fact that
+the rationals are dense in the reals to state
+theorems involving continuous real-valued functions in
+the language of second order arithmetic.
+Similarly, a lot of mathematics can be phrased
+in the language of second order arithmetic.
+
+In order to make precise and meaningful the motivating question of Reverse Mathematics,
+namely which set existence axioms are needed to
+prove the theorems of ordinary, non-set-theoretic mathematics,
+an important subsystem of second order arithmetic,
+namely \RCAo, is used as a baseline.
+Intuitively, \RCAo\ embodies computable/recursive mathematics.
+In fact, the acronym stands for ``Recursive Comprehension Axiom"
+(and the subscript indicates that induction is limited).
+The axioms of \RCAo\ consist of Robinson Arithmetic together with
+comprehension axioms for the $\BDelta^0_1$ definable sets
+and induction axioms for $\BSigma^0_1$ formulas.
+Many theorems are not provable in \RCAo,
+such as the statement that every countable vector space
+over the rationals has a basis.
+Taking this example, we can ask what axioms must be added
+to \RCAo\ in order to prove the statement about vector spaces.
+A \textit{very} unsatisfying answer is that we could
+add the statement in question to \RCAo.
+A satisfying answer is that adding all instances of arithmetic
+comprehension suffices to prove this theorem \cite{SOSOA}.
+The subsystem just mentioned, whose axioms are those of \RCAo\ together
+with arithmetic comprehension, is also an important subsystem and is
+called \ACAo\ (for arithmetic comprehension).
+In what way could we say that \ACAo\ is the weakest subsystem that
+proves that every countable vector space over the rationals has a basis?
+It turns out that the axioms of \RCAo, together with the statement
+that every countable vector space over the rationals has a basis,
+suffice to prove all instances of arithmetic comprehension.
+In other words, \RCAo\ proves the equivalence of \ACAo\ and
+``every countable vector space over the rationals has a basis".
+
+The fascinating thing about Reverse Mathematics is that the large
+majority of the theorems of ordinary, non-set-theoretic mathematics turn out to
+either be provable in \RCAo\ or be equivalent, over \RCAo, to one of
+four natural subsystems of second order arithmetic.
+To see many of these equivalences, and
+for a more thorough introduction to Reverse Mathematics, see Simpson's
+\textit{Subsystems of Second Order Arithmetic} \cite{SOSOA}.

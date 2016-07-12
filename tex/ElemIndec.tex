@@ -1,0 +1,326 @@
+In this section, we will define what it means for a set $A\subseteq\NN^n$
+to have order type $\omega^n$ using a first order definition.
+We write $(\exists^\infty x)\phi(x)$ as shorthand for the formula
+$(\forall x)(\exists y)[y\geq x\land\phi(y)]$.
+Similarly, we write $(\forall^\infty x)\phi(x)$ as shorthand for the formula
+$(\exists x)(\forall y)[y\geq x\rightarrow \phi(y)]$.
+
+\begin{definition}\label{D:ElemOmegaN}
+Fix $n\in\NN$.  A set $A\subseteq\NN^n$ has \textit{order type} $\omega^n$ if
+$$(\exists^\infty x_1)(\exists^\infty x_2)\ldots(\exists^\infty x_n)[\seq{x_1,x_2,\ldots,x_n}\in A].$$
+\end{definition}
+
+Definition~\ref{D:ElemOmegaN} inspires the following elementary version of $RT^1(\omega^n)$:
+
+\begin{definition}\label{D:ElemIndec}
+$\EIndec^n$\index{$\EIndec^n$} is the statement that for every $k$ and every coloring
+$c:\NN^n\to\{0,1,\ldots,k-1\}$, there is a $d<k$ such that
+$$(\exists^\infty x_1)(\exists^\infty x_2)\ldots(\exists^\infty x_n)[c(x_1,x_2,\ldots,x_n)=d].$$
+\end{definition}
+
+We will see that $\EIndec^n$ is related to the bounding
+principle and to induction.
+The main results of this section are Theorem~\ref{T:EIndec&Bnd},
+and Theorem~\ref{T:EIndec&Ind}.
+Note that Theorem~\ref{T:EIndec&Ind} is joint work with Fran\c{c}ois Dorais.
+
+Given a class of formulas $\Gamma$, the bounding scheme\index{bounding scheme} for
+this class, denoted by $\Bnd{\Gamma}$\index{$\Bnd{\BSigma^0_n}$}, is the collection of formulas
+of the form
+\begin{equation*}
+  (\forall x<y)(\exists z)\phi(x,z) \rightarrow (\exists w)(\forall
+  x<y)(\exists z<w)\phi(x,z),
+\end{equation*}
+where $\phi\in\Gamma$.
+The statement $\EIndec^1$ says that for every
+finite coloring $c:\NN\to\{0,\dots,k-1\}$ there is a color $d < k$
+such that the set $A_d = \{x: c(x) = d\}$ is infinite.
+This statement was proved to be equivalent to $\Bnd{\BSigma^0_2}$ by Hirst.  \cite{Hirst:thesis}
+We now consider the relationship between $\EIndec^n$ and
+the bounding principle for larger values of $n$.
+
+We will make use of another principle which is equivalent to bounding,
+namely the regularity principle\index{regularity principle}
+of H{\'a}jek and Pudl{\'a}k  \cite{Hajek&Pudlak}.
+
+Given a class of formulas $\Gamma$, the regularity scheme for
+this class, denoted by $\Reg{\Gamma}$\index{$\Reg{\BSigma^0_n}$}, is the collection of formulas
+of the form
+\begin{equation*}
+  (\exists^\infty x)(\exists y<u)\varphi(x,y) \rightarrow (\exists y<u)(\exists^\infty x)\varphi(x,y)
+\end{equation*}
+where $\varphi\in\Gamma$.
+You can think of $\Reg{\Gamma}$ as a kind of infinite pigeonhole principle\index{pigeonhole principle}
+for colorings in $\Gamma$.
+H{\'a}jek and Pudl{\'a}k showed that $\Reg{\BSigma^0_n}$ is equivalent to $\Bnd{\BPi^0_n}$ \cite{Hajek&Pudlak}.
+We will use this equivalence to prove the following proposition.
+
+\begin{thm}\label{T:EIndec&Bnd}
+Let $n\geq1$.  Then $\RCAo+\EIndec^{n+1}$ proves $\Bnd{\BPi^0_{n+1}}$.
+\end{thm}
+
+Theorem~\ref{T:EIndec&Bnd} follows immediately from
+Proposition~\ref{P:SEIndec&Reg} below.
+We will prove Proposition~\ref{P:SEIndec&Reg} with the help of some lemmas.
+
+First we will show that we can change the assumptions of $\Reg{\BSigma^0_n}$
+slightly without changing its strength.
+Given a class of formulas $\Gamma$, the scheme denoted by $\Reg'{\Gamma}$
+is the collection of formulas of the form
+\begin{equation*}
+  (\forall x)(\exists y<u)\varphi(x,y) \rightarrow (\exists y<u)(\exists^\infty x)\varphi(x,y)
+\end{equation*}
+where $\varphi\in\Gamma$.
+Notice that $\Reg'{\BSigma^0_n}$ follows immediately from $\Reg{\BSigma^0_n}$.
+We now show that $\Reg'{\BSigma^0_n}$ is not actually weaker than $\Reg{\BSigma^0_n}$ over \RCAo.
+
+\begin{lem}\label{P:RisR'}
+Fix $n\geq 1$.  Then $\RCAo+\Reg'{\BSigma^0_n}$ proves $\Reg{\BSigma^0_n}$.
+\end{lem}
+\begin{proof}
+Suppose $(\exists^\infty x)(\exists y<u)\varphi(x,y)$ holds for some $\varphi\in\BSigma^0_n$.
+Let
+$$\theta(x,y)=(\exists z> x)\varphi(z,y).$$
+Note that $\theta\in\BSigma^0_n$.
+
+The statement $\exists^\infty x(\exists y<u)\varphi(x,y)$
+is shorthand for $\forall x(\exists z>x)(\exists y<u)\varphi(z,y)$, which is equivalent to
+$\forall x(\exists y<u)(\exists z>x)\varphi(z,y)=\forall x(\exists y<u)\theta(x,y)$.
+Therefore by $\mathsf{R}'{\BSigma^0_n}$, the statement
+$(\exists y<u)(\exists^\infty{x})\theta(x,y)$ holds.
+In other words $(\exists y<u)(\exists^\infty{x})(\exists z>x)\varphi(z,y)$.
+From this we conclude that $(\exists y<u)(\exists^\infty{x})\varphi(x,y)$.
+\end{proof}
+
+We will now use $\Reg'{\BSigma^0_n}$ to handle a certain class of colorings.
+We say that a function $c:\NN^{m}\to\NN$ is \textit{weakly $n$-stable}\index{stability} (where $n<m$)
+if for all $x_1,\dots,x_{m-n} \in \NN$ there is a $y \in \NN$ such that
+\begin{equation*}
+  (\forall^\infty z_1)\cdots(\forall^\infty z_n)[y = c(x_1,\dots,x_{m-n},z_1,\dots,z_n)].
+\end{equation*}
+This is very similar to saying that the iterated limit\index{iterated limit}
+\begin{equation*}
+  \lim_{z_1\to\infty} \cdots \lim_{z_n\to\infty} c(x_1,\dots,x_{m-n},z_1,\dots,z_n)
+\end{equation*}
+exists for all $x_1,\dots,x_{m-n} \in \NN$.
+\textit{However, the typical definition of such limits
+requires that intermediate limits all exist too,
+which is not required by weak $n$-stability.}
+We say that $c$ is \textit{strongly $n$-stable} if it is weakly $i$-stable for each $1
+\leq i \leq n$; this guarantees the existence of all intermediate
+limits and corresponds to the usual meaning of iterated limit.
+Note that when $n = 1$ the two notions agree with each other
+and with definition of \emph{stable} introduced by Cholak, Jockusch, and
+Slaman~\cite{CJS}.
+
+If $c:\NN^{m}\to\NN$ is strongly $n$-stable then the iterated limit
+\begin{equation*}
+  f(x_1,\dots,x_{m-n}) = \lim_{z_1\to\infty} \cdots \lim_{z_n\to\infty} c(x_1,\dots,x_{m-n},z_1,\dots,z_n)
+\end{equation*}
+defines a total $\BSigma^0_{n+1}$ map $f:\NN^{m-n}\to\NN$.
+(More precisely, the graph of $f$ is $\BSigma^0_{n+1}$-definable).
+Take for example a map $f$ defined by
+$f(x)=\lim_{z_1}\lim_{z_2}\lim_{z_3}g(x,z_1,z_2,z_3)$.
+Then $f(x)=y$ if and only if
+$$(\exists w_1)(\forall z_1>w_1)(\forall w_2)(\exists z_2>w_2)(\exists w_3)(\forall z_3>w_3)[c(x,z_1,z_2,z_3)=y],$$
+and so the graph of $f$ is $\BSigma^0_{4}$-definable.
+The converse of this fact about maps defined by limits is due
+to \v{S}vejdar~\cite{Svejdar} and is stated below
+(more precisely, what is stated below is an iterated version of \v{S}vejdar's result).
+Note that when working in \RCAo\ we cannot assume that $f$ exists.
+For this reason we use the word `map' for such a function whose existence is uncertain.
+
+
+\begin{lem}[Theorem 1 of \v{S}vejdar \cite{Svejdar}, $\RCAo + \Bnd{\BPi^0_{n-1}}$; $1 \leq n < \omega$]\label{L:ittLimitLem}
+  Every total $\BSigma^0_{n+1}$-definable map $f:\NN\to\NN$ is
+  representable in the form
+  \begin{equation*}
+    f(x) = \lim_{z_1\to\infty} \cdots \lim_{z_n\to\infty} c(x,z_1,\dots,z_n),
+  \end{equation*}
+  where $c:\NN^{n+1}\to\NN$ is a strongly $n$-stable function.
+\end{lem}
+
+Now consider a version of $\EIndec^n$ which only considers strongly $n$-stable colorings.
+\begin{definition}
+Fix $n\geq 2$.
+We let $\SEIndec^{n}$ be the statement that for every $k$ and every
+strongly $(n-1)$-stable coloring $c:\NN^{n}\to\{0,1,\ldots k-1\}$
+there is a $d<k$ such that
+$$(\exists^\infty x)(\exists^\infty z_1)\ldots(\exists^\infty z_{n-1})[f(x,z_1,\ldots,z_{n-1})=d].$$
+\end{definition}
+
+\begin{prop}\label{P:SEIndec&Reg}
+Fix $n\geq 1$.  $\SEIndec^{n+1}$ is equivalent, over \RCAo, to $R{\BSigma^0_{n+1}}$.
+\end{prop}
+\begin{proof}
+Let $c:\NN^{n+1}\to\{0,1\ldots, k-1\}$ be as in the statement of $\SEIndec^n$.
+Let $f:\NN\to\{0,1\ldots, k-1\}$ be the map defined by the limit
+$f(x) = \lim_{z_1} \cdots \lim_{z_n} c(x,z_1,\dots,z_n)$.
+As we have seen before, the graph of $f$ is $\BSigma^0_{n+1}$.
+By $\mathsf{R}{\BSigma^0_{n+1}}$ there is a $d<k$ such that $(\exists^\infty{x})f(x)=d$.
+In other words, $(\exists^\infty{x})(\forall^\infty {z_1})\ldots(\forall^\infty {z_n})c(x,z_1,\ldots,z_n)=d$.
+Therefore $R{\BSigma^0_{n+1}}$ implies $\SEIndec^{n}$.
+
+To prove the other direction, by proposition \ref{P:RisR'} it suffices to prove
+$\mathsf{R}'{\BSigma^0_{n+1}}$ from $\SEIndec^{n+1}$, which we will do by (external) induction on $n$.
+The induction hypothesis allows us to assume that $\mathsf{R}\BSigma^0_{n}$ holds,
+which is equivalent to $\Bnd{\BPi^0_{n}}$.
+
+Let $\varphi(x,y,w)$ be $\BPi^0_{n}$ and suppose that
+$(\forall x)(\exists y<k)(\exists w)\varphi(x,y,w)$.
+Let $\seq{}:\NN^2\to\NN$ be a pairing function
+and let $g(x)$ be the least number $a=\seq{y,w}$ such that $\varphi(x,y,w)$ holds.
+In other words $g(x)=\seq{y,w}$ if and only if
+$$\Big[\big(\forall\seq{y',w'}<\seq{y,w}\big)\neg\varphi(x,y',w')\Big]\land\varphi(x,y,w).$$
+Notice that the graph of $g$ is $\BSigma^0_{n+1}-$definable
+(the current description of $g$ is not technically a $\BSigma^0_{n+1}$
+statement, but it can be put in normal form using $\Bnd{\BPi^0_n}$).
+Notice also that $g$ is well-defined and total by $\Ind{\BPi^0_n}$
+(which follows from $\Bnd{\BPi^0_n}$).
+In the base case, where $n=0$, we are assuming $\Bnd{\BPi^0_1}$.
+This is a safe assumption since $\SEIndec^1$ implies $RT^1(\omega)$,
+which Hirst proved was equivalent to $\Bnd{\BPi^0_1}$ \cite{Hirst:thesis}.
+
+Since  $g$ is a total $\BSigma^0_{n+1}$-definable function,
+by Lemma~\ref{L:ittLimitLem} there is a map $c:\NN^{n+1}\to\NN$ such that
+$$g(x) = \lim_{z_1\to\infty} \cdots \lim_{z_n\to\infty} c(x,z_1,\dots,z_n),$$
+where $c:\NN^{n+1}\to\NN$ is a strongly $n$-stable function.
+Let $c':\NN^{n+1}\to\NN$ be the strongly $n$-stable function
+defined by $c'(x,z_1,\dots,z_n)=\min\{c(x,z_1,\dots,z_n),k\}$.
+By $\SEIndec^n$ there is a $d\leq k$ such that
+$$(\exists^\infty x)(\exists^\infty z_1)\ldots(\exists^\infty z_n)c(x,z_1,\ldots, z_n)=d.$$
+Moreover, since $g$ is total $d\neq k$.
+
+Notice that for each $x$ such that $(\exists^\infty z_1)\ldots(\exists^\infty z_n)f(x,z_1,\ldots, z_n)=d$,
+we have that $g(x)=d$.
+Therefore there are infinitely many $x$ such that $\exists w\phi(x,d,w)$ holds.
+\end{proof}
+
+We now consider an upper bound for the amount of
+induction needed to prove $\EIndec^n$.
+
+We will need the following result which is essentially due to Jockusch
+and Stephan \cite{JockuschStephan}.
+We now need notation to distinguish the set of natural numbers
+from the first-order part of a model of second-order arithmetic.
+We use $\NN$ to denote the natural numbers and $\omega$
+to denote the first-order part of a model.
+
+\begin{lem}[Theorem~2.1 of Jockusch-Stephan \cite{JockuschStephan}]\label{L:JockuschStephan}
+Let $\mathcal{N}$ be a model of $\RCAo$.
+Given a sequence of sets $A = \seq{A_n}_{n=0}^\infty$ such that
+$A''\in\mathcal{N}$, there is an infinite set $X\in\mathcal{N}$ such that $(X \oplus A)''
+\equiv_T A''$ and, for all $n$, either $X \subseteq^* A_n$ or
+$X \subseteq^* \omega \setminus A_n$.
+\end{lem}
+
+\noindent
+Since Theorem~2.1 of \cite{JockuschStephan} was not originally
+proved in terms of models of \RCAo, we present a proof of this theorem
+(which is nearly identical to that in \cite{JockuschStephan}).
+
+\begin{proof}
+We wish to effectively list all the sets $A_n$, together with $\omega$
+and all sets resulting from finite applications of intersection and
+complementation of the sets $A_n$.  We assume that
+$\seq{B_n}_{n=0}^\infty$ is an enumeration of all these sets such that
+$B_0 = \omega$ and such that an index $e$ for $B_e = B_n \cap B_m$ or
+$B_e = B_n \setminus B_m$ can be effectively computed from $n$ and $m$.
+
+Consider the following partial $A'$-computable function
+  \begin{equation*}
+    f(m,n) =
+    \begin{cases}
+      0 & \text{if } |B_n\cap B_m|<|B_n\setminus B_m|,\\
+      1 & \text{if } |B_n\cap B_m|>|B_n\setminus B_m|,\\
+      {\uparrow} & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+By the Low Basis Theorem of Jockusch and Soare \cite{lowbasis},
+there is a total function $g:\NN^2\to\{0,1\}$ such that:
+\begin{itemize}
+  \item if $|B_n\cap B_m|<|B_n\backslash B_m|$ then $g(n,m)=0$;
+  \item if $|B_n\cap B_m|>|B_n\backslash B_m|$ then $g(n,m)=1$; and
+  \item $(A'\oplus g)' \equiv_T A''$.
+\end{itemize}
+Moreover, by the Friedberg Jump Inversion Theorem \cite{jumpinversion},
+there is a set $C$ such that $C' \equiv_T C \oplus A' \equiv_T g \oplus A'$.
+We now have that $C'' \equiv_T (A'\oplus f)' \equiv_T A''$.
+
+We will now use the set $C$ to construct a sequence of sets
+$\seq{B_{e_n}}_{n=0}^\infty$ from $\seq{B_n}_{n=0}^\infty$.
+Let $e_0=0$, so $B_{e_0}=\NN$.
+We now define the indices $e_n$ inductively in such a way that
+\begin{equation*}
+  B_{e_{n+1}}=
+  \begin{cases}
+    B_{e_n}\backslash B_n & \text{if $g(e_n,n)=0$ and thus $|B_{e_n}\cap B_n|\leq|B_{e_n}\backslash B_n|$,} \\
+    B_{e_n}\cap B_n & \text{if $g(e_n,n)=1$ and thus $|B_{e_n}\backslash B_n|\leq|B_{e_n}\cap B_n|$.} \\
+  \end{cases}
+\end{equation*}
+Notice that all the sets $B_{e_n}$ are infinite.
+Notice also that the indices $e_n$ can be effectively computed from $g$.
+Therefore since $g \leq_T C'$ there is a uniformly $C$-recursive
+approximation $e_{n,s}$ for each $e_n$.
+
+We now take a diagonal intersection:
+\begin{align*}
+  x_0 &= 0 & x_{n+1} &= \min\set{x>x_n}{(\forall m\leq n)[x\in B_{e_{m,x}}]}.
+\end{align*}
+Let $X = \{x_n\}_{n=0}^\infty$.
+Notice also that $X \subseteq^*B_{e_m}$ for all $m$ since
+$x_{n+1} \in B_{e_{m,x_{n+1}}}$ for all $n\geq m$ and $\lim_n e_{m,x_{n+1}}=e_m$.
+So since either $B_{e_{m+1}}\subseteq B_m$ or $B_{e_{m+1}} \subseteq \omega\setminus B_m$
+for all $m$, $X$ has the property that either $X \subseteq^*A_m$ or
+$X \subseteq^* \omega\setminus A_m$ for all $m$.
+\end{proof}
+
+Recall that Hirst proved that $\EIndec^1$ is equivalent to $\Bnd{\BSigma^0_2}$ over \RCAo\ \cite{Hirst:thesis},
+and that $\Bnd{\BSigma^0_2}$ is provable in \RCAo+ $\Ind{\BSigma^0_2}$.
+
+\begin{thm}[Corduan-Dorais]\label{T:EIndec&Ind}
+Fix $n\geq 2$.
+$\RCAo+\Ind{\BSigma^0_{n+1}}$ implies $\EIndec^n$.
+\end{thm}
+
+\begin{proof}
+Let $\mathcal{N}$ be a model of $\RCAo + \Ind{\BSigma^0_{n+1}}$ and let
+$c_0:\omega^n\to\{0,1,\dots,k-1\}$ be a coloring in $\mathcal{N}$.
+Let $\MM$ be the model of $\RCAo$ whose second-order part consists of all
+$\BDelta^0_{n+1}$-definable sets with parameters from $\mathcal{N}$,
+and whose first order part is the same as $\mathcal{N}$.
+
+Given $\overline{x}\in\omega^{n-1}$ and $i<k$, let
+$A_{\overline{x},i}=\set{y\in\NN}{c_0(\overline{x},y)=i}$.
+Let $A=\seq{A_n}_{n=0}^\infty$ effectively enumerate all such sets $A_{\overline{x},i}$.
+Since $A'' \equiv_T c_0'' \in\MM$, by
+Lemma~\ref{L:JockuschStephan} there is an infinite set $X_1\in\MM$ such
+that $(c_0 \oplus X_1)'' \equiv_T c_0''$ and, for all $\overline{x}$ and $i$,
+either $X_1\subseteq^* A_{\overline{x},i}$ or
+$X_1\subseteq^*\omega\setminus A_{\overline{x},i}$.
+We now define a new coloring $c_1:\omega^{n-1}\to\{0,1,\ldots, k-1\}$ by
+$$c_1(z_1,z_2,\ldots,z_{n-1}) = \lim_{x \in X_1} c_0(z_1,z_2,\ldots,z_{n-1},x),$$
+which is computable from $(c_0 \oplus X_1)'$.
+Note also that $c_1'\leq_T c_0''$, and so $c_1\in\MM$.
+
+If $n \geq 3$, we now repeat this process for the coloring $c_1$.
+For this construction to work, use the fact that $c_1'' \leq_T (c_0
+\oplus X_1)''' \equiv_T c_0''' \in\MM$ in order to apply
+Lemma~\ref{L:JockuschStephan} as above.  We are left with an
+infinite set $X_2\in\MM$ such that $(c_1 \oplus X_2)'' \equiv_T c_1''
+\leq_T c_0'''$ and which defines a coloring
+$$c_2(z_1,\ldots,z_{n-2}) = \lim_{x \in X_2} c_1(z_1,\ldots,z_{n-2},x),$$
+which is computable in $(c_1 \oplus X_2)'$.
+Notice that $c_2'\leq_T c_1''\leq_T c_0'''$, and so $c_2\in\MM$.
+
+Continuing this process as necessary we end with a set $X_{n-1}\in\MM$
+such that $(c_{n-2} \oplus X_{n-1})'' \equiv_T c_{n-2}'' \in \MM$ and
+$$c_{n-1}(z_1) = \lim_{x\in X_{n-1}} c_{n-2}(z_1,x)$$
+exists for all $z_1$.
+Since $c_{n-1}' \leq_T c_{n-2}'' \leq_T c_0^{(n)} \in \MM$,
+there is an $i$ such that there are infinitely many $z$ such that $c_1(z) = i$.
+Unraveling the definition of all the colorings we see that
+$$(\exists^\infty x_1)\ldots(\exists^\infty x_n)[c_0(x_1,\dots,x_n)=i]$$
+holds in $\MM$.
+Therefore the same holds in $\mathcal{N}$.
+\end{proof}

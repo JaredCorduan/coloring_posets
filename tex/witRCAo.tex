@@ -1,0 +1,665 @@
+The main result of this section is Proposition~\ref{P:witnessPi2}.
+Though somewhat technical, Proposition~\ref{P:witnessPi2} is the key
+to showing that if $\MM$ is a model of $\RCAo$ and $\Forc$ is a
+persistent notion of forcing, then the generic extension of $\MM$ is also a model of $\RCAo$.
+
+As mentioned earlier, the propositions in this section are
+relatively straightforward generalizations of the propositions in \cite{varMathias}.
+Dorais proved the statements in this section for a specific notion of forcing,
+though the proofs generalize in a straightforward manner.
+
+\begin{definition}\label{D:admitsNormal}
+We say that a notion of forcing \textit{admits normal form}\index{normal form}
+if the following statement holds:
+
+Given a bounded formula $\varphi(\tup{v})$ of the forcing language,
+there is a name $U_\varphi(\tup{v})$ such that for every condition $T$,
+if $\varphi(\tup{v})$ is $T$-local, then so is $U_\varphi(\tup{v})$ and
+$$T\Vdash\forall\tup{v}\left(\varphi(\tup{v})\leftrightarrow U_\varphi(\tup{v})=0\right).$$
+We say that $U_\varphi$ is the normal form name for $\varphi$.
+\end{definition}
+
+The key to showing that a notion of forcing admits normal form
+is showing that locality is closed under composition and primitive recursion.
+
+\begin{definition}\label{D:comp&pr}
+Let $F_0$ be an $\ell$-ary name and $F_1,\ldots,F_\ell$ be $k$-ary names.
+The \textit{composition} $H=F_0\circ(F_1,\ldots,F_\ell)$ is defined by
+%$$(\tau,\tup{x},z)\in H\Leftrightarrow \exists\tup{y} [(\tau,\tup{x},y_1)\in F_1\land\ldots\land(\tau,\tup{x},y_\ell)\in F_\ell\land(\tau,\tup{y},z)\in F_0].$$
+$$H^\tau(\tup{x})=z\Leftrightarrow \exists\tup{y}
+[F_1^\tau(\tup{x})=y_1\ \land\ \ldots\ \land\ F_\ell^\tau(\tup{x})=y_\ell\ \land\ F_0^\tau(\tup{y})=z)].$$
+
+Let $F_0$ be a $(k-1)$-ary name and $F_1$ be a $(k+1)$-ary name.
+We use $F_0$ and $F_1$ to define a $k$-ary name $H$ by \textit{primitive recursion} by letting
+$H^\tau(\tup{x},y)=z$ if and only if there is a finite sequence
+$\langle z_0,z_1,\ldots,z_{y}\rangle$ such that $z_{y}=z$,
+$F_0^\tau(\tup{x})=z_0$, and $F_1^\tau(\tup{x},i,z_i)=z_{i+1}$ for all $i<y$.
+\end{definition}
+
+\begin{prop}[$\RCAo$]\label{P:comp&pr}
+Let $\Forc$ be a persistent notion of forcing and $T\in\Forc$.
+The names defined by composition and primitive recursion using $T$-local names
+are themselves $T$-local.
+\end{prop}
+\begin{proof}
+Since $\Forc$ is persistent, we use the alternate definition
+of locality as given by Proposition~\ref{P:PersistentLocalNames}.
+
+First we handle composition.
+Let $F_0$ be an $\ell$-ary $T$-local name, $F_1,\ldots,F_\ell$ be $k$-ary $T$-local names,
+and $H=F_0\circ(F_1,\ldots,F_\ell)$.
+We show that $H$ is $T$-local.
+In other words, we let $T'\leq T$ and show that $\dom(F)\cap[T']$ is nonempty.
+
+Fix $\tup{x}\in\NN^k$.  First we find a $\tau\in T'$ so that $H^\tau(\tup{x})$ is  defined.
+Since $F_1$ is $T$-local, there is a $\tau_1\in T'$ and a $z_1$ such that $F_1^{\tau_1}(\tup{x})=z_1$.
+Since $F_2$ is $T$-local, there is a $\tau_2\in T'_{\tau_1}$ and a $z_2$ such that
+$\tau_1\subseteq\tau_2$ and $F_2^{\tau_2}(\tup{x})=z_2$.
+Repeating this process, we eventually get a $\tau\in T'$ such that
+$H^\tau(\tup{x})$ is defined.
+
+We can now repeat this process, relative to $T'_\tau$, to define $H$ on a new input.
+In other words, we choose some $\tup{x}'$ distinct from $\tup{x}$ and then
+find a $\sigma\in T'_\tau$ such that $\tau\subseteq\sigma$ and
+$H^\sigma(\tup{x}')$ is defined.
+By repeating this for every value in $\NN^k$, we construct $A\in[T']\cap\dom(H)$.
+Note that $\Ind{\BSigma^0_1}$ suffices to show that $A$ is well-defined.
+
+Now we handle primitive recursion.
+Let $F_0$ be an $(k-1)$-ary $T$-local name, $F_1$ be a $(k+1)$-ary $T$-local name,
+and $H$ be the $k$-ary name defined by primitive recursion with $F_0$ and $F_1$.
+We now show that $H$ is $T$-local.
+In other words, we let $T'\leq T$ and show that $\dom(F)\cap[T']$ is nonempty.
+
+The construction of an element in $\dom(H)\cap[T']$ is similar
+to the construction above for the composition of functions.
+We continually extend elements $\tau\in T'$ using the locality of $F_0$ and $F_1$
+so that $H$ is defined on more and more inputs.
+\end{proof}
+
+A consequence of Lemma~\ref{P:comp&pr} is that
+our definitions of composition and primitive recursion correspond
+to the usual definitions once the names have been evaluated.
+In other words, if $A$ is in the domain of the names
+$F_0,F_1,\ldots,F_\ell$, then $A$ is also in the domain of $H$
+and $H^A=F_0^A\circ(F_1^A,\ldots,F_\ell^A)$,
+and similarly for primitive recursion.
+
+Proposition~\ref{P:comp&pr} is the key property
+of persistent notions of forcing that we need
+to prove nearly everything that remains in this section.
+For this reason we make the following definition.
+
+\begin{definition}\label{D:almostP}
+A notion of forcing $\Forc$ is \textit{almost persistent}\index{almost persistent}
+if it satisfies the following two properties:
+\begin{itemize}
+\item For every condition $T\in\Forc$, the names defined by composition and primitive
+		recursion using T-local names are themselves T-local.
+\item For every $n\in\NN$ and condition $T$ there is a $\tau\in T$ such that $|\tau|\geq n$
+		and $T_\tau$ contains a condition.
+\item For every condition $T$, $T$-local $k$-ary name $F$, and $\tup{x}\in\NN^k$, there is a $\tau\in T$
+		such that $T_\tau\in\Forc$ and $F^\tau(\tup{x})$ is defined by stage $|\tau|$.
+\end{itemize}
+\end{definition}
+
+The second property above ensures that the atomic forcing relation is not trivially satisfied.
+The third property will be used later to show that the evaluation of a name
+(with a particular locality requirement) at a generic real defines a total $k$-ary function.
+
+Note that if $\Forc$ is a persistent notion of forcing,
+then $\Forc$ is also almost persistent by Proposition~\ref{P:comp&pr}
+(the second and third properties are immediate).
+
+\begin{prop}[$\RCAo$]\label{P:PR:normalForm}\index{normal form}
+Almost persistent notions of forcings admit normal form.
+\end{prop}
+
+\begin{proof}
+Note that if $F$ and $F'$ are $T$-local names, then the names for
+$F+F'$, $F\dotminus~F'$, $|F-~F'|$, and $\displaystyle \sum_{w\leq F(\tup{v})}F'(\tup{v},w)$
+are also $T$-local names since they are defined by
+composition and primitive recursion.
+
+We define $U_\varphi$ inductively on the complexity $\varphi$:
+\begin{itemize}
+\item $U_{F(\tup{v})=F'(\tup{v}')}(\tup{v})=|F(\tup{v})-F'(\tup{v}')|$
+\item $U_{\neg\varphi}(\tup{v})=1\dotminus U_\varphi(\tup{v})$
+\item $U_{\varphi\land\psi}(\tup{v})=U_\varphi(\tup{v})+U_\psi(\tup{v})$
+\item if $\varphi(\tup{v})=(\forall w\leq F(\tup{v}))\psi(\tup{v},w)$ then
+		$U_{\varphi}(\tup{v})=\sum_{w\leq F(\tup{v})} U_{\psi(w)}(\tup{v},w)$
+\end{itemize}
+It is easy to check that these names work as advertised.
+\end{proof}
+
+One consequence of Proposition~\ref{P:PR:normalForm} is that the $\BPi^0_1$
+forcing relation for a persistent notion of forcing is well behaved.
+The proposition below, which captures this fact,
+will be helpful later on when determining how much genericity is required
+of our filters.
+
+\begin{prop}\label{P:Pi1isPi1}
+Let $\Forc$ be a persistent notion of forcing.
+Let $\varphi(\tup{v})$ be a $\BPi^0_1$ formula of the forcing language.
+There is a $\BPi^0_1$ formula $\theta(T,\tup{v})$ such that
+for every condition $T$ such that $\varphi$ is $T$-local,
+and every $\tup{x}$,
+$$T\Vdash\varphi(\tup{x})\ \ \ \text{if and only if}\ \ \theta(T,\tup{x}).$$
+Note that we are not making any claims about the complexity of
+the statement `$\varphi(\tup{x})$ is $T$-local'.
+\end{prop}
+\begin{proof}
+Let $\varphi(\tup{v})=\forall w\psi(w,\tup{v})$,
+where $\psi(w,\tup{v})$ is a bounded formula.
+Let $U=U_{\psi(w,\tup{v})}$ be the normal form name, as in Proposition~\ref{P:PR:normalForm}.
+Then
+$$T\Vdash \forall\tup{v}\forall w[\psi(\tup{v},w)\leftrightarrow U(\tup{v},w)=0].$$
+We therefore let $\theta(T,\tup{v})$ be the statement saying that for all
+$\tau\in T$ and $w$, if $U^\tau(\tup{v},w)$ is defined by stage
+$n=|\tau|$ then $U^\tau(\tup{v},w)=0$.
+\end{proof}
+
+Note that it is necessary to assume that $\Forc$ is persistent,
+and not just almost persistent, since it is vital that $T_\tau$
+is a condition for every $\tau\in T$.
+We now prove a version of Proposition~\ref{P:Pi1isPi1}
+for almost persistent notions of forcing in the case when
+$\Forc$ has an arithmetic definition.
+
+\begin{prop}\label{P:Pi1isArith}
+Let $\Forc$ be an almost persistent notion of forcing.
+Suppose further that the conditions of $\Forc$ are defined
+by an arithmetic formula $\alpha(T)$.
+Let $\varphi(\tup{v})$ be a $\BPi^0_1$ formula of the forcing language.
+There is an arithmetic formula $\theta(T,\tup{v})$ such that
+for every condition $T$ such that $\varphi$ is $T$-local,
+and every string of numbers $\tup{x}$, we have that
+$$T\Vdash\varphi(\tup{x})\ \ \ \text{if and only if}\ \ \theta(T,\tup{x}).$$
+Note that we are not making any claims about the complexity of
+the statement `$\varphi(\tup{x})$ is $T$-local'.
+\end{prop}
+\begin{proof}
+The proof is similar to that of Proposition~\ref{P:Pi1isPi1}.
+
+Let $\varphi(\tup{v})=\forall w\psi(w,\tup{v})$,
+where $\psi(w,\tup{v})$ is a bounded formula.
+Let $U=U_{\psi(w,\tup{v})}$ be the normal form name, as in Proposition~\ref{P:PR:normalForm}.
+Then
+$$T\Vdash \forall\tup{v}\forall w[\psi(\tup{v},w)\leftrightarrow U(\tup{v},w)=0].$$
+We therefore let $\theta(T,\tup{v})$ be the statement saying that for all
+$\tau\in T$ and $w$, if $U^\tau(\tup{v},w)$ is defined by stage
+$n=|\tau|$ and $\alpha(U^\tau)$ holds, then $U^\tau(\tup{v},w)=0$.
+\end{proof}
+
+We now begin to build some definition-dense machinery that will be key
+in everything else that we do.
+Let $\theta(\tup{v})$ be a formula of the forcing language and
+let $W$ be a unary name.
+We will construct a new formula $\theta_S(W;\tup{v})$ which
+is essentially a $\BPi^0_1$ formula asserting that $W$ witnesses the truth of $\theta$
+by coding the appropriate Skolem functions.
+Dually, we will construct a formula $\theta_H(W;\tup{v})$ which
+is essentially a $\BSigma^0_1$ formula asserting that $W$ does not witnesses
+the the falsity of $\theta$.
+We call $\theta_S$ the Skolemization\index{Skolemization} of $\theta$ and
+we call $\theta_H$ the Herbrandization\index{Herbrandization} of $\theta$.
+
+To avoid confusion between parameters and the variable used for the
+unary names $W$, we use the $\lambda$-notation.
+In other words, if $W$ is a $k+1$-ary name and $\tup{x}\in\NN^k$,
+then $\lambda tW(\tup{x},t)$ denotes the unary name which is a function of $t$.
+
+The definition of $\theta_S$\index{$\theta_S$} and $\theta_H$\index{$\theta_H$}
+proceeds by induction on the complexity of $\theta$.
+
+$$
+\begin{array}{c|c|c}
+
+\theta(\tup{v}) & \theta_S(W;\tup{v}) & \theta_H(W;\tup{v})\\
+\hline
+\text{atomic } & \theta(W;\tup{v}) & \theta(W;\tup{v})\\
+
+\neg\phi(\tup{v}) & \neg\phi_H(W;\tup{v}) & \neg\phi_S(W;\tup{v})\\
+
+\phi(\tup{v})\land\psi(\tup{v}) & \phi_S(\lambda tW(2t);\tup{v})\land\psi_S(\lambda tW(2t+1);\tup{v})
+	&\phi_H(W;\tup{v})\land\psi_H(W;\tup{v})\\
+
+\forall w\phi(\tup{v},w) & \forall w\phi_S(\lambda tW(\langle w,t\rangle);\tup{v},w)
+	& \phi_H(\lambda tW(t+1);\tup{v},W(0))\\
+
+\end{array}
+$$
+
+Here are some examples:
+$$
+\begin{array}{c|c|c}
+
+\theta(\tup{v}) & \theta_S(W;\tup{v}) & \theta_H(W;\tup{v})\\
+\hline
+\forall v F(v)=0 & \forall v F(v)=0 & F(W(0))=0 \\
+\forall v F(v)\neq 0 & \forall v F(v)\neq 0 & F(W(0))\neq 0 \\
+\exists v F(v)=0 & \neg\neg F(W(0))=0 & \exists v F(v)=0 \\
+\forall w\exists v F(w,v)=0 & \forall w \neg\neg F\big(w,W(\seq{w,0})\big)=0  &
+	\exists v F\big(W(0),v\big)=0\\
+\exists w\forall v F(v)=0 & \neg\neg\forall vF(W(0),v)=0 &
+	\exists w F\big(w,W(\seq{w,0})\big)=0\\
+\end{array}
+$$
+
+We now use Skolemizations and Herbrandizations with the forcing relation.
+The intuitive idea behind Skolem and Herbrand forcing is that we would like $\theta(\tup{v})$
+to be equivalent to $\exists W\theta_S(W;\tup{v})$ and $\forall W\theta_H(W;\tup{v})$.
+
+\begin{definition}
+Let $\theta$ be a $T$-local formula.
+The \textit{Skolem forcing relation}\index{Skolem forcing relation} is defined by
+$T\Vdash_S\theta$\index{$\Vdash_S$} if and only if $T\Vdash\theta_S(W)$ for some $T$-local unary name $W$.
+The \textit{Herbrand forcing relation}\index{Herbrand forcing relation} is defined by
+$T\Vdash_H\theta$\index{$\Vdash_H$} if and only if $T\Vdash\theta_H(W)$ for all $T$-local unary names $W$.
+\end{definition}
+
+Above we said that $\theta_S(W;\tup{v})$ was essentially a $\BPi^0_1$ formula
+asserting that $W$ witnesses the truth of $\theta$.
+We now make this precise.
+We will assume that our notion of forcing is persistent
+so that the names used in the construction of $\theta_S$ and $\theta_H$
+are guaranteed to be local.
+
+\begin{prop}[\RCAo]\label{P:skolemisPi1}
+Let $\Forc$ be an almost persistent notion of forcing and $\theta(\tup{v})$
+be a formula of the forcing language.
+There is a bounded formula $\psi(W;u,\tup{v})$ of the forcing language such that
+for all conditions $T$, names $W(\tup{v},t)$, and $\tup{x}$,
+if $\theta(\tup{x})$ and $\lambda tW(\tup{x},t)$ are $T$-local, then
+so is $\psi(\lambda tW(\tup{x},t);u,\tup{x})$ and
+$$T\Vdash\theta_S(\lambda tW(\tup{x},t);\tup{x})\ \ \text{if and only if}\ \ T\Vdash\forall u\psi(\lambda tW(\tup{x},t);u,\tup{x})$$
+\end{prop}
+\begin{proof}
+Notice that the only quantifiers that occur in $\theta_S$ are universal within the scope
+of an even number of negations.
+Let $u$ be a variable symbol that does not occur in $\theta_S$, and let
+$\psi$ be the bounded formula obtained from $\theta_S(\lambda tW(\tup{x},t);\tup{x})$
+by bounding all universal quantifiers with $u$.
+Notice that if $\theta(\tup{x})$ and $\lambda tW(\tup{x},t)$ are $T$-local
+then $\theta_S(\lambda tW(\tup{x},t);\tup{x})$ and $\psi(\lambda tW(\tup{x},t);u,\tup{x})$
+are also $T$-local.  Moreover
+$$T\Vdash\theta_S(\lambda tW(\tup{x},t);\tup{x})\ \ \text{if and only if}\ \ T\Vdash\forall u\psi(\lambda tW(\tup{x},t);u,\tup{x}).$$
+\end{proof}
+
+When the notion of forcing is persistent, we can say that $\theta_S(W;\tup{v})$
+is essentially a $\BPi^0_1$ formula in an even stronger sense.
+
+\begin{cor}[\RCAo]\label{C:skolemisActualPi1}
+Let $\Forc$ be a persistent notion of forcing and $\theta(\tup{v})$
+be a formula of the forcing language.
+There is a $\BPi^0_1$ formula $\tilde{\theta}(T,W,\tup{v})$ such that
+for all conditions $T$, names $W(\tup{v},t)$, and sequences of numbers $\tup{x}$,
+if $\theta(\tup{x})$ and $\lambda tW(\tup{x},t)$ are $T$-local, then
+$$T\Vdash\theta_S(\lambda tW(\tup{x},t);\tup{x})\ \ \text{if and only if}\ \ \tilde{\theta}(T,W,\tup{x}).$$
+\end{cor}
+\begin{proof}
+Let $\psi(W;u,\tup{v})$ be as in the conclusion of Proposition~\ref{P:skolemisPi1}.
+The corollary then follows by applying Proposition~\ref{P:Pi1isPi1} to $\forall u\psi(\lambda tW(\tup{x},t);u,\tup{v})$.
+\end{proof}
+
+Another corollary of Proposition~\ref{P:skolemisPi1}
+is that the Skolem forcing relation is $\BSigma^1_2$ in certain cases.
+This corollary will be helpful later on when
+examining how much genericity is needed of our filters.
+
+\begin{cor}[\RCAo]\label{C:skolemisPi11}
+Let $\Forc$ be a notion of forcing which is either persistent
+or is almost persistent and has an arithmetic definition.
+Let $\theta(\tup{v})$ be a formula of the forcing language.
+There is a $\BSigma^1_2$ formula $\tilde{\theta}(T,\tup{v})$ such that
+for all conditions $T$ and sequences of numbers $\tup{x}$,
+if $\theta(\tup{x})$ is $T$-local, then
+$$T\Vdash_S\theta(\tup{x})\ \ \text{if and only if}\ \ \tilde{\theta}(T,\tup{x}).$$
+\end{cor}
+\begin{proof}
+Let $\psi(W;u,\tup{v})$ be as in the conclusion of Proposition~\ref{P:skolemisPi1}.
+In the case where $\Forc$ is persistent, let
+$\hat{\psi}(T,W,\tup{v})$ be as in conclusion of Proposition~\ref{P:Pi1isPi1}
+corresponding to $\forall u\psi(W;u,\tup{v})$.
+In the case where $\Forc$ has an arithmetic definition, let
+$\hat{\psi}(T,W,\tup{v})$ be as in conclusion of Proposition~\ref{P:Pi1isArith}
+corresponding to $\forall u\psi(W;u,\tup{v})$.
+Finally, let $\tilde{\theta}(T,\tup{v})$ be the statement saying that
+there exists a Skolem name $W$ such that
+$W$ is $T$-local and $\hat{\psi}(T,W,\tup{v})$ holds.
+\end{proof}
+
+\begin{prop}[\RCAo]\label{P:easySkolemEquiv}
+Let $\Forc$ be an almost persistent notion of forcing,
+let $T\in\Forc$, and let $\theta$ be a $T$-local sentence of the forcing language.
+Then
+$$T\Vdash_S\theta\ \Rightarrow\ T\Vdash\theta \Rightarrow\ T\Vdash_H\theta.$$
+\end{prop}
+\begin{proof}
+We proceed by induction on the complexity of $\theta$.
+The assumption that $\Forc$ is persistent ensures that
+the names involved in the definition of $\theta_S$ and $\theta_H$ are $T$-local.
+
+\begin{itemize}
+
+\item $\theta$ is atomic:
+
+Since $\theta_S(W)=\theta_H(W)=\theta$ the statement follows trivially.
+
+\item $\theta=\neg\phi$:
+
+If $T\Vdash_S\theta$ then $T\Vdash \neg\phi_H(W)$ for some unary name $W$.
+Therefore there is no $T'\leq T$ such that $T'\Vdash\phi_H(W)$.
+By the induction hypothesis, if $T'\Vdash\phi$ then $T'\Vdash\phi_H(W)$,
+so we can conclude that there is no $T'\leq T$ such that
+$T'\Vdash\phi$, and so $T\Vdash\theta$.
+
+Now suppose that $T\Vdash\theta$.
+Then there is no $T'\leq T$ such that $T'\Vdash\phi$.
+By the induction hypothesis, if there is a unary name $W$ such that
+$T'\Vdash\phi_S(W)$, then $T'\Vdash\theta$.
+Therefore there is no $T'\leq T$ and no $W$ such that $T'\Vdash\phi_S(W)$.
+Thus $T\Vdash_H\theta$.
+
+\item Suppose that $\theta=\phi\land\psi$.
+
+Assume that $T\Vdash \phi_S(\lambda tW(2t);\tup{v})\land\psi_S(\lambda tW(2t+1);\tup{v})$
+for some unary name $W$.
+Breaking this down, $T\Vdash\phi_S(\lambda tW(2t);\tup{v})$ and $T\Vdash\psi_S(\lambda tW(2t+1);\tup{v})$.
+By the induction hypothesis $T\Vdash\phi$ and $T\Vdash\psi$, so $T\Vdash\phi\land\psi$.
+
+Now suppose that $T\Vdash\theta$.
+Then $T\Vdash\phi$ and $T\Vdash\psi$, so by the induction hypothesis
+$T\Vdash\phi_H(W)$ and $T\Vdash\psi_H(W)$ for all unary names $W$.
+Therefore $T\Vdash\phi_H(W)\land\psi_H(W)$ for all unary names $W$,
+and so $T\Vdash_H\theta$.
+
+\item Suppose that $\theta=\forall w\phi(w)$.
+
+Assume that $T\Vdash \forall w\phi_S(\lambda tW(\langle w,t\rangle);\tup{v},w)$
+for some unary name $W$.
+Breaking this down, $T\Vdash\phi_S(\lambda tW(\langle x,t\rangle);\tup{v},w)$ for all $x$.
+By the induction hypothesis $T\Vdash\phi(x)$ for all $x$.
+Thus $T\Vdash\theta$.
+
+Now suppose that $T\Vdash\theta$.
+Then $T\Vdash\phi(x)$ for all $x$.
+By the induction hypothesis $T\Vdash\phi_H(W,x)$ for all $x$ and all unary names $W$.
+Thus $T\Vdash\theta_H(\lambda tW(t+1),W(0))$,
+and so $T\Vdash_H\theta$.
+\end{itemize}
+\end{proof}
+
+\begin{prop}[\RCAo]\label{P:witnessBnded}
+Let $\Forc$ be an almost persistent notion of forcing.
+Let $\theta(\tup{v})$ be a bounded formula of the forcing language.
+There are names $W^\theta_S(\tup{v},t)$ and $W^\theta_H(\tup{v},t)$
+such that for all $T\in\Forc$ and all $\tup{x}$, if $\theta(\tup{x})$ is $T$-local,
+then then so are $\lambda tW^\theta_S(\tup{x},t)$ and $\lambda tW^\theta_H(\tup{x},t)$, and
+\begin{align*}
+T\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x})
+	\Leftrightarrow  T\Vdash\theta(\tup{x})
+	\Leftrightarrow  T\Vdash\theta_H(\lambda tW_H^\theta(\tup{x},t);\tup{x}).
+\end{align*}
+\end{prop}
+
+\begin{proof}
+Notice that the left to right implications follow
+from Proposition~\ref{P:easySkolemEquiv}.
+For if $T\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x})$,
+then $T\Vdash_S\theta(\tup{x})$ and so $T\Vdash\theta(\tup{x}$).
+And if $T\Vdash\theta(\tup{x})$, then $T\Vdash_H\theta(\tup{x})$
+and so $T\Vdash\theta_H(\lambda tW_H^\theta(\tup{x},t);\tup{x})$.
+
+We proceed by induction on the complexity of $\theta$
+to define $W^\theta_S$ and $W^\theta_H$ and show that
+$$T\Vdash\theta_H(\lambda tW_H^\theta(\tup{x},t);\tup{x})
+	\Rightarrow   T\Vdash\theta(\tup{x})
+	\Rightarrow  T\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x}).$$
+The construction of $W^\theta_S$ and $W^\theta_H$ will employ only
+obviously effective methods together with normal form names as in Definition~\ref{D:admitsNormal}.
+Therefore the assumption that $\Forc$ is almost persistent guarantees
+that $W^\theta_S$ and $W^\theta_H$ are $T$-local.
+
+\begin{itemize}
+\item $\theta(\tup{v})$ is atomic:
+
+Let $W^\theta_S(\tup{v},t)=W^\theta_H(\tup{v},t)=0$.
+
+The statement of the proposition follows trivially
+since $\theta_S(W;\tup{x})=\theta_H(W;\tup{x})=\theta(\tup{x})$.
+
+\item $\theta(\tup{v})=\neg\phi(\tup{v})$:
+
+Let $W^\theta_S(\tup{v},t)=W^\phi_H(\tup{v},t)$ and
+$W^\theta_H(\tup{v},t)=W^\phi_S(\tup{v},t)$.
+
+Suppose that $T\Vdash\theta_H(\lambda tW_H^\theta(\tup{x},t);\tup{x})$.
+Then there is no $T'\leq T$ such that
+$T'\Vdash\phi_S(\lambda tW_H^\theta(\tup{x},t);\tup{x})$.
+Thus there is no $T'\leq T$ such that
+$T'\Vdash\phi_S(\lambda tW_S^\phi(\tup{x},t);\tup{x})$.
+By the induction hypothesis, if $T'\Vdash\phi(\tup{x})$, then
+$T'\Vdash\phi_S(\lambda tW_S^\phi(\tup{x},t);\tup{x})$.
+Therefore we conclude that $T\Vdash\theta(\tup{x})$.
+
+Suppose that $T\Vdash\theta(\tup{x})$.
+Therefore there is no $T'\leq T$ such that $T'\Vdash\phi(\tup{x})$.
+By the induction hypothesis, if
+$T'\Vdash\phi_H(\lambda tW_H^\phi(\tup{x},t);\tup{x})$
+then $T'\Vdash\phi(\tup{x})$.
+Therefore $T\Vdash\neg\phi_H(\lambda tW_H^\phi(\tup{x},t);\tup{x})$,
+and since $W^\phi_H=W^\theta_S$, $T\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x})$.
+
+\item Suppose that $\theta(\tup{v})=\phi(\tup{v})\land\psi(\tup{v})$.
+
+Let $W^\theta_S(\tup{v},2t)=W^\phi_S(\tup{v},t)$ and
+$W^\theta_S(\tup{v},2t+1)=W^\psi_S(\tup{v},t)$.
+Let $W^\theta_H(\tup{v},t)=W^\phi_H(\tup{v},t)$ if $U_\phi(\tup{v})=y$ for some $y\neq 0$,
+and let $W^\theta_H(\tup{v},t)=W^\psi_H(\tup{v},t)$ if $U_\phi(\tup{v})=0$
+(where $U_\phi$ is the normal form name, as in Proposition~\ref{P:PR:normalForm}).
+
+Suppose that $T\Vdash\theta_H(\lambda tW_H^\theta(\tup{x},t);\tup{x})$.
+Therefore $T\Vdash\phi_H(\lambda tW_H^\theta(\tup{x},t);\tup{x})$ and
+$T\Vdash\psi_H(\lambda tW_H^\theta(\tup{x},t);\tup{x})$.
+There are two cases.
+In the first case we assume that $T\Vdash\phi(\tup{x})$.
+In this case $T\Vdash U_\phi(\tup{x})=0$, so
+$W^\theta_H(\tup{x},t)=W^\psi_H(\tup{x},t)$.
+Therefore $T\Vdash\psi_H(\lambda tW_H^\psi(\tup{x},t);\tup{x})$,
+and so by the induction hypothesis $T\Vdash\psi(\tup{x})$.
+Thus $T\Vdash\theta(\tup{x})$.
+In the other case we assume that $T\not\Vdash\phi(\tup{x})$.
+Therefore there is some $T'\leq T$ such that $T'\Vdash\neg\phi(\tup{x})$,
+and so $T'\Vdash U_\phi(\tup{x})\neq 0$.
+Then $W^\theta_H(\tup{x},t)=W^\phi_H(\tup{x},t)$,
+and $T'\Vdash\phi_H(\lambda tW_H^\phi(\tup{x},t);\tup{x})$.
+By the induction hypothesis, $T'\Vdash\phi(\tup{x})$, a contradiction.
+
+Now suppose that $T\Vdash\theta(\tup{x})$.
+Therefore $T\Vdash\phi(\tup{x})$ and $T\Vdash\psi(\tup{x})$.
+By the induction hypothesis, $T\Vdash\phi_S(\lambda tW_S^\phi(\tup{x},t);\tup{x})$
+and $T\Vdash\psi_S(\lambda tW_S^\psi(\tup{x},t);\tup{x})$.
+It follows that $T\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x})$.
+
+\item Suppose that $\theta(\tup{v})=\forall w\leq F(\tup{v})\phi(\tup{v},w)$.
+
+Let $W^\theta_S(\tup{v},t)$ be $W^\phi_S(\tup{v},\first{t},\lfloor(\second{t})/2\rfloor)$
+if $\first{t}\leq F(\tup{v})$, and $0$ otherwise.
+Let $W^\theta_H(\tup{v},0)=\sum_{w\leq F(\tup{v})}X(\tup{v},w)$,
+where $X(\tup{v},w)=1\dotminus \sum_{u\leq w}U_\phi(\tup{v},u)$.
+In other words, $W^\theta_H(\tup{v},0)$ is the first $w\leq F(\tup{v})$
+such that $\phi(\tup{v},w)$ fails, if such a $w$ exists.
+Otherwise $W^\theta_H(\tup{v},0)=F(\tup{v})+1$.
+We then define $W^\theta_H(\tup{v},t)$ inductively
+by letting $W^\theta_H(\tup{v},t+1)$ be $W^\phi_H(\tup{v},W^\theta_H(\tup{v},0),t)$
+if $W^\theta_H(\tup{v},0)\leq F(\tup{v})$, and $0$ otherwise.
+
+Suppose that
+$$T\Vdash\theta_H(\lambda tW_H^\theta(\tup{x},t);\tup{x}).$$
+Removing the shorthand,
+$$\theta(\tup{v})=\forall w\neg[w\leq F(\tup{v})\land\neg\phi(\tup{v},w)].$$
+Let $\psi(\tup{v},w)=\neg[w\leq F(\tup{v})\land\neg\phi(\tup{v},w)]$
+so that $\theta(\tup{v})=\forall w\psi(\tup{v},w)$.
+Then we have that $\theta_H(W;\tup{v})=\psi_H(\lambda tW(t+1);\tup{v},W(\tup{v},0))$
+and so
+$$\theta_H(\lambda tW_H^\theta(\tup{x},t);\tup{x})
+	=\psi_H(\lambda tW_H^\psi(\tup{x},W^\theta_H(\tup{x},0),t);\tup{x},W^\theta_H(\tup{x},0)).$$
+By the induction hypothesis $T\Vdash\psi(\tup{x},W^\theta_H(\tup{x},0))$.
+Therefore there is no $T'\leq T$ such that
+$T'\Vdash W^\theta_H(\tup{x},0)\leq F(\tup{x})$ and $T'\Vdash\neg\phi(\tup{x},W^\theta_H(\tup{x},0))$.
+In other words, for all $T'\leq T$, if $T'\Vdash W^\theta_H(\tup{x},0)\leq F(\tup{x})$
+then there is a $T''\leq T'$ such that $T''\Vdash\phi(\tup{x},W^\theta_H(\tup{x},0))$.
+Therefore no such $T'$ exists, since otherwise we would have a condition $T''\leq T$
+such that $T'\Vdash W^\theta_H(\tup{x},0)\leq F(\tup{x})$ and
+$T''\Vdash\phi(\tup{x},W^\theta_H(\tup{x},0))$, contradicting how $W^\theta_H(\tup{x},0)$ was defined.
+Therefore there is no $T'\leq T$ such that $T'\Vdash W^\theta_H(\tup{x},0)\leq F(\tup{x})$.
+Notice that if there was a $w$ and a $T'\leq T$ such that
+$T'\Vdash[w\leq F(\tup{x})\land\neg\phi(\tup{x},w)]$, then $T'\Vdash W^\theta_H(\tup{x},0)\leq F(\tup{x})$.
+Therefore for all $w$ there is no $T'\leq T$ such that $T'\Vdash[w\leq F(\tup{x})\land\neg\phi(\tup{x},w)]$.
+We conclude that $T\Vdash\theta(\tup{x})$.
+
+Now suppose that $T\Vdash\theta(\tup{x})$.
+Again we write $\theta(\tup{v})=\forall w\psi(\tup{v},w)=\neg[w\leq F(\tup{v})\land\neg\phi(\tup{v},w)]$.
+In order to show that $T\Vdash\theta_S(W^\theta_S(\tup{x},t);\tup{x})$,
+it suffices to show the following: for all $w$ and all $T'\leq T$,
+if $T'\Vdash w\leq F(\tup{x})$ then there is a $T''\leq T'$ such that
+$T''\Vdash\phi_S(\lambda tW^\theta_S(\tup{x},\langle w,t\rangle),\tup{x},w)$.
+(This is just a matter of definition unpacking, albeit a good bit of it.)
+Therefore we fix $w$ and $T'\leq T$ and find the appropriate $T''\leq T'$.
+By assumption, if $T'\Vdash w\leq F(\tup{x})$,
+then there is a $T''\leq T$ such that $T''\Vdash\phi(\tup{x},w)$.
+By the induction hypothesis, $T''\Vdash\phi_S(\lambda tW^\phi_S(\tup{x},w,t);\tup{x},w)$.
+It therefore remains to show that
+$T''\Vdash\lambda tW^\phi_S(\tup{x},w,t)=\lambda tW^\theta_S(\tup{x},\langle w,2t+1\rangle)$
+whenever $T''\Vdash w\leq F(\tup{x})$.
+If $w\leq F(\tup{x})$ then
+$$W^\theta_S(\tup{x},\langle w,2t+1\rangle)
+	=W^\phi_S(\tup{x},w,\lfloor(2t+1)/2\rfloor)
+	=W^\phi_S(\tup{x},w,t).$$
+\end{itemize}
+\end{proof}
+
+We now prove the existence of $\BPi^0_1$ Skolem names.
+
+\begin{prop}
+Let $\Forc$ be an almost persistent notion of forcing.
+Let $\theta(\tup{v})$ be a $\BPi^0_1$ formula of the forcing language.
+There is a name $W^\theta_S(\tup{v},t)$
+such that for all $T\in\Forc$ and all $\tup{x}$, if $\theta(\tup{x})$ is $T$-local,
+then so is $W^\theta_S(\tup{v},t)$, and
+\begin{align*}
+T\Vdash\theta(\tup{x})
+	\Leftrightarrow  T\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x}).
+\end{align*}
+\end{prop}
+\begin{proof}
+Note that the backwards direction follows from Proposition~\ref{P:easySkolemEquiv}.
+
+Let $\theta(\tup{v})=\forall w\phi(\tup{v},w)$ where $\phi(\tup{v},w)$ is bounded.
+We define $W^\theta_S(\tup{v},t)$ by $W^\theta_S(\tup{v},t)=W^\phi_S(\tup{v},\first{t},\second{t})$,
+where $W^\phi_S$ is defined as in Proposition~\ref{P:witnessBnded}.
+
+Assuming that $T\Vdash\theta(\tup{x})$, we show that $T\Vdash\theta_S(W^\theta_S(\tup{x},t);\tup{x})$.
+In other words, we must show that $T\Vdash\phi_S(W^\theta_S(\tup{x},\langle w,t\rangle);\tup{x},w)$
+for all $w$.
+By assumption $T\Vdash\phi(\tup{x},w)$ for all $w$, so by
+Proposition~\ref{P:witnessBnded} $T\Vdash\phi_S(\lambda tW^\phi_S(\tup{x},w,t);\tup{x},w)$ for all $w$.
+Therefore the proposition follows from the fact that
+$W^\theta_S(\tup{x},\langle w,t\rangle)=W^\phi_S(\tup{x},w,t)$.
+\end{proof}
+
+We now prove the existence of $\BSigma^0_1$ Skolem names.
+
+\begin{prop}[\RCAo]\label{P:witnessSigma1}
+Let $\Forc$ be an almost persistent notion of forcing.
+Let $\theta(\tup{v})$ be a $\BSigma^0_1$ formula of the forcing language.
+There is a name $W^\theta_S(\tup{v},t)$
+such that for all $T\in\Forc$ and all $\tup{x}$, if $\theta(\tup{x})$ is $T$-local
+and $T\Vdash\theta(\tup{x})$, then $W^\theta_S(\tup{v},t)$ is also $T$-local
+and there is a $T'\leq T$ such that $T'\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x})$.
+
+If $\Forc$ is persistent, then we may assume that $T'=T$.
+\end{prop}
+
+\begin{proof}
+Let $\theta(\tup{v})=\exists w\varphi(\tup{v},w)$ where $\varphi(\tup{v},w)$ is bounded.
+Define a name $X(\tup{v},w)=1\dotminus\sum_{u\leq w}U_{\neg\varphi}(\tup{v},u)$,
+where $U_{\neg\varphi}$ is the normal form name, as in Proposition~\ref{P:PR:normalForm}.
+Note that $X(\tup{v},w)$ can only switch from 1 to 0 once as $w$ increases.
+We now let $W^\theta_S(\tup{v},0)=y$ if $y=\sum_{w\leq y}X(\tup{v},w)$.
+In other words $W^\theta_S(\tup{v},0)$ is the least $w$ such that
+$\varphi(\tup{v},w)$ holds, if such any such $w$ exists
+(and is undefined otherwise).
+Finally, we let $W^\theta_S(\tup{v},t+1)=W^\varphi_S(\tup{v},W^\theta_S(\tup{v},0),t)$.
+
+Now we show that $W^\theta_S(\tup{x},t)$ is $T$-local.
+Let $T'\leq T$.
+There is a condition $S\leq T'$ and a $w$ such that $S\Vdash\varphi(\tup{x},w)$.
+Since $\Forc$ is persistent, there is a $\sigma\in S$
+such that $S_\sigma\in\Forc$ and
+$(1\dotminus U_{\neg\varphi})^\sigma(\tup{x},w)=0$.
+Therefore $W^\theta_S(\tup{x},0)$ is defined on everything in $[S_{\sigma}]$.
+Since locality is closed under primitive recursion (Proposition~\ref{P:comp&pr}),
+$W^\theta_S(\tup{x},t)$ is $S_\sigma$-local, so
+$[S_\sigma]\cap\dom(W^\theta_S(\tup{x},t))\neq\emptyset$.
+Therefore $W^\theta_S(\tup{x},t)$ is $T$-local.
+
+Now assume that $T\Vdash\theta(\tup{x})$ and show that
+$T\Vdash\theta_S(W^\theta_S(\tup{x},t);\tup{x})$.
+Let $W_0=W^\theta_S(\tup{x},0)$.
+Notice that
+$$\begin{array}{lll}
+\theta_S(W^\theta_S(\tup{x},t);\tup{x}) & = & \neg\neg\varphi_S(W^\theta_S(\tup{x},t+1);\tup{x},W_S^\theta(\tup{x},0))\\
+& = & \neg\neg\varphi_S(W^\varphi_S(\tup{x},W_0,t);\tup{x},W_0).
+\end{array}$$
+By assumption, for all $T'\leq T$ there is a $w$ and a $T''\leq T'$
+such that $T''\Vdash\varphi(\tup{x},w)$.
+Therefore $T''\Vdash U_{\neg\varphi}(\tup{x},w)=y$ for some $y>0$,
+and so $W^\theta_S(\tup{x},0)$ is defined on everything in $[T'']\cap\dom(U_\varphi)$.
+Notice that $T''\Vdash\varphi(\tup{x},W_0)$.
+By Proposition~\ref{P:witnessBnded} we have that
+$T''\Vdash\varphi_S(W^\varphi_S(\tup{x},W_0,t);\tup{x},W_0)$.
+This implies that $T''\Vdash\neg\neg\varphi_S(W^\varphi_S(\tup{x},W_0,t);\tup{x},W_0)$.
+Note that $W^\theta_S(\tup{x},t+1)=W^\varphi_S(\tup{x},W_0,t)$.
+Therefore we have shown that for all $T'\leq T$ there is a $T''\leq T$
+such that $T''\Vdash\theta_S(W^\theta_S(\tup{x},t);\tup{x})$.
+In other words, $T\Vdash\neg\neg\theta_S(W^\theta_S(\tup{x},t);\tup{x})$.
+If $\Forc$ is persistent, then by Proposition~\ref{P:2neg} (the double negation rule),
+$T\Vdash\theta_S(W^\theta_S(\tup{x},t);\tup{x})$.
+Otherwise, by unraveling the definition of negation, there is a $T'\leq T$
+such that $T'\Vdash\theta_S(W^\theta_S(\tup{x},t);\tup{x})$.
+\end{proof}
+
+We now improve Proposition~\ref{P:witnessSigma1}
+by extending it to $\BPi^0_2$ formulas.
+
+\begin{prop}\label{P:witnessPi2}
+Let $\Forc$ be an almost persistent notion of forcing.
+Let $\theta(\tup{v})$ be a $\BPi^0_2$ formula of the forcing language.
+There is a name $W^\theta_S(\tup{v},t)$
+such that for all $T\in\Forc$ and all $\tup{x}$, if $\theta(\tup{x})$ is $T$-local
+and $T\Vdash\theta(\tup{x})$, then $W^\theta_S(\tup{v},t)$ is also $T$-local
+and there is a $T'\leq T$ such that
+$T'\Vdash\theta_S(\lambda tW_S^\theta(\tup{x},t);\tup{x})$.
+
+If $\Forc$ is persistent, then we may assume that $T'=T$.
+\end{prop}
+\begin{proof}
+Let $\theta(\tup{v})=\forall w\varphi(\tup{v},w)$ where $\varphi(\tup{v},w)$ is $\BSigma^0_1$.
+We define $W^\theta_S(\tup{x},t)$ by
+$W^\theta_S(\tup{x},t)=W^\varphi_S(\tup{v},\first{t},\second{t})$,
+where $W^\varphi_S$ is defined as in Proposition~\ref{P:witnessSigma1}.
+The proposition then holds for the $T'\leq T$ given by Proposition~\ref{P:witnessSigma1}.
+\end{proof}
+
+\begin{cor}\label{C:Pi1unif}
+Let $\Forc$ be an almost persistent notion of forcing.
+Let $\theta(\tup{v},w)$ be a $\BSigma^0_1$ formula of the forcing language
+such that $T\Vdash\forall\tup{v}\exists w\theta(\tup{v},w)$.
+There is a $T$-local name $W(\tup{v})$
+and a $T'\leq T$ such that
+$T'\Vdash\forall\tup{v}\theta(\tup{v},W(\tup{v}))$.
+
+If $\Forc$ is persistent, then we may assume that $T'=T$.
+\end{cor}

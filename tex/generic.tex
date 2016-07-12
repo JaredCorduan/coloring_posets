@@ -1,0 +1,314 @@
+In this section we put the main results of the last two sections to use.
+Theorem~\ref{T:presRCA} below says that for almost persistent notions of forcing,
+the generic extension of a model of \RCAo\ is itself a model of \RCAo.
+Similarly, Theorem~\ref{T:presACA} says that for persistent notions of forcing satisfying \MCP,
+the generic extension of a model of \ACAo\ is itself a model of \ACAo.
+
+The key to proving these two theorems is to prove special cases of the Truth Lemma.
+Taken together, Proposition~\ref{P:witnessPi2} above and Proposition~\ref{P:presRCAkey} below
+tell us that the Truth Lemma holds for $\BPi^0_2$ sentences.
+In other words, and stated imprecisely, the $\BPi^0_2$ sentences which hold in
+the generic extension are precisely those which are forced.
+Similarly, Proposition~\ref{P:PacaPi3SkolemNames} above and Proposition~\ref{P:presACAkey} below
+tell us that the Truth Lemma holds for $\BPi^0_3$ sentences.
+
+Let $\MM$ be a model of second-order arithmetic and let $\Forc$ be a notion of forcing.
+We say that a collection $\mathcal{D}\subseteq\Forc$ is \textit{dense}\index{dense} if
+for every condition $T$ there is an extension $T'\leq T$ such that $T'\in\mathcal{D}$.
+Note that $\mathcal{D}$, just like $\Forc$, is a third-order object and
+therefore does not belong to $\MM$.
+(The elements of $\mathcal{D}$ do, however, belong to $\MM$.)
+We say that $\mathcal{D}$ is \textit{open}\index{open} if $T'\in\mathcal{D}$
+whenever $T'\leq T\in\mathcal{D}$.
+A collection $\mathcal{G}\subseteq\Forc$ is called a \textit{generic filter}\index{generic filter} for $\Forc$ if
+\begin{itemize}
+\item $\mathcal{G}$ is nonempty,
+\item $\mathcal{G}$ is closed upward, meaning that if
+		$T,S\in\Forc$, $T\leq S$, and $T\in\mathcal{G}$, then $S\in\mathcal{G}$,
+\item any two elements of $\mathcal{G}$ are compatible in $\mathcal{G}$, meaning that if $T,T'\in\mathcal{G}$
+		then there is an $S\in\mathcal{G}$ such that $S\leq T$ and $S\leq T'$,
+\item and $\mathcal{G}$ meets every open dense collection, meaning that if $\mathcal{D}$ is open dense
+		then $\mathcal{G}\cap\mathcal{D}\neq\emptyset$.
+\end{itemize}
+The first three requirements say that $\mathcal{G}$ is a \textit{filter}.
+The last requirement says that $\mathcal{G}$ is \textit{generic}.
+We will never actually use full genericity since only
+some open dense collections need to be met.
+Given a collection of formulas $\Gamma$,
+we say that a filter $\mathcal{G}$ is \textit{$\Gamma$-generic}
+if it meets every open dense collection which is defined by a formula in $\Gamma$.
+In other words, $\mathcal{G}$ meets every open dense collection
+$\mathcal{D}$ such that $T\in\mathcal{D}$ if and only if $T\in\Forc$ and $\phi(T)$
+holds for some $\phi\in\Gamma$.
+
+\begin{definition}
+Let $\MM$ be a model and $\Forc$ be a notion of forcing.
+Suppose that $\mathcal{G}$ is a generic filter for $\Forc$.
+Let
+$$G=\bigcup\Big\{\mathsf{stem}(T):T\in\mathcal{G}\Big\}.$$
+We say that $G$ is a \textit{generic real}\index{generic real} for $\Forc$ if
+$$T\in\mathcal{G}\ \ \Leftrightarrow\ \ G\in[T].$$
+Note that in contrast with Definition~\ref{D:treestuff},
+since we are now working outside of a model $\MM$,
+we use $[T]$ to denote the set of all branches of $[T]$,
+not just those branches in $\MM$.
+
+If $G$ is a generic real for $\Forc$,
+we say that a name $F$ is $G$\textit{-local}\index{$G$-local}\index{locality} if $F$ is $T$-local
+for some $T\in\mathcal{G}$.
+We say that a formula $\theta$ of the forcing language is $G$\textit{-local}
+if every name occurring in $F$ is $G$-local.
+\end{definition}
+
+Later, in Section~\ref{forcingExamples} (the section on examples),
+the following lemma will be useful for proving the existence of a generic real.
+
+\begin{lem}\label{L:Gen:realForc}
+Let $\Forc$ be an almost persistent notion of forcing such that
+$$\mathcal{D}_T=\{S:S\cap T\text{ is finite }\lor\ S\leq T\}$$
+is open dense for every $T\in\Forc$.
+Let $\mathcal{G}$ be a $\BSigma^0_2$-generic filter for $\Forc$.
+Then $G$ is a generic real for $\Forc$.
+\end{lem}
+
+\begin{proof}
+For every $n\in\NN$, since $\Forc$ is almost persistent,
+$$\mathcal{D}_n=\{S:|\mathsf{stem}(S)|\geq n\}$$
+is open dense.
+
+Let $T\in\mathcal{G}$.
+For each $n$ there is a $S_n'\in\mathcal{G}\cap\mathcal{D}_n$.
+Since $\mathcal{G}$ is a filter, there is a condition $S_n\leq S_n',T$.
+Therefore $G\in[T]$.
+
+Suppose now that $G\in[T]$.
+Since $\mathcal{D}_T$ is open dense and $\BSigma^0_2$-definable,
+there is a condition $S\in\mathcal{G}$ such that
+either $S\cap T$ is finite or $S\leq T$.
+But if $S\cap T$ is finite then $G\in[S]\setminus[T]$, a contradiction.
+Therefore $S\leq T$ and $S\in\mathcal{G}$, so $T\in\mathcal{G}$ since
+$\mathcal{G}$ is a filter.
+\end{proof}
+
+\begin{prop}\label{P:genericGivesTotFncs}
+Let $\Forc$ be an almost persistent forcing.
+Let $\mathcal{G}$ be a $\BSigma^0_1$-generic filter and
+suppose that $G$ is a generic real for $\Forc$ corresponding to $\mathcal{G}$.
+If $F$ is a $G$-local name then
+$$F^G(\tup{x})=y\ \Leftrightarrow\ \exists nF^{G\uhr n}(\tup{x})=y$$
+defines a total $k$-ary function.
+\end{prop}
+\begin{proof}
+Let $F$ be $T$-local for some $T\in\mathcal{G}$.
+Fix $\tup{x}\in\NN^k$ and $T'\leq T$.
+Consider the collection $\mathcal{D}$ of all $S\in\Forc$
+such that either $S\not\leq T$ or
+$F^\tau(\tup{x})$ is defined by stage $|\tau|$,
+where $\tau=\mathsf{stem}(S)$.
+Note that $\mathcal{D}$ is $\BSigma^0_1$-definable.
+
+Let $S\leq T$.
+Since $F$ is $S$-local and $\Forc$ is almost persistent,
+there is a $\tau\in S$ such that $F^\tau(\tup{x})$ is defined by stage $|\tau|$
+and $S_\tau\in\Forc$.
+Therefore $\mathcal{D}$ is open dense.
+Therefore there is a $T'\in\mathcal{G}$ such that
+$T'\leq T$ and $F^\tau(\tup{x})$ is defined by stage $|\tau|$,
+where $\tau=\mathsf{stem}(S)$.
+Therefore $F^G(\tup{x})$ defines a total $k$-ary function.
+\end{proof}
+
+We now use Proposition~\ref{P:genericGivesTotFncs} to define the generic extension.
+
+\begin{definition}
+Let $\MM$ be a model of \RCAo, $\Forc$ an almost persistent notion of forcing,
+and $G$ a generic real for $\Forc$
+corresponding to a $\BDelta^0_2$-generic filter $\mathcal{G}$.
+We define the \textit{generic extension}\index{generic extension} of $\MM$,
+denoted $\MM[G]$\index{$\MM[G]$}, to be the extension of $\MM$
+whose sets are
+$$\{\mathsf{zeros}(F^G):F\text{ is a }G\text{-local name}\},$$
+where
+$$\mathsf{zeros}(F^G)=\set{x}{F^G(x)=0},$$
+and whose first-order part is the same as $\MM$.
+\end{definition}
+
+\begin{definition}
+Let $\MM$ be a model  of \RCAo, $\Forc$ an almost persistent notion of forcing, and $G$ a generic real for $\Forc$
+corresponding to a $\BDelta^0_2$-generic filter $\mathcal{G}$.
+Given a formula $\phi$ of the forcing language,
+we let $\phi^G$\index{$\phi^G$} be the formula obtained by replacing
+all names $F$ in $\phi$ by $F^G$.
+
+Note that $\phi^G$ is not a formula of the forcing language,
+but rather a formula of the language of second-order arithmetic
+augmented with constant symbols for elements of $\MM[G]$.
+\end{definition}
+
+\begin{prop}\label{P:Pi1ForcedIsTrue}
+Let $\MM$ be a model of \RCAo, $\Forc$ an almost persistent notion of forcing,
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BDelta^0_2$-generic filter $\mathcal{G}$.
+Let $T\in\mathcal{G}$ and let $\phi$ be a $T$-local, $\BPi^0_1$-sentence
+of the forcing language such that $T\Vdash\phi$.
+Then $\MM[G]\vDash\phi^G$.
+\end{prop}
+\begin{proof}
+Because of the existence of normal form names,
+as given by Proposition~\ref{P:PR:normalForm},
+we can assume that
+$\phi=\forall \tup{v}(U(\tup{v})=0)$, where $U$ is $T$-local.
+Since $T\Vdash\phi$, $U^G(\tup{v})=0$ for all $\tup{v}$.
+Therefore $\MM[G]\vDash\forall\tup{v}(U^G(\tup{v})=0)$.
+\end{proof}
+
+\begin{cor}\label{C:Sforcedistrue}
+Let $\MM$ be a model of \RCAo, $\Forc$ an almost persistent notion of forcing,
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BDelta^0_2$-generic filter $\mathcal{G}$.
+Let $\phi$ be a $T$-local sentence of the forcing language
+for some $T\in\mathcal{G}$ ($T$ witnesses that $\phi$ is $G$-local).
+If $T\Vdash_S\phi$ then $\MM[G]\vDash\phi^G$.
+\end{cor}
+\begin{proof}
+Follows from Propositions \ref{P:skolemisPi1} and \ref{P:Pi1ForcedIsTrue}.
+\end{proof}
+
+We now begin to prove special cases of the Truth Lemma.
+
+\begin{prop}\label{P:presRCAkey}
+Let $\MM$ be a model of \RCAo, $\Forc$ an almost persistent notion of forcing,
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a generic filter $\mathcal{G}$.
+Let $\phi$ be a $G$-local, $\BPi^0_2$-sentence of the forcing language.
+Then $\MM[G]\vDash\phi^G$ if and only if there is a $T\in\mathcal{G}$
+such that $T\Vdash_S\phi$.
+
+Additionally, if $\Forc$ is either persistent or is almost persistent
+and has an arithmetic definition, then $\mathcal{G}$ needs only be
+$\BSigma^1_2$-generic.
+\end{prop}
+
+\begin{proof}
+Let $T$ be a condition witnessing that $\phi$ is $G$-local
+(so that $T\in\mathcal{G}$ and $F$ is $T$-local for every name $F$ in $\phi$).
+Let $T'\leq T$ be any extension of $T'$.
+By the definition of forcing the negation of a sentence,
+there is a $T''\leq T'$ such that either $T''\Vdash\phi$ or $T''\Vdash\neg\phi$.
+
+By Proposition~\ref{P:witnessPi2}, if $T''\Vdash\phi$ then
+there is a $T'''\leq T''$ such that $T'''\Vdash_S\phi$.
+On the other hand, suppose that $T''\Vdash\neg\phi$.
+Write $\neg\phi=\exists v \theta(v,w)$, where $\theta(v)$ is $\BPi^0_1$.
+Then there is an $S\leq T''$ and an $x$ such that $S\Vdash\theta(x)$.
+By Proposition~\ref{P:witnessPi2} there is an $S'\leq S$ such that
+$S'\Vdash_S\theta(x)$.
+
+Therefore it is dense below $T$ that either
+$T'\Vdash_S\phi$ or $T'\Vdash_S\theta(x)$ for some $x$.
+Since $G$ is a generic filter there is an $S\in\mathcal{G}$ such that
+$S\leq T$ and either $S\Vdash_S\phi$ or $S\Vdash_S\theta(x)$ for some $x$.
+If $S\Vdash_S\phi$, then $\MM[G]\vDash\phi^G$ follows from Corollary~\ref{C:Sforcedistrue}.
+If $S\Vdash_S\theta(x)$ for some $x$,
+then $\MM[G]\vDash\theta(x)^G$ follows from Corollary~\ref{C:Sforcedistrue},
+and so $\MM[G]\nvDash\phi^G$.
+
+Finally, notice that we need only assume that
+$\mathcal{G}$ is a $\BSigma^1_2$-generic filter by Corollary~\ref{C:skolemisPi11}.
+\end{proof}
+
+\begin{thm}\label{T:presRCA}
+Let $\MM$ be a model of \RCAo, $\Forc$ an almost persistent notion of forcing,
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a generic filter $\mathcal{G}$.
+Then $\MM[G]$ is also a model of $\RCAo$.
+
+Additionally, if $\Forc$ is either persistent or is almost persistent
+and has an arithmetic definition, then $\mathcal{G}$ needs only be
+$\BSigma^1_2$-generic.
+\end{thm}
+\begin{proof}
+It suffices to show that $\MM[G]$ satisfies
+the following uniformization axiom:
+\begin{quote}
+For every $f:\NN^{k+1}\to\NN$ such that $\forall\tup{w}\exists xf(x,\tup{w})=0$
+then there is a $g:\NN^k\to\NN$ such that $\forall\tup{w}f(g(\tup{w}),\tup{w})=0$.
+\end{quote}
+To see that it suffices to prove this uniformization axiom, see \cite{varMathias}.
+Let $H$ be a $G$-local $(k+1)$-ary name such that
+$\MM[G]\vDash\forall\tup{w}\exists xH^G(\tup{w},x)=0$.
+By Proposition~\ref{P:presRCAkey} there is a $T\in\mathcal{G}$
+such that $T\Vdash_S \forall\tup{w}\exists xH(\tup{w},x)=0$.
+For any $T'\leq T$, by Proposition~\ref{P:easySkolemEquiv} and Corollary~\ref{C:Pi1unif}
+there is a $T'$ local name $W$ and a $T''\leq T'$ and  such that
+$T''\Vdash \forall\tup{w}H(\tup{w},W(\tup{w}))=0$.
+Therefore it is dense below $T$ that
+$S\Vdash \forall\tup{w}H(\tup{w},W(\tup{w}))=0$ for some $S$-local name $W$,
+and so there is an $S\in\mathcal{G}$ and an $S$-local name $W$ such that
+$S\Vdash \forall\tup{w}H(\tup{w},W(\tup{w}))=0$.
+Therefore $\MM[G]\vDash \forall\tup{w}H^G(W^G(\tup{w}),\tup{w})=0$ by Proposition~\ref{P:Pi1ForcedIsTrue}.
+\end{proof}
+
+\begin{prop}\label{P:presACAkey}
+Let $\MM$ be a model of \ACAo, $\Forc$ a persistent notion of forcing satisfying \MCP,
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$.
+Let $\phi$ be a $G$-local, $\BPi^0_3$-formula of the forcing language.
+Then $\MM[G]\vDash\phi^G$ if and only if there is a $T\in\mathcal{G}$
+such that $T\Vdash_S\phi$.
+\end{prop}
+\begin{proof}
+Let $T$ be a condition witnessing that $\phi$ is $G$-local
+(so that $T\in\mathcal{G}$ and $F$ is $T$-local for every name $F$ in $\phi$).
+Let $T'\leq T$ be any extension of $T'$.
+By the definition of forcing the negation of a sentence,
+there is a $T''\leq T'$ such that either $T''\Vdash\phi$ or $T''\Vdash\neg\phi$.
+
+By Proposition~\ref{P:PacaPi3SkolemNames}, if $T''\Vdash\phi$ then $T''\Vdash_S\phi$.
+On the other hand, suppose that $T''\Vdash\neg\phi$.
+Write $\neg\phi=\exists v \theta(v,w)$, where $\theta(v)$ is $\BPi^0_1$.
+Then there is an $S\leq T''$ and an $x$ such that $S\Vdash\theta(x)$.
+By Proposition~\ref{P:witnessPi2} $S\Vdash_S\theta(x)$.
+
+Therefore it is dense below $T$ that either
+$S\Vdash_S\phi$ or $S\Vdash_S\theta(x)$ for some $x$.
+Since $G$ is a generic filter there is an $S'\in\mathcal{G}$ such that
+$S'\leq T$ and either $S'\Vdash_S\phi$ or $S'\Vdash_S\theta(x)$ for some $x$.
+If $S'\Vdash_S\phi$, then $\MM[G]\vDash\phi^G$ follows from Corollary~\ref{C:Sforcedistrue}.
+If $S'\Vdash_S\theta(x)$ for some $x$,
+then $\MM[G]\vDash\theta(x)^G$ follows from Corollary~\ref{C:Sforcedistrue},
+and so $\MM[G]\nvDash\phi^G$.
+
+Finally, notice that we need only assume that
+$\mathcal{G}$ is a $\BSigma^1_2$-generic filter by Corollary~\ref{C:skolemisPi11}.
+\end{proof}
+
+\begin{thm}\label{T:presACA}
+Let $\MM$ be a model of \ACAo, $\Forc$ a persistent notion of forcing satisfying \MCP,
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$.
+Then $\MM[G]$ is also a model of $\ACAo$.
+\end{thm}
+\begin{proof}
+It suffices to show that $\MM[G]$ satisfies
+the following minimization axiom:
+\begin{quote}
+For every $f:\NN^{k+1}\to\NN$ there is a $g:\NN^k\to\NN$ such that
+$$\forall x\forall\tup{w}[f(x,\tup{w})\geq f(g(\tup{w}),\tup{w})].$$
+\end{quote}
+To see that it suffices to prove this minimization axiom, see \cite{varMathias}.
+Let $H$ be a $G$-local $(k+1)$-ary name.
+We use $H(\tup{w},y)\leq H(\tup{w},z)$ as a shorthand for $H(\tup{w},y)\dotminus H(\tup{w},z)=0$.
+Since $\MM[G]\vDash \Ind{\BSigma^0_1}$,
+$\MM[G]\vDash\forall\tup{w}\exists y\forall z[H^G(\tup{w},y)\leq H^G(\tup{w},z)]$.
+By Proposition~\ref{P:presACAkey} there is a $T\in\mathcal{G}$
+such that $T\Vdash_S\forall\tup{w}\exists y\forall z[H(\tup{w},y)\leq H(\tup{w},z)]$.
+For any $T'\leq T$, by Proposition~\ref{P:easySkolemEquiv} and Corollary~\ref{C:Pi2unif}
+there is a $T'$-local name $W$ such that $T'\Vdash\forall\tup{w}\forall z[H(\tup{w},W(\tup{w}))\leq H(\tup{w},z)]$.
+Therefore it is dense below $T$ that
+$S\Vdash\forall\tup{w}\forall z[H(\tup{w},W(\tup{w}))\leq H(\tup{w},z)]$ for some $S$-local name $W$,
+and so there is an $S\in\mathcal{G}$ such that
+$S\Vdash\forall\tup{w}\forall z[H(\tup{w},W(\tup{w}))\leq H(\tup{w},z)]$ for some $S$-local name $W$.
+Therefore $\MM[G]\vDash\forall\tup{w}\forall z[H^G(\tup{w},W^G(\tup{w}))\leq H^G(\tup{w},z)]$
+by Proposition~\ref{P:Pi1ForcedIsTrue}.
+\end{proof}

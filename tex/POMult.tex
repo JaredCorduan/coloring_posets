@@ -1,0 +1,516 @@
+We now turn our attention to another collection of
+tree-like partial orderings with the $(n,k)$-Ramsey properties.
+We begin by fattening the binary tree.
+
+\begin{definition}\label{D:withMultis}
+The \textit{binary tree with multiplicities}, \index{binary tree with multiplicities}\index{$\binm$}
+denoted $\binm$, is the partial ordering whose elements are pairs $(\sigma,x)$,
+where $\sigma\in\bin$, $x\in\NN$, and $x\leq|\sigma|$.
+We order $\binm$ by essentially ignoring the second coordinate.
+We let $(\sigma,x)<(\tau,y)$ if and only if $\sigma\subsetneq\tau$.
+
+Similarly, \textit{omega with multiplicities}, denoted $\omegam$, \index{omega with multiplicities}\index{$\omegam$}
+is the partial ordering whose elements are pairs $(a,x)\in\NN^2$
+such that $x\leq a$.
+We order $\omegam$ by ignoring the second coordinate.
+\end{definition}
+
+We will now show that $\binm$ has the $(n,k)$-Ramsey property
+for all $n\geq 1$, $k\geq 2$.
+The proofs involved will be adaptations of the proofs used
+by Chubb, Hirst, and McNichol \cite{CHM} to show that $\bin$ has the
+$(n,k)$-Ramsey properties.
+We will also characterize the partial orderings contained in $\binm$
+that have the $(n,k)$-Ramsey properties.
+In terms of Reverse Mathematics,
+we consider the strength of $RT^n(\binm)$ and
+also the strength of the theorem which characterizes
+the suborderings of $\binm$ having Ramsey properties.
+The main results of this section are Theorem~\ref{T:binm&ACA} and Theorem~\ref{T:charRamInBinm}.
+Theorem~\ref{T:binm&ACA} says that $RT^n(\binm)$ is equivalent
+to $\ACAo$ for any fixed $n\geq 3$.
+Theorem~\ref{T:charRamInBinm} characterizes the suborderings of $\binm$
+with the Ramsey property and states that the characterization
+is equivalent to $\ACAo$.
+
+We can think of $RT^1(\Po)$ as a pigeonhole principle\index{pigeonhole principle} for $\Po$.
+In fact, $RT^1(\omega)$ is the usual (infinite) pigeonhole principle.
+We now show that adding multiplicities to $\omega$ and to $\bin$
+does not add any complexity over \RCAo\ to the corresponding
+pigeonhole principles.
+
+\begin{prop}[\RCAo]\label{P:bin&binm1}
+For all $k\geq 2$, $RT^1_k(\omegam)\leftrightarrow RT^1_k(\omega)$.
+\end{prop}
+\begin{proof}
+Suppose $RT^1_k(\omegam)$ holds and $c:\NN\to\{0,1,\ldots,k-1\}$.
+Let $\tilde{c}:\omegam\to\{0,1,\ldots,k-1\}$ be the coloring
+defined by $\tilde{c}(a,x)=c(a)$.
+Then any infinite homogeneous copy of $\omegam$ for $\tilde{c}$ induces an
+infinite homogeneous set for $c$ by projecting onto the first coordinate.
+
+On the other hand, suppose that $RT^1_k(\omega)$ holds and
+let $c:\omegam\to\{0,1,\ldots,k-1\}$.
+Let $\tilde{c}:\NN\to\{0,1,\ldots,k-1\}$ where
+$\tilde{c}(a)$ is the color most used by $c$
+on the set $\set{(a,x)}{x\leq a}$
+(it does not matter how ties are settled, provided it is effective).
+If $H\subseteq\NN$ is an infinite homogeneous set for $\tilde{c}$,
+say in color $i$, then for each $a\in H$ there are at least
+$\lceil \frac{a}{k}\rceil$-many numbers $x$ such that $c(a,x)=i$.
+Therefore an infinite homogeneous set for $\tilde{c}$ computes
+an infinite homogeneous set for $c$.
+\end{proof}
+
+
+\begin{prop}[\RCAo]
+For all $k\geq 2$, $RT^1_k(\binm)\leftrightarrow RT^1_k(\bin)$.
+\end{prop}
+\begin{proof}
+Suppose that $RT^1_k(\binm)$ holds and $c:\bin\to\{0,1,\ldots,k-1\}$.
+We define a coloring $\tilde{c}:\binm\to\{0,1,\ldots,k-1\}$
+by $\tilde{c}(\sigma,x)=c(\sigma)$.
+Then any homogeneous copy of $\binm$ for $\tilde{c}$ induces a homogeneous
+copy of $\bin$ for $c$ by projecting onto the first coordinate.
+
+On the other hand, suppose that $RT^1_k(\bin)$ holds and
+let $c:\binm\to\{0,1,\ldots,k-1\}$.
+Let $\tilde{c}:\bin\to\{0,1,\ldots,k-1\}$ where
+$\tilde{c}(\sigma)$ is the color most used by $c$
+on the set $\set{(\sigma,x)}{x\leq |\sigma|}$.
+Similarly to Proposition~\ref{P:bin&binm1},
+any homogeneous copy of $\bin$ for $\tilde{c}$ computes
+a homogeneous copy of $\binm$ for $c$.
+\end{proof}
+
+\begin{cor}[$\RCAo+\Ind{\BSigma^0_2}$]
+$RT^1(\binm)$ holds.
+\end{cor}
+\begin{proof}
+Chubb, Hirst, and McNichol proved that that $RT^1(\bin)$
+holds in $\RCAo+\Ind{\BSigma^0_2}$ \cite{CHM}.
+\end{proof}
+
+We now show that $\binm$ has the $(n,k)$-Ramsey property for $n\geq 2$.
+We begin with a few definitions and a helpful lemma.
+
+Let $c:\binm\to\{\red,\blue\}$.
+Given $\sigma\in\bin$, the \textit{standard red copy of $\binm$ above $\sigma$}, \index{standard red (blue) copy of $\binm$}
+if it exists, is the isomorphism of $\binm$ into
+$\Po=\set{(\tau,x)\in\binm}{c(\tau,x)=\red\ \land\ \tau\supseteq\sigma}$
+obtained from the following stage-wise computable procedure.
+At stage $0$ we search for a pair $(\tau,x)$ such that $c(\tau,x)=\red$ and
+$\tau\supseteq\sigma$.
+We map $(\langle\rangle,0)$ to the first such pair that is found,
+which we call $(\tau_{\langle\rangle},x_{\langle\rangle})$.
+At stage $1$ we search above $(\tau_{\langle\rangle},x_{\langle\rangle})$ for two incomparable nodes
+$\tau_{\langle 0\rangle}$ and $\tau_{\langle 1\rangle}$ above $\tau_{\langle \rangle}$
+and numbers $x^0_{\langle 0\rangle}$, $x^1_{\langle 0\rangle}$,
+$x^0_{\langle 1\rangle}$, and $x^1_{\langle 1\rangle}$ such that
+$c(\tau_{\langle i\rangle},x^j_{\langle i\rangle})=\red$ for each $i,j<2$.
+We then map $(\langle i\rangle,j)$ to
+$(\tau_{\langle i\rangle},x^j_{\langle i\rangle})$.
+We continue in this way to define the entire isomorphism.
+At the beginning of stage $(n+1)$ we will have already defined the
+isomorphism up to level $n$.
+During stage $(n+1)$ we do the following for every $\rho\in\bin$
+such that $|\rho|=n$.
+Search for 2 incomparable nodes
+$\tau_{\rho\cat 0}$ and $\tau_{\rho\cat 1}$ above $\tau_\rho$ and numbers
+$x^0_{\rho\cat 0}$, $x^1_{\rho\cat 0}$, $\ldots$, $x^n_{\rho\cat 0}$,
+$x^0_{\rho\cat 1}$, $x^1_{\rho\cat 1}$, $\ldots$, $x^n_{\rho\cat 1}$
+such that
+$c(\tau_{\langle i\rangle},x^j_{\langle i\rangle})=\red$ for each $i<2$ and $j\leq n$.
+We then map $(\langle i\rangle,j)$ to
+$(\tau_{\langle i\rangle},x^j_{\langle i\rangle})$.
+
+The \textit{standard blue copy of $\binm$ above $\sigma$},
+if it exists, is defined similarly.
+
+\begin{lem}[\RCAo]\label{L:stndCpyBinm2}
+Let $c:\binm\to\{\red,\blue\}$.
+For each $(\sigma,m)\in\binm$, either
+the standard red copy of $\binm$ above $\sigma$ exists,
+or there is a $\tau\supseteq\sigma$ such that
+the standard blue copy of $\binm$ above $\tau$ exists.
+\end{lem}
+\begin{proof}
+Suppose that
+$$(\exists \tau\supseteq\sigma)(\exists m\in\NN)(\forall \rho\supseteq\tau)\big(|\set{(\rho,x)}{c(\rho,x)=\red}|\leq m\big).\ \ \ \ \ (*)$$
+From $(*)$ it follows that the standard blue copy of $\binm$ above $\tau$ exists.
+If $(*)$ fails, however, then for every $\tau\supseteq\sigma$ and every $m$ there is a
+$\rho\supseteq\tau$ such that
+$$|\set{x\leq|\rho|}{c(\rho,x)=\red}|\geq m.$$
+From this it follows that the standard red copy of $\binm$ above $\sigma$ exists.
+\end{proof}
+
+We now prove a more general version of Lemma~\ref{L:stndCpyBinm2}.
+Given a coloring $c:\binm\to\{0,1,\ldots,k-1\}$, a $\sigma\in\bin$, and an $\ell<k$,
+we define the standard copy of $\binm$ in color $\ell$ above $\sigma$,
+if it exists, in the same way that we defined the standard red copy of
+$\binm$ above $\sigma$ when dealing with colorings of the form $c:\binm\to\{\red,\blue\}$.
+
+\begin{lem}[$\RCAo+\Ind{\BSigma^0_2}$]\label{L:stndCpyBinmK}
+Let $c:\binm\to\{0,1,\ldots,k-1\}$.
+There is a $\tau\supseteq\sigma$ and a $j<k$
+such that the standard copy of $\binm$ in color $j$ above $\sigma$ exists.
+\end{lem}
+\begin{proof}
+Consider the finite set $C$ consisting of all $j<k$ such that
+$$(\exists\tau\supseteq\sigma)(\exists m)(\forall\rho\supseteq\tau)\Big[|\set{x\leq|\rho|}{c(\rho,x)<j}|\leq m\Big].$$
+Note that $C$ exists by bounded $\BSigma^0_2$ comprehension, which is equivalent to $\Ind{\BSigma^0_2}$.
+Also note that $C$ is nonempty since $0\in C$.
+Let $j=\max\{C\}$.
+
+Let $\tau$ and $m$ be such that $|\set{x\leq|\rho|}{c(\rho,x)<j}|\leq m$
+for all $\rho\supseteq\tau$.
+If $j=k-1$, then we have that
+$|\set{x\leq|\rho|}{c(\rho,x)=k-1}|\geq (|\rho|-m)$
+for all $\rho\supseteq\tau$.
+Therefore the standard copy of $\binm$ in color $k-1$ above $\sigma$ exists.
+
+We now suppose, for the sake of contradiction, that $j<k-1$ and that the
+standard copy of $\binm$ in color $j$ above $\sigma$ does not exist.
+Then there is a $\rho\supseteq\tau$ and an $m'$
+such that for all $\rho'\supseteq\rho$, the set $\set{x\leq|\rho'|}{c(\rho',x)=j}$
+has at most $m'$ many elements.
+But then $|\set{x\leq|\rho'|}{c(\rho',x)<j+1}|\leq (m+m')$ for all $\rho'\supseteq\rho$
+contradicting the maximality of $j$ in $C$.
+\end{proof}
+
+\begin{prop}[\ACAo]\label{P:binmRamsey2}
+$RT^2(\binm)$ holds.
+\end{prop}
+\begin{proof}
+Let $c:[\binm]^2\to\{0,1,\ldots k-1\}$.
+We will define a coloring $\tilde{c}:\binm\to\{0,1,\ldots,k-1\}$ in stages.
+In the construction, we will also make use of a family of (partially defined) colorings
+of the singletons of $\binm$. Given an element $\alpha=(\sigma,x)\in\binm$,
+let $c_\alpha$ be the coloring defined by
+$$c_\alpha(\tau,y)=c\big((\sigma,x),(\tau,y)\Big).$$
+Note that $c_\alpha$ is only defined for $(\tau,y)>(\sigma,x)$.
+
+Our construction will be computable relative to the following
+arithmetic function $\mathcal{S}$.
+The function $\mathcal{S}$ takes as input the following:
+an index $e$ for a computable embedding $\Phi_e$ of $\binm$ into itself,
+an index $e'$ for a computable $k$-coloring of the image of $\Phi_e$,
+and a node $\sigma$ in the range of $\Phi_e$.
+Given valid $e$, $e'$, and $\sigma$, the function $\mathcal{S}$
+outputs a pair $(\tau,j)$ such that $\tau\supseteq\sigma$
+and the standard copy of $\binm$ in color $j$ inside the image of $\Phi_e$
+above $\tau$ exists.
+By Lemma~\ref{L:stndCpyBinmK} $\mathcal{S}(e,e',\tau)$ is defined
+whenever $e$, $e,$, and $\tau$ are valid inputs.
+Since the statement that the standard copy of $\binm$ in color $j$ above $\sigma$ exists
+is arithmetic, it follows that $\mathcal{S}$ is arithmetic.
+
+At stage 0 we begin by letting $\sigma_{\seq{}}=\seq{}$,
+$x_{\seq{}}^0=0$, and $\alpha=(\sigma_{\seq{}},x^0_{\seq{}})$.
+Let $e$ be an index for the identity map on $\binm$,
+let $e'$ be an index for $c_{\alpha}$, and let $\mathcal{S}(e,e',\sigma_{\seq{}})=(\tau,j)$.
+Let $e_{\seq{}}$ be an index for the standard copy of $\binm$ in color $j$
+above $\tau$, and let $B_{\seq{}}$ be the image of $\Phi_{e_{\seq{}}}$.
+Finally, let $\tilde{c}(\seq{},0)=j$.
+
+At stage 1 we find incomparable nodes $\sigma_{\langle 0\rangle}$, $\sigma_{\langle 1\rangle}$
+and numbers $x^0_{\langle 0\rangle}$, $x^1_{\langle 0\rangle}$, $x^0_{\langle 1\rangle}$
+and $x^1_{\langle 1\rangle}$ such that
+$(\sigma_{\langle i\rangle},x^j_{\langle i\rangle})\in B_{\langle \rangle}$
+for each $i,j<2$.
+Let $\alpha^j_{\seq{i}}=(\sigma_{\langle i\rangle},x^j_{\seq{i}})$.
+We are guaranteed to find the elements $\alpha^j_{\seq{i}}$ since $B_{\langle \rangle}$
+is isomorphic to $\binm$.
+Let $e'$ be an index for the coloring of $B_{\seq{}}$ induced by $c_{\alpha^0_{\seq{0}}}$,
+and let $\mathcal{S}(e_{\seq{}},e',\Phi_{e_{\seq{}}}(\seq{0}))=(\tau,j)$.
+Therefore the standard copy of $\binm$ in color $j$ inside $B_{\seq{}}$ above
+$\tau\supseteq\Phi_{e_{\seq{}}}(\seq{0})$
+(with respect to the coloring that $c_{\alpha^0_{\seq{0}}}$ induces on $B_{\seq{}}$) exists.
+We let $B_{\langle 0\rangle}'\subseteq B_{\seq{}}$ be this standard copy.
+We also let $\tilde{c}(\seq{0},0)=j$.
+Besides finding the nodes $\alpha^j_{\seq{i}}$,
+what we have accomplished so far during stage 1 is to
+find a computable copy $B_{\seq{0}}'\subseteq B_{\seq{}}$ of $\binm$
+such that $c_{\alpha^0_{\seq{0}}}$ is constant on $B_{\seq{0}}'$.
+We can mimic what we have just done to compute
+(still relative to the function $\mathcal{S}$)
+a copy $B_{\seq{0}}\subseteq B_{\seq{0}}'$ of $\binm$ such that
+$c_{\alpha^1_{\seq{0}}}$ is constant on $B_{\seq{0}}$.
+Using this same method we also compute (using $\mathcal{S}$)
+a copy $B_{\seq{1}}\subseteq B_{\seq{}}$ of $\binm$ above $\Phi_{e_{\seq{}}}(\seq{1})$
+such that $c_{\alpha^i_{\seq{0}}}$ is constant on $B_{\seq{0}}$ for each $i<2$.
+Consistent with our definition of $\tilde{c}(\seq{0},0)$,
+we let $\tilde{c}(\seq{i},j)$ be the color that
+$c_{\alpha^j_{\seq{i}}}$ makes constantly on $B_{\seq{i}}$.
+
+At stage $n+1$ we essentially mimic what we did at stage 1 above each node
+$\sigma_{\tau}$, where $|\tau|=n$, which was defined at stage $n$.
+Pick one such $\tau$ and let $\sigma=\sigma_\tau$ and
+$\tau_i=\tau\cat{\seq{i}}$ for each $i<2$.
+Note that $B_{\tau}$ was also defined at stage $n$.
+We now find incomparable nodes $\sigma_{\tau_0}$, $\sigma_{\tau_1}$
+and numbers $x^j_{\tau_i}$ such that
+$(\sigma_{\tau_i},x^j_{\tau_i})\in B_{\tau}$
+for each $j\leq (n+1)$ and $i<2$.
+Let $\alpha^j_{\tau_i}=(\sigma_{\tau_i},x^j_{\tau_i})$.
+We are guaranteed to find the elements $\alpha^j_{\tau_i}$ since $B_{\tau}$
+is isomorphic to $\binm$.
+Just as in stage 1, using the function $\mathcal{S}$
+to guide the construction,
+we find indices for computable copies
+$B_{\tau_0},B_{\tau_1}\subseteq B_{\tau}$
+of $\binm$ such that $c_{\alpha^j_{\tau_i}}$ is constant on
+$B_{\tau_i}$ for each $i<2$ and $j\leq{n+1}$.
+We also define $\tilde{c}(\tau_i,j)$ to be the color
+that $c_{\alpha^j_{\tau_i}}$ is on $B_{\tau_i}$.
+
+This ends the construction.
+We now have a coloring $\tilde{c}:\binm\to\{0,1,\ldots,k-1\}$
+and an embedding $\gamma$ of $\binm$ into itself,
+defined by $\gamma(\sigma,j)=\alpha^j_\sigma$,
+such that if $\tau,\rho\supset\sigma$ then
+$$\tilde{c}(\sigma,x)=c(\alpha_\sigma^x,\alpha_\tau^y)=c(\alpha_\sigma^x,\alpha_\rho^z)$$
+for all $x\leq|\sigma|$, $y\leq|\tau|$, and $z\leq|\rho|$.
+Since $RT^1(\binm)$ holds, there is an isomorphic copy
+$B$ of $\binm$ that is homogeneous for $\tilde{c}$.
+Then the image of $B$ under $\gamma$ is a homogeneous
+copy of $\binm$ for $c$.
+\end{proof}
+
+\begin{prop}[\ACAo; $m\geq 2$]\label{P:binmRamseyInduct}
+If $RT^{m}(\binm)$ holds then so does $RT^{m+1}(\binm)$.
+\end{prop}
+\begin{proof}
+The following proof will be similar to that of Proposition~\ref{P:binmRamsey2}.
+
+Let $c:[\binm]^{m+1}\to\{0,1,\ldots k-1\}$.
+We will define a coloring $\tilde{c}:[\binm]^m\to\{0,1,\ldots,k-1\}$ in stages.
+In the construction, we will also make use of a family of colorings of the singletons of $\binm$.
+Suppose $F\subset[\binm]^m$ is a finite collection of $m$-chains of $\binm$
+such that there is a $\tau\in\bin$ with the property that if
+$\seq{\alpha_1,\ldots,\alpha_m}\in F$ then $\alpha_m=(\tau,x)$ for some $x$.
+We can use $F$ to define a partial coloring $c_F$ of the singletons of $\binm$
+with $k^{|F|}$ many colors by
+$$c_F(\beta)=\Big\langle c(\alpha_{1},\ldots,\alpha_{m},\beta):\seq{\alpha_{1},\ldots,\alpha_{m},\beta}\in F \Big\rangle.$$
+Note that $c_F$ is only defined for $\beta=(\sigma,x)\in\binm$ such that $\tau\subsetneq\sigma$.
+
+Our construction will be computable relative to the following
+arithmetic function $\mathcal{S}$.
+The function $\mathcal{S}$ takes as input the following:
+an index $e$ for a computable embedding $\Phi_e$ of $\binm$ into itself,
+an index $e'$ for a computable $k$-coloring of the image of $\Phi_e$,
+and a node $\sigma$ in the range of $\Phi_e$.
+Given valid $e$, $e'$, and $\sigma$, the function $\mathcal{S}$
+outputs a pair $(\tau,j)$ such that $\tau\supseteq\sigma$
+and the standard copy of $\binm$ in color $j$ inside the image of $\Phi_e$
+above $\tau$ exists.
+By Lemma~\ref{L:stndCpyBinmK} $\mathcal{S}(e,e',\tau)$ is defined
+whenever $e$, $e'$, and $\tau$ are valid inputs.
+Since the statement that the standard copy of $\binm$ in color $j$ above $\sigma$ exists
+is arithmetic, it follows that $\mathcal{S}$ is arithmetic.
+
+At stage 0 we begin by letting $\sigma_{\tau}=\tau$,
+$x_{\tau}^i=i$, and $\alpha^i_{\tau}=(\sigma_{\tau},x_{\tau}^i)$
+for each $|\tau|\leq m$ and $i\leq|\tau|$.
+In other words, the map $(\tau,i)\mapsto\alpha^i_\tau$
+is the identity map for elements on or below level $m$ of $\binm$.
+For each $\tau$ such that $|\tau|=m$ we do the following.
+Let $F$ be the set of $m$-chains $\seq{\alpha_1,\ldots,\alpha_m}$ such that
+$\alpha_m=(\tau,x)$ for some $x$.
+Let $e$ be an index for the identity map on $\binm$,
+let $e'$ be an index for $c_{F}$, and let $\mathcal{S}(e,e',\tau)=(\rho,j)$.
+Let $B_{\tau}$ be the standard copy of $\binm$ in color $j$ above $\rho$.
+Finally, for each $m$-chain $\seq{\alpha_1,\ldots,\alpha_m}\in F$
+let $\tilde{c}(\seq{\alpha_1,\ldots,\alpha_m})$ be the color that
+$c_F$ makes constantly on $B_\tau$.
+Stage 0 is complete when the procedure just described has been
+completed for each $\tau$ such that $|\tau|=m$.
+
+At stage $n+1$ we to the following for each $\tau$
+such that $|\tau|=n+m-1$.
+The node $\sigma_\tau\in\bin$, as well as $B_\tau$,
+was defined in stage $n$
+(in fact $\sigma_\rho$ has been defined for all
+$|\rho|<n+m$ by the beginning of stage $n+1$).
+Let $\tau_i=\tau\cat{\seq{i}}$ for each $i<2$.
+We now find incomparable nodes $\sigma_{\tau_0}$, $\sigma_{\tau_1}$
+and numbers $x^j_{\tau_i}$ such that
+$(\sigma_{\tau_i},x^j_{\tau_i})\in B_{\tau}$
+for each $j\leq (n+m)$ and $i<2$.
+First we focus on $\sigma_{\tau_0}$.
+Let $F$ be the set of all $m$-chains
+$\seq{(\sigma_{\rho_1},x^{j_1}_{\rho_1}),\ldots,(\sigma_{\rho_{m-1}},x^{j_{m-1}}_{\rho_{m-1}}),(\sigma_{\tau_0},x)}$
+where $x\leq|\tau|$ and the elements $(\sigma_{\rho_\ell},x^{j_\ell}_{\rho_\ell})$
+range over all those defined in earlier stages.
+The partial coloring $c_F$ induces a coloring on the elements
+of $B_\tau$ above the image of $\tau_0$ in $B_\tau$.
+We then use $\mathcal{S}$ to get a pair $(\rho,j)$
+such that the standard copy of $\binm$ in color $j$ above $\rho$
+in $B_\tau$ exists.
+Let $B_{\tau_0}$ be the standard copy of $\binm$ in color $j$ above $\rho$ in $B_\tau$.
+Finally, for each $m$-chain $\seq{\alpha_1,\ldots,\alpha_m}\in F$
+let $\tilde{c}(\seq{\alpha_1,\ldots,\alpha_m})$ be the color that
+$c_F$ makes constantly on $B_{\tau_0}$.
+Similarly we define $B_{\tau_1}\subseteq B_\tau$ and
+$\tilde{c}(\seq{\alpha_1,\ldots,\alpha_m})$ for $\alpha_m=(\tau_1,x)$.
+Stage $n+1$ is complete when the procedure just described has been
+completed for each $\tau$ such that $|\tau|=n+m-1$.
+
+This ends the construction.
+We now have a coloring $\tilde{c}:[\binm]^m\to\{0,1,\ldots,k-1\}$
+and an embedding $\gamma$ of $\binm$ into itself,
+defined by $\gamma(\tau,j)=(\sigma_\tau,x_\tau^j)$,
+such that for any $m$-chain $\seq{\alpha_i}_{i=1}^m\in[\binm]^m$,
+if $\beta_1,\beta_2\in\binm$ and $\beta_1,\beta_2\geq \alpha_m$, then
+$$\tilde{c}(\alpha_1,\ldots,\alpha_m)=c\Big(\gamma(\alpha_1),\ldots,\gamma(\alpha_m),\gamma(\beta_1)\Big)=c\Big(\gamma(\alpha_1),\ldots,\gamma(\alpha_m),\gamma(\beta_2)\Big).$$
+Since $RT^m(\binm)$ holds, there is an isomorphic copy
+$\Po$ of $\binm$ that is homogeneous for $\tilde{c}$.
+Then the image of $B$ under $\gamma$ is a homogeneous
+copy of $\binm$ for $c$.
+\end{proof}
+
+\begin{cor}[\ACAo; $m\geq 1$]\label{C:binmRamsey}
+$RT^m(\binm)$ holds.
+\end{cor}
+
+\begin{thm}\label{T:binm&ACA}
+Fix $m\geq 3$.  $RT^m(\binm)$ and $\ACAo$ are equivalent over $\RCAo$.
+\end{thm}
+\begin{proof}
+By Theorem~5 of Chubb, Hirst, McNichol \cite{CHM},
+in order to show that $RT^m(\binm)$ implies $\ACAo$ over $\RCAo$
+it suffices to show that $RT^m(\binm)$ implies $RT^m(\bin)$ over $\RCAo$.
+Let $c:[\bin]^m\to\{0,1,\ldots k-1\}$ be a coloring.
+Then we can define a coloring $\tilde{c}:[\binm]^m\to\{0,1,\ldots k-1\}$
+by $\tilde{c}(\sigma,x)=c(\sigma)$.
+Notice then that by projection onto the first coordinate,
+any homogeneous copy $H$ of $\binm$ for $\tilde{c}$
+computes a homogeneous copy $H'$ of $\bin$ for $c$.
+\end{proof}
+
+Note that the proofs of Propositions \ref{P:binmRamsey2} and \ref{P:binmRamseyInduct}
+can easily be adapted for $\omegam$
+($\omegam$ was defined in Definition~\ref{D:withMultis}).
+In particular, the following proposition holds.
+\begin{prop}\label{P:omegamRamsey}
+Fix $m\geq 3$.  $RT^m(\omegam)$ and $\ACAo$ are equivalent over $\RCAo$.
+\end{prop}
+
+We now characterize the partial orderings contained in $\binm$
+that have the $(n,k)$-Ramsey property.
+
+\begin{definition}
+We say that two partial orderings $\Po,\Qo$ are \textit{biembeddable} if
+there exists embeddings $f:\Po\to\Qo$ and $g:\Qo\to\Po$.
+\end{definition}
+
+The characterization of the partial orderings contained in $\binm$
+that have the $(n,k)$-Ramsey property will make use of the following easy lemma.
+
+\begin{lem}[\RCAo]\label{L:biemebedRam}
+Suppose that $\Po$, $\Qo$ are biembeddable partial orderings.
+If $RT^n_k(\Po)$ holds then so does $RT^n_k(\Qo)$.
+\end{lem}
+
+\begin{proof}
+Let $c:[\Qo]^n\to\{0,1,\ldots,k-1\}$ be a coloring.
+Let $f:\Po\to\Qo$ and $g:\Qo\to\Po$ be embeddings.
+Then $c\circ f$ defines a coloring of $\Po$.
+Since $RT^n_k(\Po)$ holds there is a homogeneous set $H$ for $c\circ f$
+and an isomorphism $\gamma:\Po\to H$ which preserves $\leq_\Po$.
+Then the range of $f\circ \gamma\circ g$ is homogeneous for $c$ and
+isomorphic to $\Qo$.
+\end{proof}
+
+\begin{definition}
+Given a partial ordering $(\Po,\leq_\Po)$,
+we say that $(\Qo,\leq_\Qo)$ is a \textit{subordering} of $\Po$ if
+$\Qo\subseteq\Po$ and $\leq_\Qo$ is $\leq_\Po$ restricted to $\Qo$.
+\end{definition}
+
+\begin{prop}[\RCAo]\label{P:charRamBinm}
+Let $n\geq 2$ and suppose that $\Po$ is a subordering of $\binm$
+with a least element such that $RT^n(\Po)$ holds.
+Suppose also that $\Po$ has elements on all levels.
+Then $\Po$ is biembeddable with one of the following four partial orderings:
+$\omega$, $\omegam$, $\bin$, or $\binm$.
+\end{prop}
+
+The proof of Proposition~\ref{P:charRamBinm} makes use of two results
+from Corduan, Groszek, and Mileti \cite{CGM}.
+\begin{prop}[Proposition 2.4 of Corduan-Groszek-Mileti \cite{CGM}, \RCAo]\label{P:CGM1}
+Let $\Po$ be a countable partial ordering with a least element such that
+$RT^2_2(\Po)$ holds and such that no pair of $\leq_\Po$-incomparable elements
+have a $\leq_\Po$-upper bound.
+Then $\Po$ is isomorphic to a downward-closed subtree of $\omega^{<\omega}$
+(where $\omega^{<\omega}$ is the lexicographic ordering on all finite sequences in $\NN$).
+\end{prop}
+
+\begin{prop}[Lemma 2.7 of Corduan-Groszek-Mileti \cite{CGM}, \RCAo]\label{P:CGM2}
+Let $n\geq 1$ and $k\geq 2$.
+Let $T$ be a downward-closed subtree of $\omega^{<\omega}$
+which is not linearly ordered.
+Suppose also that $T$ has elements on all levels.
+If $RT^n_k(T)$ holds then $T$ is biembeddable with $\bin$.
+\end{prop}
+
+
+\begin{proof}[Proof of Proposition~\ref{P:charRamBinm}]
+Since $RT^n(\Po)$ holds, $RT^2(\Po)$ also holds.
+
+Let $T\subseteq\bin$ be the projection of $\Po$ onto the first coordinate.
+In other words, $T=\set{\sigma}{(\exists x\leq|\sigma|)[(\sigma,x)\in\Po]\ }$.
+We now claim that $RT^2(T)$ holds.
+Let $c':[T]^2\to\{0,1,\ldots,k-1\}$ be a coloring of $T$.
+Then we can define another coloring $c'':[\Po]^2\to\{0,1,\ldots\}$
+by $c''((\sigma,x),(\tau,y))=c'(\sigma,\tau)$.
+Notice then that any set $H\subseteq\Po$ which is isomorphic
+to $\Po$ and monochromatic for $c''$ computes a set $H'\subseteq\bin$
+which is isomorphic to $T$ and monochromatic for $c'$.
+Thus $RT^2(T)$ holds.
+Therefore by Propositions~\ref{P:CGM1} and \ref{P:CGM2},
+$T$ is either biembeddable with $\omega$ or $\bin$.
+
+Given $\sigma\in\bin$, let $S(\sigma)=|\set{x}{(\sigma,x)\in\Po}|$.
+Consider the coloring $c:[\Po]^2\to\{\red,\blue\}$ defined by
+coloring $(\sigma,x)<(\tau,y)$ red if and only if $S(\sigma)<S(\tau)$.
+
+There are now four cases.
+In the first case, $T$ is biembeddable with $\bin$ and
+there is a $\red$-homogeneous copy of $\Po$ for the coloring $c$.
+It's then easy to see that there is an embedding of $\binm$ into $\Po$.
+
+In the second case, $T$ is biembeddable with $\bin$ and
+there is a $\blue$-homogeneous copy of $\Po$,
+which we will name $\Po'$.
+Let $T'$ be the projection of $\Po'$ onto the first coordinate,
+let $g:\bin\to T'$ be an embedding, and let $m=S(g(\seq{}))$.
+Notice that $S(\sigma)\leq m$ for every $\sigma\in T'$
+since $\Po'$ is $\blue$-homogeneous.
+We can then color the singletons of $\Po'$ with $m$-many
+colors so that $c(\sigma,x)\neq c(\sigma,y)$ for all $(\sigma,x),(\sigma,y)\in\Po'$.
+Since $RT^1(\Po)$ holds, we conclude that $S(\sigma)=1$
+for all $\sigma\in T'$, and thus $\Po$ is isomorphic to $\bin$.
+
+In the third [fourth] case we assume that $T$ is biembeddable with
+$\omega$ and that there is a $\red$-homogeneous [$\blue$-homogeneous]
+copy of $\Po$ for $c$.
+It is then easy to see that $\Po$ is biembeddable with $\omegam$ [$\omega$].
+\end{proof}
+
+\begin{thm}\label{T:charRamInBinm}
+Let $n\geq 3$.
+The following statement is equivalent to \ACAo\ over \RCAo:
+Let $\Po$ be a subordering of $\binm$ which has elements on all levels
+and which has a least element.
+Then $RT^n(\Po)$ holds if and only if $\Po$ is biembeddable with
+$\omega$, $\omegam$, $\bin$, or $\binm$.
+\end{thm}
+
+\begin{proof}
+First note that the statements $RT^n(\omega)$, $RT^n(\omegam)$, $RT^n(\bin)$, and $RT^n(\binm)$
+are all individually equivalent to \ACAo\ over \RCAo\
+(By \cite{SOSOA}, Proposition~\ref{P:omegamRamsey},
+\cite{CHM}, and Corollary~\ref{C:binmRamsey} respectively).
+Therefore the corollary holds by Proposition~\ref{P:charRamBinm} and Lemma~\ref{L:biemebedRam}.
+\end{proof}

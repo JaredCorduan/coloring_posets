@@ -1,0 +1,163 @@
+The \textit{conditions of Harrington forcing} are infinite subtrees of $2^{<\omega}$.
+
+This notion of forcing has been much studied in Reverse Mathematics \cite{SOSOA}.
+We choose Harrington forcing as a first example, though nothing
+proved here about Harrington forcing is really new.
+
+Note that Harrington forcing is not persistent.
+We now show that it is, however, almost persistent.
+
+\begin{lem}[\RCAo]\label{L:H:locallem}
+Let $T$ be an infinite subtree of $2^{<\omega}$,
+$F$ be a $k$-ary $T$-local name, and $\tup{x}\in\NN^k$.
+The tree
+$$T_{F(\tup{x})}=\set{\tau\in T}{F^\tau(\tup{x})\text{ is undefined at stage }|\tau|}$$
+is finite.
+(Recall that we consider $F^\tau(\tup{x})$ undefined at stage $n$ if
+there are no $w,y\leq n$ and $\sigma\subseteq\tau$
+such that $w$ witnesses that $F^\sigma(\tup{x})=y$.)
+\end{lem}
+\begin{proof}
+Suppose for the sake of contradiction that $T_{F(\tup{x})}$ is infinite.
+Then $T_{F(\tup{x})}$ is an extension of $T$.
+Therefore, since $F$ is $T$-local, there is a $\tau\in T_{F(\tup{x})}$
+such that $F^\tau(\tup{x})$ is defined by stage $|\tau|$.
+Moreover, there is an extension $\sigma\supseteq\tau$, such that
+$\sigma\in T_{F(\tup{x})}$ and $F^\tau(\tup{x})$ is defined at stage $|\sigma|$,
+contradicting the definition of $T_{F(\tup{x})}$.
+\end{proof}
+
+Recall that composition and primitive recursion for names
+was defined in Definition~\ref{D:comp&pr}.
+
+\begin{prop}[$\RCAo$]\label{P:H:comp&pr}
+For any condition $T$,
+the names defined by composition and primitive recursion
+using $T$-local names are themselves $T$-local.
+\end{prop}
+\begin{proof}
+First we consider composition.
+Let $F_0$ be an $\ell$-ary $T$-local name, $F_1,\ldots,F_\ell$ be $k$-ary $T$-local names,
+and $H=F_0\circ(F_1,\ldots,F_\ell)$.
+We show that $H$ is $T$-local.
+In other words, we let $T'\leq T$ and $\tup{x}\in\NN^k$
+and show that there is a $\tau\in T'$ such that $H^\tau(\tup{x})$ is defined.
+
+By Lemma~\ref{L:H:locallem}, given a $T$-local name $F$ we can define an increasing function
+$B_F(\tup{x})$ such that $F^\tau(\tup{x})$ is defined for all $\tau$
+on level $B_F(\tup{x})$ of $T'$.
+Let $m_0=\max\{B_{F_1}(\tup{x}),\ldots,B_{F_\ell}(\tup{x})\}$, and
+let $R$ be the set of all $\tup{y}\in\NN^\ell$ such that
+for some $\tau$ on level $m_0$ of $T'$, $F_i^\tau(\tup{x})=y_i$ for each $1\leq i\leq \ell$.
+Let $m_1=\max\set{B_{F_0}(\tup{y})}{\tup{y}\in R}$.
+Then $H^\tau(\tup{x})$ is defined for every $\tau$ on level $m_1$ of $T'$.
+
+Now we consider primitive recursion.
+Let $F_0$ be an $(k-1)$-ary $T$-local name, $F_1$ be a $(k+1)$-ary $T$-local name,
+and $H$ be the $k$-ary name defined by primitive recursion with $F_0$ and $F_1$.
+We now show that $H$ is $T$-local.
+In other words, we let $T'\leq T$, $\tup{x}\in\NN^{k-1}$, and $y\in\NN$
+and we show that there is a $\tau\in T'$ such that $H^\tau(\tup{x},y)$ is defined.
+
+Let $m_0=B_{F_0(\tup{x})}$ and let $R_0$ be the set of all
+values $F_0^\tau(\tup{x})$ such that $\tau$ is on level $m_0$ of $T'$.
+Let $m_1=\max\set{B_{F_1}(\tup{x},0,z_0)}{z_0\in R_0}$ and let $R_1$ be the set of all
+values $F_1^\tau(\tup{x},0,z_0)$ such that $\tau$ is on level $m_0$ of $T'$ and $z_0\in R_0$.
+Continuing in this way, we let $m_{i+1}=\max\set{B_{F_1}(\tup{x},i,z_i)}{z_i\in R_i}$
+and let $R_{i+1}$ be the set of all
+values $F_1^\tau(\tup{x},i,z_i)$ such that $\tau$ is on level $m_0$ of $T'$ and $z_i\in R_i$.
+Then $H^\tau(\tup{x},y)$ is defined for all $\tau$ on level $m_y$ of $T'$.
+\end{proof}
+
+\begin{prop}[\RCAo]\label{P:H:almost persistent2}
+For every $n\in\NN$ and condition $T$ there is a $\tau\in T$ such that
+$|\tau|\geq n$ and $T_\tau$ is a condition.
+\end{prop}
+
+Note that this proposition is slightly stronger
+than the second requirement for being
+an almost persistent notion of forcing.
+
+\begin{proof}
+For each $m\geq n$ let $L_m$ be the set of elements on level $n$ of $T$
+which have an extension on level $m$.
+In other words,
+$$L_m=\set{\tau\in T}{|\tau|=n\text{ and }(\exists\sigma\in T)(\tau\subseteq\sigma \land |\sigma|=m)}.$$
+Notice that $\seq{L_m}_{m\in\NN}$ is a nonincreasing sequence of finite sets.
+By $\Ind{\BSigma^0_1}$ there is an $m\geq n$
+such that $L_{m'}=L_{m''}$ for all $m',m''\geq m$.
+Therefore given any $\sigma\in L_m$,
+$T_\sigma$ is infinite.
+\end{proof}
+
+\begin{prop}[\RCAo]\label{P:H:almost persistent3}
+Let $T$ be an infinite subtree of $2^{<\omega}$,
+$F$ be a $k$-ary $T$-local name, and $\tup{x}\in\NN^k$.
+There is a $\tau\in T$ such that $F^\tau(x)$ is defined
+and $T_\tau$ is infinite.
+\end{prop}
+\begin{proof}
+By Lemma~\ref{L:H:locallem} there is an $n\in\NN$ such that
+$F^\tau(\tup{x})$ is defined for all $\tau\in T$ such that $|\tau|=n$.
+For each $m\geq n$ let $L_m$ be the set of elements on level $n$ of $T$
+which have an extension on level $m$.
+In other words,
+$$L_m=\set{\tau\in T}{|\tau|=n\text{ and }(\exists\sigma\in T)(\tau\subseteq\sigma \land |\sigma|=m)}.$$
+Notice that $\seq{L_m}_{m\in\NN}$ is a nonincreasing sequence of finite sets.
+By $\Ind{\BSigma^0_1}$ there is an $m\geq n$
+such that $L_{m'}=L_{m''}$ for all $m',m''\geq m$.
+Therefore given any $\sigma\in L_m$,
+$T_\sigma$ is infinite and $F^\sigma(\tup{x})$ is defined.
+\end{proof}
+
+\begin{cor}[\RCAo]\label{C:H:almost persistent}
+Harrington forcing is almost persistent.
+\end{cor}
+\begin{proof}
+Follows immediately from Propositions~\ref{P:H:comp&pr}, \ref{P:H:almost persistent2}, and \ref{P:H:almost persistent3}.
+\end{proof}
+
+\begin{lem}[\RCAo]\label{L:H:realForc}
+For every $\BSigma^0_2$-generic filter over a model of \RCAo\
+there exists a generic real for Harrington forcing.
+\end{lem}
+\begin{proof}
+Since $\mathcal{D}_T=\{S:S\cap T\text{ is finite }\lor\ S\leq T\}$ is clearly
+open dense for every condition $T$, the lemma follows from Lemma~\ref{L:Gen:realForc}.
+\end{proof}
+
+\begin{thm}
+Let $\MM$ be a model of \RCAo\
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$ for Harrington forcing.
+
+Then $\MM[G]$ is a model of $\RCAo$.
+\end{thm}
+\begin{proof}
+Follows from Corollary~\ref{C:H:almost persistent}, Lemma~\ref{L:H:realForc}, and Proposition~\ref{T:presRCA}.
+\end{proof}
+
+We finish this example by showing that Harrington
+forcing does not add unbounded reals.
+
+\begin{thm}[\RCAo]\label{P:H:bndedNames}
+If $F$ is a $T$-local name, then there is a function $B$
+such that $$T \Vdash (\forall\tup{v})[F(\tup{v}) \leq \check{B}(\tup{v})].$$
+\end{thm}
+\begin{proof}
+By Lemma~\ref{L:H:locallem} we can define an increasing function
+$L(\tup{x})$ such that $F^\tau(\tup{x})$ is defined for all $\tau$
+on level $L(\tup{x})$ of $T$.
+Let $B(\tup{x})=\max\set{F^\tau(\tup{x})}{|\tau|=L(\tup{x})}$.
+Then $B$ satisfies the conclusion of the lemma.
+\end{proof}
+
+\begin{cor}
+Let $\MM$ be a model of \RCAo\
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a generic filter $\mathcal{G}$ for Harrington forcing.
+
+For every function $f:\NN\to\NN$ in $\MM[G]$
+there is a function $b$ in $\MM$ such that
+$f(x)\leq b(x)$ for all $x$.
+\end{cor}

@@ -1,0 +1,151 @@
+\documentclass{dcthesis}[]
+
+\usepackage{amsthm,amssymb}
+\usepackage{MnSymbol}
+\usepackage[all]{xy}
+\usepackage{hyperref}
+\usepackage{makeidx}
+\usepackage{allrunes}
+
+\makeindex
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumii}{(\roman{enumii})}
+\renewcommand{\chaptermark}[1]{\markboth{{\bf #1}}{{\bf #1}}}
+\renewcommand{\sectionmark}[1]{\markright{{\bf \thesection\ #1}}}
+
+\newtheorem{prop}{Proposition}[chapter]
+\newtheorem{thm}[prop]{Theorem}
+\newtheorem{lem}[prop]{Lemma}
+\newtheorem{cor}[prop]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[prop]{Definition}
+
+
+%Macros
+\newcommand{\RCAo}{\ensuremath{\mathsf{RCA}_0}}
+\newcommand{\WKLo}{\ensuremath{\mathsf{WKL}_0}}
+\newcommand{\ACAo}{\ensuremath{\mathsf{ACA}_0}}
+\newcommand{\Bnd}[1]{\ensuremath{\mathsf{B}{#1}}}
+\newcommand{\Ind}[1]{\ensuremath{\mathsf{I}{#1}}}
+\newcommand{\Reg}[1]{\ensuremath{\mathsf{R}{#1}}}
+\newcommand{\BSigma}{\mathbf{\Sigma}}
+\newcommand{\BDelta}{\mathbf{\Delta}}
+\newcommand{\BPi}{\mathbf{\Pi}}
+\newcommand{\EIndec}{\mathsf{Elem{\mbox{-}}Indec}}
+\newcommand{\SEIndec}{\mathsf{Stab{\mbox{-}}Elem{\mbox{-}}Indec}}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\bin}{2^{<\omega}}
+\newcommand{\binm}{2^{<\omega}_{\mathsf{m}}}
+\newcommand{\omegam}{\omega_\mathsf{m}}
+\newcommand{\OO}{\omega^{<\omega}}
+\newcommand{\Po}{\mathbb{P}}
+\newcommand{\Qo}{\mathbb{Q}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\Forc}{\mathbb{F}}
+
+\newcommand{\set}[2]{\left\{#1\ :\ #2\right\}}
+\newcommand{\seq}[1]{\left\langle #1\right\rangle}
+\newcommand{\tup}[1]{\overline{#1}}
+\newcommand{\first}[1]{\mathsf{1st}(#1)}
+\newcommand{\second}[1]{\mathsf{2nd}(#1)}
+
+\newcommand{\cat}{{}^\frown}
+\newcommand{\lex}{<_{\mathrm{lex}}}
+\newcommand{\uhr}{{\upharpoonright}}
+\newcommand{\LB}{\mathcal{L}}
+\newcommand{\Pred}{\mathsf{Pred}}
+\newcommand{\red}{\mathsf{red}}
+\newcommand{\blue}{\mathsf{blue}}
+\newcommand{\dom}{\mathsf{dom}}
+\newcommand{\MCP}{\ensuremath{\mathsf{MCP}}}
+
+% MYSTIC RUNE
+\newcommand{\rune}{\textara{Y}}
+%\newcommand{\rune}{$\tilde{A}$} % boring substitution
+
+\title{Coloring Posets and Reverse Mathematics}
+\author{Jared Ralph Corduan}
+\date{January 21, 2011}
+\field{Mathematics}
+\degree{Doctor of Philosophy}
+\committee{Marcia Groszek}{Jeff Hirst}{Rebecca Weber}{Peter Winkler}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\chapter*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+	\input{abstract}
+
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{section}{Acknowledgments}
+	\input{acknowledgments}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Introduction}\label{Intro}
+\section{Reverse Mathematics}\label{IntroRevMath}
+	\input{RevMath}
+\section{Ramsey's Theorem}\label{IntroRam}
+	\input{Ramsey}
+
+\chapter{Coloring Posets}\label{Posets}
+	\input{PosetIntro}
+\section{Binary Tree with Multiplicities}\label{POMult}
+	\input{POMult}
+\section{Amenable Posets}\label{POAmenable}
+	\input{Amenable}
+
+\chapter{Coloring Ordinals}\label{Ords}
+	\input{OrdIntro}
+\section{Elementary Indecomposability}\label{ElemIndec}
+	\input{ElemIndec}
+\section{Indecomposability and Embeddings}\label{Indec&Embed}
+	\input{Indec&Embed}
+
+\chapter{Forcing in Reverse Mathematics}\label{Forcing}
+	\input{ForcingIntro}
+\section{The Basics}\label{ForcingBasics}
+	\input{ForcingBasics}
+
+% NOTE: care is needed with the labeling of the next two sections.
+%	if the hyperref package is used, we use the first section declaration,
+%	otherwise we use the second one
+
+\section{Witnessing in \texorpdfstring{\RCAo}{RCA0}}\label{witRCAo}
+%\section{Witnessing in \RCAo}\label{witRCAo}
+	\input{witRCAo}
+\section{Coloring Conditions \& Witnessing in \texorpdfstring{\ACAo}{ACA0}}\label{witACAo}
+%\section{Coloring Conditions \& Witnessing in \ACAo}\label{witACAo}
+	\input{witACAo}
+\section{The Generic Extension}\label{generic}
+	\input{generic}
+\section{Examples}\label{forcingExamples}
+	\input{ForcingExamples}
+
+	\subsection{Harrington Forcing}\label{harrington}
+		\input{harrington}
+	\subsection{Random Forcing}\label{random}
+		\input{random}
+	\subsection{Sacks \& Silver Forcing}\label{sacks}
+		\input{sacks}
+	\subsection{Miller Forcing}\label{miller}
+		\input{miller}
+
+
+\backmatter
+
+\bibliographystyle{amsplain}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{Jrefs}
+
+\printindex
+
+\end{document}

@@ -1,0 +1,395 @@
+We now consider two closely related notions of forcing,
+namely Sacks forcing and Silver forcing.
+In addition to applying the results of Section~\ref{generic}
+to these two examples, we show that generic reals
+for these two notions of forcing can be made to be well-behaved in certain ways.
+
+The \textit{conditions for Sacks forcing} are perfect subtrees of $2^{<\omega}$.
+In other words, the conditions are subtrees $T\subseteq 2^{<\omega}$
+such that for all $\tau\in T$ there is a $\sigma\supseteq\tau$ such that
+$\sigma$ is a splitting node.
+We say that $\sigma$ is a splitting node if
+$\sigma\cat{0},\sigma\cat{1}\in T$.
+Notice that Sacks forcing is persistent.
+
+The \textit{conditions for Silver forcing} are usually thought of as
+partial functions $f:\NN\to\{0,1\}$ whose domain is coinfinite.
+Silver conditions can also be thought of as certain subtrees of $2^{<\omega}$.
+Given a partial function $f:\NN\to\{0,1\}$ whose domain is coinfinite,
+consider the tree $T$ defined by
+\begin{itemize}
+\item $\seq{}\in T$,
+\item if $\tau\in T$ and $|\tau|\notin\dom(f)$ then $\tau$ splits in $T$,
+\item if $\tau\in T$ and $|\tau|\in\dom(f)$ then $\tau$ has exactly one extension
+	in $T$, namely $\tau\cat{f(|\tau|)}$.
+\end{itemize}
+Notice that the branches through $T$ are exactly the total extensions of $f$.
+We can therefore define Silver conditions to be all trees $T\subseteq \bin$
+with infinitely many nodes that split and such that for every $n\in\NN$,
+one of the following holds:
+\begin{itemize}
+\item if $|\tau|=n$ then $\tau$ splits in $T$, or
+\item if $|\tau|=n$ then $\tau\cat{0}\in T$ and $\tau\cat{1}\notin T$, or
+\item if $|\tau|=n$ then $\tau\cat{0}\notin T$ and $\tau\cat{1}\in T$.
+\end{itemize}
+In other words, Silver conditions are the Sacks conditions such that
+on every level, either every node splits, every node branches only to the left,
+or every node branches only to the right.
+
+Silver forcing and Sacks forcing are very similar.
+In fact, everything that we will prove about Sacks
+forcing will be proved about Silver forcing with a nearly identical proof.
+
+\begin{prop}[\ACAo]\label{P:Sk:MCP}
+Sacks forcing satisfies $\MCP$.
+\end{prop}
+\begin{proof}
+Fix a sequence of monotone colorings $c_i:2^{<\omega}\rightarrow \{0,1\}$
+of a condition $T$.
+We will construct an extension $T'\leq T$ in stages,
+so that the $n$-th splitting level of $T'$ is defined at stage $n$.
+In fact, $T'$ will be defined so that for all $\sigma$ such that $|\sigma|\geq n$,
+$c_n(\sigma)$ will be determined at the $n$-th splitting level of $T'$.
+Therefore $T'$, along with its splitting levels as a set of layers,
+will satisfy the conclusion of \MCP.
+
+At stage $0$ we look for a $\sigma$ such that $c_0(\sigma)=1$.
+If such a $\sigma$ exists, we place it (and every node below it) into $T'$.
+Otherwise, we place $\langle\rangle$ into $T'$.
+
+At stage $n+1$ we look at each of the $2^n$ nodes defined at stage $n$.
+List these nodes as $\tau_1,\ldots,\tau_{2^n}$.
+We look for a $\sigma\supseteq\tau_1\cat{0}$ such that $c_0(\sigma)=1$.
+If such a $\sigma$ exists, we place it (and every node below it) into $T'$.
+Otherwise, we place $\tau_1\cat{0}$ into $T'$.
+We now repeat this process for $\tau_1\cat{1}$, and also for
+$\tau_i\cat{j}$ for each $2\leq i\leq 2^n$ and $j<2$.
+\end{proof}
+
+\begin{lem}\label{L:Sk:realForc}
+For every $\BSigma^0_2$-generic filter over a model of \RCAo\
+there exists a generic real for Sacks forcing.
+\end{lem}
+
+\begin{proof}
+By Lemma~\ref{L:Gen:realForc} it
+suffices to show that if $T$ is a condition, then
+$$\mathcal{D}_T=\{S:S\cap T\text{ is finite }\lor\ S\leq T\}$$
+is open dense.
+
+Suppose that $T'\cap T$ contains no perfect subtree.
+If $T'\cap T$ is empty, then we're done.
+Otherwise we can choose a $\sigma\in T'\cap T$ such that no
+$\tau\supseteq\sigma$ splits in $T'\cap T$.
+We can therefore find a $\tau\supseteq\sigma$ such that
+$\tau\in T'\setminus T$.
+Then $T'_\tau\leq T'$ and $T'_\tau\cap T$ is finite,
+so $T'_\tau\in\mathcal{D}_T$.
+\end{proof}
+
+\begin{thm}
+Let $\MM$ be a model of \RCAo\ (\ACAo)
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$ for Sacks forcing.
+
+Then $\MM[G]$ is a model of \RCAo\ (\ACAo).
+\end{thm}
+\begin{proof}
+Follows from Propositions \ref{T:presRCA} and Proposition~\ref{T:presACA}.
+\end{proof}
+
+\begin{prop}[\ACAo]\label{P:Sl:MCP}
+Silver forcing satisfies $\MCP$.
+\end{prop}
+\begin{proof}
+The proof is nearly identical to that of Proposition~\ref{P:Sk:MCP}.
+We explain briefly how to modify the proof of Proposition~\ref{P:Sk:MCP}.
+
+The proofs of of Proposition~\ref{P:Sk:MCP} used a stagewise
+construction where at stage $n+1$ the $n$-th splitting
+level was extended to the $(n+1)$-th splitting level, meeting some requirements.
+Since Silver conditions are a bit more restrictive than Sacks conditions,
+care is needed when extending nodes from one level to a higher level.
+
+Suppose that $\tau_1,\tau_2,\ldots,\tau_k$ are the nodes of level $n$
+of a Silver condition $T$, and that all these nodes split.
+Just as was done in Sacks forcing,
+we find an appropriate splitting node $\sigma_1\supseteq\tau_1$.
+We then extend each of the other nodes $\tau_i$, for $2\leq i\leq k$
+to match $\sigma_1$: let $\tau_i'(x)=\sigma_1(x)$ for each $|\tau_1|\leq k<|\sigma_1|$.
+Note that $\sigma_i\in T$ for all $2\leq i\leq k$ since
+$\sigma_1\in T$ and $T$ is a Silver condition.
+It is necessary that we extend all the nodes $\sigma_i$
+like this so that we end up with a Silver condition.
+At this point, of the nodes $\sigma_1, \tau_2',\tau_3',\ldots,\tau_k'$,
+only $\sigma_1$ meets whatever requirement we are concerned with.
+We now find an extension $\sigma_2\supseteq\tau_2'$ that meets the relevant requirement.
+We then extend each of $\sigma_1,\tau_3',\tau_4'$ so that the extensions match $\sigma_2$.
+Continuing in this way, and eventually finding an extension $\rho_i$ of each $\tau_i$,
+for $1\leq i\leq k$, such that $\rho_i$ meet the requirement and the set of all $\rho_i$
+is a valid $(n+1)$-splitting level for a Silver condition.
+
+With this adjustment, the proof of Proposition~\ref{P:Sk:MCP} suffices to prove
+the same proposition for Silver forcing.
+\end{proof}
+
+\begin{lem}\label{L:Sl:realForc}
+For every $\BSigma^0_2$-generic filter over a model of \RCAo\
+there exists a generic real for Silver forcing.
+\end{lem}
+\begin{proof}
+The proof is similar to that of Lemma~\ref{L:Sk:realForc}.
+\end{proof}
+
+\begin{thm}
+Let $\MM$ be a model of \RCAo\ (\ACAo)
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a $\BSigma^1_2$-generic filter $\mathcal{G}$ for Sacks forcing.
+
+Then $\MM[G]$ is a model of \RCAo\ (\ACAo).
+\end{thm}
+\begin{proof}
+Follows from Propositions \ref{T:presRCA} and Proposition~\ref{T:presACA}.
+\end{proof}
+
+We now show that we can add a cone avoiding, or generalized low-2,
+Sacks generic real.
+
+\begin{prop}\label{P:Sk:CAgeneric}
+Let $\MM$ be a model of $\ACAo$ and $A$ be a noncomputable set in $\MM$.
+There is a Sacks condition $T$ such that no branch through $T$ computes $A$.
+\end{prop}
+
+\begin{proof}
+We construct $T$ in stages so that $T$ is defined up
+to the $n$-th splitting level at stage $n$.
+Moreover, at stage $n$ we will guarantee
+that $\Phi^f_n\neq\chi_A$ for all $f\in[T]$.
+
+At stage 0 we look for a $\sigma\in\bin$
+and an $x$ such that $\Phi_0^{\sigma}(x)\downarrow\neq\chi_{A}(x)$.
+If such $\sigma$ and $x$ exist, we place $\sigma$ into $T$.
+We have then ensured that $\Phi_0^f\neq\chi_A$ for all
+$f\in[\bin]$ which extend $\sigma$.
+Otherwise, if no such $\sigma$ and $x$ exist,
+we place $\seq{}$ into $T$ and claim that
+if $f\in [\bin]$ then $\Phi_0^f$ is \textit{not} total
+(and hence distinct from $\chi_A$).
+Suppose, for the sake of contradiction, that $\Phi_0^f$ is total.
+We can then compute $\chi_A(x)$ by searching for
+a $\sigma$ such that $\Phi_0^\sigma(x)\downarrow$.
+Such a $\sigma$ exists since $\Phi_0^f$ is total,
+and $\Phi_0^\sigma(x)=\Phi_0^f(x)=\chi_A(x)$ since,
+by assumption, there is no $\sigma$ such that
+$\Phi_0^\sigma(x)\neq\chi_A(x)$.
+This is a contradiction since $A$ was assumed to be noncomputable.
+
+At stage $(n+1)$ we begin by looking at $\rho\cat0$ and $\rho\cat1$
+for each node $\rho$ defined during stage $n$.
+List these nodes by $\tau_1,\tau_2,\ldots,\tau_{2^{n+1}}$.
+We now look for a node $\sigma\supseteq\tau_1$ and an $x$
+such that $\Phi_{n+1}^\sigma(x)\downarrow\neq\chi_A(x)$.
+If such $\sigma$ and $x$ exist, we place $\sigma$ into $T$.
+Otherwise we place $\tau_1$ into $T$.
+By the same argument as in the previous paragraph,
+$\Phi_{n+1}^f\neq\chi_A$ when ever $f$ is a path
+through $2^{<\omega}$ which extends $\tau_1$.
+We now repeat this procedure for $\tau_2,\ldots,\tau_{2^{n+1}}$.
+\end{proof}
+
+\begin{cor}
+Let $\MM$ be a model of \ACAo.
+Suppose that $A$ is a noncomputable set in $\MM$
+and that $\mathcal{G}$ is a generic filter for Sacks forcing.
+Then there is a generic real $G$ corresponding to $\mathcal{G}$
+such that $A\not\leq_{\text{T}}G$.
+\end{cor}
+
+\begin{prop}\label{P:Sk:GL2generic}
+Let $\MM$ be a model of $\ACAo$.
+There is a Sacks condition $T$ such that for every branch $G\in[T]$,
+$G''\leq G\oplus0''$.  In other words, $T$ only contains GL$_2$ generic reals.
+\end{prop}
+
+\begin{proof}
+We construct $T$ in stages so that $T$ is defined up to the $n$-th splitting level at stage $n$.
+At the beginning of stage $n+1$, each of the $2^n$ nodes defined in stage $n$
+will be marked as either ``needing help with $m$" or ``not needing help with $m$" for each $m\leq n$.
+
+At stage 0 we look for a node $\sigma$ and a $k$
+such that for all $\tau\supseteq\sigma$, $\Phi_0^\tau(k)\uparrow$.
+Note that we can ask such questions with a $0''$ oracle.
+If such $\sigma$ and $k$ exist, we let $\sigma'$ and $\sigma''$
+be any two incomparable nodes above $\sigma$.
+We place $\sigma'$ and $\sigma''$
+into $T$ and mark them as ``not needing help with 0".
+Notice that if $G:\NN\to\{0,1\}$ extends $\sigma$
+then $\Phi_0^f$ is not total.
+
+If no such $\sigma$ and $k$ exist, then we know
+that for every $\tau\supseteq\sigma$ and every $k$
+there is a $\rho\supseteq\tau$ such that $\Phi_0^\rho(k)\downarrow$.
+We place $\langle 0\rangle$ and $\langle 1\rangle$
+into $T$ and mark them as ``needing help with 0".
+
+At stage $n+1$ we begin by considering all the nodes
+$\sigma_1',\ldots,\sigma_{2^{n}}'$ that were defined in the previous stage.
+For each $\sigma_i'$ we find a $\sigma_i\supseteq\sigma_i'$ such
+that for all $m\leq n$, if $\sigma_i'$ is marked as
+``needing help with $m$", then $\Phi_m^{\sigma_i}(k)\downarrow$
+for each $k\leq n$.
+This is possible because $\sigma_i'$ could only have been
+marked as ``needing help with $m$" if such an extension
+is always possible.
+
+For each $1\leq i\leq 2^n$ we do the following.
+We look for a node $\sigma\supseteq\sigma_i$ and a $k$
+such that for all $\tau\supseteq\sigma$, $\Phi_{n+1}^\tau(k)\uparrow$.
+Note that we can ask such questions with a $0''$ oracle.
+If such $\sigma$ and $k$ exist, we let $\sigma'$ and $\sigma''$
+be any two incomparable nodes above $\sigma$.
+We place $\sigma'$ and $\sigma''$
+into $T$ and mark them as ``not needing help with $n+1$".
+For $m\leq n$, we mark $\sigma'$ and $\sigma''$
+as ``needing help with $m$" if and only if $\sigma_i$
+was marked as ``needing help with $m$".
+Notice that if $G:\NN\to\{0,1\}$ extends $\sigma$
+then $\Phi_0^f$ is not total.
+
+If no such $\sigma$ and $k$ exists, then we know
+that for every $\tau\supseteq\sigma_i$ and every $k$
+there is a $\rho\supseteq\tau$ such that $\Phi_0^\rho(k)\downarrow$.
+We let $\sigma'$ and $\sigma''$
+be any two incomparable nodes above $\sigma_i$, and we
+place them into $T$ and mark them as ``needing help with $n+1$".
+For $m\leq n$, we mark $\sigma'$ and $\sigma''$
+as ``needing help with $m$" if and only if $\sigma_i$
+was marked as ``needing help with $m$".
+
+This ends the construction.
+We now show that if $G\in[T]$, then $G''\leq G\oplus 0''$.
+It suffices to show that we can use $G$ and $0''$
+to compute the set of indices $e$ such that
+$\Phi_e^G$ is total.
+To determine if $\Phi^G_e$ is total, we do the following.
+Suppose that $\sigma$ is the topmost node at
+stage $e$ that meets $G$.
+If $\sigma$ was marked as ``not needing help with $e$"
+then $\Phi_e^G$ is not total.
+In fact, if $k$ is the number that witnesses that
+$\sigma$ was marked as ``not needing help with $e$",
+then $\Phi_e^G(k)\uparrow$.
+If, on the other hand, $\sigma$ was marked as
+``needing help with $e$", then $\Phi_e^G(m)$
+converges by the $m$-th splitting level of $T$.
+In other words, if $\sigma$ is the topmost node at
+stage $m$ that meets $G$, then $\Phi_e^G(m)\downarrow$.
+\end{proof}
+
+\begin{cor}
+Let $\MM$ be a model of \ACAo.
+Suppose $\mathcal{G}$ is a generic filter for Sacks forcing.
+Then there is a generic real $G$ corresponding to $\mathcal{G}$
+such that $G$ is GL$_2$.
+\end{cor}
+
+We now show that Sacks forcing does not add unbounded reals.
+
+\begin{prop}[\RCAo]\label{P:Sk:StrBnding}
+Let $T$ be a Sacks condition and $F$ be a $T$-local name.
+There is a condition $T'\leq T$ such that for all $n$,
+if $\tau\in T'$ is above the $n$-th splitting level of $T'$
+then $F_\tau(x)$ is defined by stage $|\tau|$ for all $x\leq n$.
+\end{prop}
+
+\begin{proof}
+We assume, for ease of notation,
+that $F$ is a 1-ary name.
+We will construct $T'$ in stages.
+
+We begin with stage 0.
+Since $F$ is $T$-local, there is a $\tau\in T$ such that $F^\tau(0)$ is defined.
+Let $\sigma$ be a splitting node above $\tau$.
+We place $\sigma\cat{0}$ and $\sigma\cat{1}$ into $T'$.
+
+At stage $n+1$ we begin with the the $2^{n+1}$-many
+nodes that were defined at stage $n$.
+Let $\rho$ be one such node.
+Since $F$ is $T_\rho$-local, there is a $\tau\in T_\rho$ such that $F^\tau(n+1)$ is defined.
+Let $\sigma$ be a splitting node above $\tau$.
+We place $\sigma\cat{0}$ and $\sigma\cat{1}$ into $T'$.
+
+Finally, we close $T'$ downward so that it is in fact a tree.
+This ends the construction, and it is easy to see that $T'$
+satisfies the proposition.
+\end{proof}
+
+\begin{cor}[\RCAo]\label{P:Sk:bndedNames}
+Let $T$ be a Sacks condition and $F$ be a $T$-local name.
+There is an extension $T'\leq T$ and a function $B$
+such that $$T' \Vdash (\forall\tup{v})[F(\tup{v}) \leq \check{B}(\tup{v})].$$
+\end{cor}
+\begin{proof}
+Let $T'\leq T$ be as in the conclusion of Proposition~\ref{P:Sk:StrBnding}.
+Let \newline $B(x)=\max\set{F^\tau(x)}{\tau\text{ is on the }n\text{-th splitting level of }T'}.$
+\end{proof}
+
+\begin{cor}
+Let $\MM$ be a model of \RCAo\
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a generic filter $\mathcal{G}$ for Sacks forcing.
+
+For every function $f:\NN\to\NN$ in $\MM[G]$
+there is a function $b$ in $\MM$ such that
+$f(x)\leq b(x)$ for all $x$.
+\end{cor}
+
+The results which we have now proved about Sacks forcing
+also hold for Silver forcing.
+In the same way that we modified the proof of Proposition~\ref{P:Sk:MCP}
+to work for Silver forcing, namely by being careful about extending splitting levels,
+we can modify the proofs of our recent results about Sacks forcing to hold for Silver forcing.
+We now state, without proof, the corresponding results for Silver forcing.
+
+\begin{prop}\label{P:Sl:CAgeneric}
+Let $\MM$ be a model of $\ACAo$ and $A$ be a noncomputable set in $\MM$.
+There is a Silver condition $T$ such that no branch through $T$ computes $A$.
+\end{prop}
+
+\begin{cor}
+Let $\MM$ be a model of \ACAo.
+Suppose that $A$ is a noncomputable set in $\MM$
+and that $\mathcal{G}$ is a generic filter for Silver forcing.
+Then there is a generic real $G$ corresponding to $\mathcal{G}$
+such that $A\not\leq_{\text{T}}G$.
+\end{cor}
+
+\begin{prop}\label{P:Sl:GL2generic}
+Let $\MM$ be a model of $\ACAo$.
+There is a Silver condition $T$ such that for every branch $G\in[T]$,
+$G''\leq G\oplus0''$.  In other words, $T$ only contains GL$_2$ generic reals.
+\end{prop}
+
+\begin{cor}
+Let $\MM$ be a model of \ACAo.
+Suppose $\mathcal{G}$ is a generic filter for Silver forcing.
+Then there is a generic real $G$ corresponding to $\mathcal{G}$
+such that $G$ is GL$_2$.
+\end{cor}
+
+\begin{prop}[\RCAo]\label{P:Sl:StrBnding}
+Let $T$ be a Silver condition and $F$ be a $T$-local name.
+There is a condition $T'\leq T$ such that for all $n$,
+if $\tau\in T'$ is above the $n$-th splitting level of $T'$
+then $F_\tau(x)$ is defined by stage $|\tau|$ for all $x\leq n$.
+\end{prop}
+
+\begin{cor}
+Let $\MM$ be a model of \RCAo\
+and suppose that $G$ is a generic real for $\Forc$
+corresponding to a generic filter $\mathcal{G}$ for Silver forcing.
+
+For every function $f:\NN\to\NN$ in $\MM[G]$
+there is a function $b$ in $\MM$ such that
+$f(x)\leq b(x)$ for all $x$.
+\end{cor}

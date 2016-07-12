@@ -1,0 +1,42 @@
+Ramsey's theorem \index{Ramsey's theorem} is often thought of as
+a generalization of the pigeonhole principle.
+Let $\NN$ denote the set of natural numbers.
+Given a number $n$, let $[\NN]^n$ denote the
+set of subsets of $\NN$ of size $n$.
+The infinite version of Ramsey's theorem \cite{Ramsey}
+(which we will refer to as Ramsey's theorem)
+says that for every $n,k\geq 1$, and every map
+$c$ from $[\NN]^n$ to the finite set $\{0,1,\ldots,k-1\}$,
+there is an infinite set $H\subseteq\NN$ such that
+$c$ is constant when restricted to $[H]^n$.
+The map $c$ is referred to as a \textit{coloring} of $[\NN]^n$,
+the finite set $\{0,1,\ldots,k-1\}$ is referred to as the set of
+\textit{colors} of $c$, and the set $H$ is referred to as a
+\textit{monochromatic} or \textit{homogeneous} set for $c$.
+Sometimes we will fix a particular number $n$ and
+refer to Ramsey's theorem for $n$-tuples (or pairs, etc).
+
+Ramsey's Theorem was of interest in mathematical logic
+even before Reverse Mathematics was around.
+In 1971 Specker proved that there is a computable coloring
+$c:[\NN]^2\to\{0,1\}$ that has no computable monochromatic set \cite{Specker:1,Specker:2}.
+This corresponds to the fact in Reverse Mathematics that
+Ramsey's theorem for pairs cannot be proved in \RCAo.
+Many other interesting results about Ramsey's theorem
+were proved by Jockusch in 1972 \cite{Jockusch:Ramsey}.
+The results of Jockusch were later used by Simpson
+to show that for any $n\geq 3$, Ramsey's theorem
+for $n$-tuples is equivalent, over \RCAo, to \ACAo.
+Hirst showed that Ramsey's theorem for singletons ($n=1$)
+is equivalent to the bounding principle $\Bnd{\BSigma^0_2}$ \cite{Hirst:thesis}.
+A definition of $\Bnd{\BSigma^0_2}$ will be given in Section~\ref{ElemIndec}.
+Surprisingly, characterizing Ramsey's theorem for pairs remains an active
+area of research \cite{SeetapunSlaman,CJS,HirschfeldtShore,DzhafarovHirst,DzhafarovJockusch}.
+Much of what is known about Ramsey's theorem for
+pairs was proved using the ideas of set theoretic forcing.
+
+In Chapters~\ref{Posets} and \ref{Ords} we consider two different
+generalizations of Ramsey's theorem.
+In Chapter~\ref{Forcing} we consider a general framework
+for making sense of forcing in Reverse Mathematics and prove
+some conservation results.

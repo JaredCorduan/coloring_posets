@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pdflatex thesis.tex
+bibtex thesis.aux
+makeindex thesis.idx
+pdflatex thesis.tex
+pdflatex thesis.tex
+
+mv thesis.pdf /artifacts/coloring_posets.pdf

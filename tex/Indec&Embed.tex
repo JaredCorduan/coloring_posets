@@ -1,0 +1,169 @@
+This section is joint work with Dorais.
+
+We now consider $RT^1(\omega^n)$ and the
+more natural definition of `order type $\omega^n$'.
+As in Section~\ref{ElemIndec}, we choose a particular
+representation of the elements of $\omega^n$, namely $\NN^n$,
+which we order lexicographically.
+In other words, if $\tup{x},\tup{y}\in\NN^n$, then
+$\tup{x}\lex\tup{y}$ if $x_i<y_i$, where $i=\mathsf{min}\set{j<k}{x_j\neq y_j}$.
+The following definition is then a special case of Definition~\ref{D:RamseyPOsets}.
+
+\begin{definition}
+$RT_k^1(\omega^n)$ is the following statement:
+
+For every finite coloring $c: \NN^n \to \{0,\dots,k-1\}$,
+there is a lexicographic embedding\index{lexicographic embedding}
+$h: \NN^n \to \NN^n$ such that $c \circ h$ is constant.
+\end{definition}
+
+We will use $RT^1(\omega^n)$ to denote $(\forall k)RT_k^1(\omega^n)$.
+Notice that $RT^1(\omega^1)$, just like $\EIndec^1$,
+is a rephrasing of the infinite pigeonhole principle,
+which Hirst proved equivalent to $\Bnd{\BSigma^0_2}$ over \RCAo\ \cite{Hirst:thesis}.
+The main result of this section is that $RT^1_2(\omega^3)$ is equivalent to $\ACAo$
+over \RCAo, which we will prove using three lemmas.
+
+Given $h:\NN^n\to\NN^n$ and $1\leq i\leq n$,
+we let $h_i:\NN^n\to\NN$ be projection of $h$
+onto the $i$-th coordinate.
+
+\begin{lem}[Corduan-Dorais; $\RCAo$; $n\geq 1$]\label{L:lexfst}
+If $h:\NN^n\to\NN^n$ is a lexicographic embedding then
+$$x_1 \leq h_1(x_1,x_2,\dots,x_n) < h_1(x_1+1,0,\dots,0)$$
+for all $x_1,\dots,x_n \in \NN$.
+\end{lem}
+
+\begin{proof}
+By (external) induction on $n$.
+The case $n=1$ is trivial.
+Suppose then that the result is true for $n$.
+Let $h:\NN^{n+1}\to\NN^{n+1}$ be a lexicographic embedding.
+
+We show that
+$$h_1(x_1,x_2,\dots,x_{n+1}) < h_1(x_1+1,0,\dots,0)$$
+for all $x_1,x_2,\dots,x_{n+1} \in \NN$.
+The fact that $x_1 \leq h_1(x_1,x_2,\dots,x_{n+1})$ then follows by induction.
+Suppose, for the sake of contradiction, that
+$h_1(x_1,x_2,\dots,x_{n+1})=h_1(x_1+1,0,\dots,0)$.
+Let $\tilde{h}:\NN^n\to\NN^n$ be the lexicographic embedding defined by
+$$\tilde{h}_i(z_1,\dots,z_n) = h_{i+1}(x_1,x_2+1+z_1,z_2,\dots,z_n)$$
+for each $1\leq i\leq n$.
+By the induction hypothesis,
+$$z_1 \leq \tilde{h}_1(z_1,0,\dots,0) = h_2(x_1,x_2+1+z_1,0,\dots,0).$$
+Since $h$ is a lexicographic embedding and
+$h_1(x_1,x_2,\dots,x_{n+1})=h_1(x_1+1,0,\dots,0)$,
+then $h_2(x_1,x_2+y,0,\ldots,0)\leq h_2(x_1+1,0,\dots,0)$ for all $y>0$.
+Therefore, for all $z_1 \in \NN$,
+$$z_1 \leq \tilde{h}_1(z_1,0,\dots,0) = h_2(x_1,x_2+1+z_1,0,\dots,0)\leq h_2(x_1+1,0,\dots,0),$$
+which is clearly impossible.
+\end{proof}
+
+\begin{lem}[Corduan-Dorais; $\RCAo$; $n\geq 1$]\label{L:lexlim}
+If $h:\NN^n\to\NN^n$ is a lexicographic embedding and
+$1 \leq j < i \leq n$, then
+$$\lim_{x_i\to\infty} h_j(x_1,\dots,x_{i-1},x_i,0,\dots,0)$$
+exists and is bounded above by $h_j(x_1,\dots,x_{i-1}+1,0,\dots,0)$.
+\end{lem}
+
+\begin{proof}
+We proceed by induction on $j < i$.
+By the induction hypothesis, find $\tilde{x}_i$ such that
+$$h_k(x_1,\dots,x_{i-1},x_i,0,\dots,0) = h_k(x_1,\dots,x_{i-1},\tilde{x}_i,0,\dots,0)$$
+for all $x_i \geq \tilde{x}_i$ and $1 \leq k < j$.
+Note that we must then have
+\begin{multline*}
+  h_j(x_1,\dots,x_{i-1},x_i,0,\dots,0) \\
+  \leq h_j(x_1,\dots,x_{i-1},x'_i,0,\dots,0) \\
+  \leq h_j(x_1,\dots,x_{i-1}+1,0,0,\dots,0)
+\end{multline*}
+for all $x'_i \geq x_i \geq \tilde{x}_i$.
+It follows immediately that
+$$\lim_{x_i\to\infty} h_j(x_1,\dots,x_{i-1},x_i,0,\dots,0)$$
+exists and is bounded above by $h_j(x_1,\dots,x_{i-1}+1,0,0,\dots,0)$.
+\end{proof}
+
+\begin{lem}[Corduan-Dorais; $\RCAo$; $n\geq 1$]\label{L:lexinf}
+If $h:\NN^n\to\NN^n$ is a lexicographic embedding and
+$1 \leq i \leq n$, then
+$$\lim_{x_i\to\infty} h_i(x_1,\dots,x_{i-1},x_i,0,\dots,0) = \infty$$
+for all $x_1,\dots,x_{i-1} \in \NN$.
+\end{lem}
+
+\begin{proof}
+By Lemma~\ref{L:lexlim}, we can find $\tilde{x}_i$ such that
+$$h_j(x_1,\dots,x_{i-1},x_i,0,\dots,0) = h_j(x_1,\dots,x_{i-1},\tilde{x}_i,0,\dots,0)$$
+for all $x_i \geq \tilde{x}_i$ and all $1 \leq j < i$.
+Note that the map $\tilde{h}:\NN^{n-i+1}\to\NN^{n-i+1}$ defined by
+$$\tilde{h}_k(y_1,\dots,y_{n-i+1}) = h_{i+k-1}(x_1,\dots,x_{i-1},\tilde{x}_i+y_1,y_2,\dots,y_{n-i+1})$$
+is then a lexicographic embedding and the result follows immediately
+by applying Lemma~\ref{L:lexfst} to $\tilde{h}$.
+\end{proof}
+
+\begin{thm}[Corduan-Dorais]
+  $RT^1_2(\omega^3)$ is equivalent to $\ACAo$ over $\RCAo$.
+\end{thm}
+
+\begin{proof}
+Proving $RT^1_2(\omega^3)$ in \ACAo\ is straightforward.
+Since $\Ind{\BSigma^0_4}$ holds in \ACAo, by Theorem~\ref{T:EIndec&Ind}
+we may assume $\EIndec^3$.
+Therefore for every coloring $c:\NN^3\to\{0,1\}$, there is a $d<2$ such that
+$(\exists^\infty x_1)(\exists^\infty x_2)(\exists^\infty x_3)[c(x_1,x_2,x_3)=d].$
+We can then use arithmetic comprehension to define a lexicographic embedding
+into the set $\set{(x_1,x_2,x_3)\in\NN^3}{c(x_1,x_2,x_3)=d}$.
+
+We now show how to compute the range of a function $f:\NN\to\NN$ using $RT^1_2(\omega^3)$.
+For each $z$, let $f[z] = \{f(0),\dots,f(z)\}$.
+Consider the coloring $c:\NN^3\to\{0,1\}$ defined by
+$$c(x,y,z) =
+\begin{cases}
+0 & \text{when $(\forall w \leq x)(w \in f[y] \leftrightarrow w \in f[z])$,} \\
+1 & \text{otherwise.}
+\end{cases}$$
+Suppose $h:\NN^3\to\NN^3$ is a lexicographic embedding
+such that $c\circ h$ is constant.
+First, note that $c \circ h$ must have constant value $0$.
+
+For suppose instead that $c \circ h$ has constant value $1$.
+By Lemma~\ref{L:lexlim} there is a $y_0$ such that
+$h_1(0,y,0) = h_1(0,y_0,0)$ for all $y \geq y_0$.
+Again by Lemma~\ref{L:lexlim} there is a $z_0$ such that
+$h_2(0,y_0,z) = h_2(0,y_0,z_0)$ for all $z \geq z_0$.
+By Lemma~\ref{L:lexinf} there is a $y_1>y_0$ such that
+$h_2(0,y_0,z_0)<h_2(0,y_1,0)$.
+Putting this together we see that
+$h_2(0,y_0,z_0) < h_2(0,y_1,0) \leq h_3(0,y_0,z_0)$.
+Similarly, we can find can find pairs $(y_1,z_1),\dots,(y_k,z_k)$,
+where $k=h_1(0,y_0,0)+1$,
+such that $h_3(0,y_{i-1},z_{i-1}) \leq h_2(0,y_i,z_i) < h_3(0,y_i,z_i)$
+for each $1 \leq i \leq k$.
+Since $c(h(0,y_i,z_i)) = 1$, we can find
+$w_i \in f[h_3(0,y_i,z_i)] - f[h_2(0,y_i,z_i)]$ where
+$w_i \leq h_1(0,y_i,z_i) = h_1(0,y_0,0)$.
+Our choice of $y_i,z_i$ guarantees that the $w_i$ must be distinct,
+which is impossible since $k > h_1(0,y_0,0)$.
+Therefore $c \circ h$ has constant value $0$.
+
+We now show how to compute the range of $f$ from $h$ and $c$.
+To determine whether $x$ is in the range of $f$, use the following procedure:
+\begin{itemize}
+\item[] First find $y$ such that $h_1(x,y,0) = h_1(x,y+1,0)$.
+		Answer yes if $x \in f[h_2(x,y+1,0)]$, and answer no otherwise.
+\end{itemize}
+This procedure will never return false positive answers,
+so we suppose that $x = f(s)$ and check that the algorithm answers yes on input $x$.
+The existence of a $y$ such that $h_1(x,y,0) = h_1(x,y+1,0)$
+is guaranteed by Lemma~\ref{L:lexlim}.
+Given such a $y$ we can then use Lemma~\ref{L:lexinf} to find $z$
+such that $s \leq h_3(x,y,z)$.
+Since
+$$h_1(x,y,0) = h_1(x,y,z) = h_1(x,y+1,0),$$
+we then have
+$$h_2(x,y,0) \leq h_2(x,y,z) \leq h_2(x,y+1,0).$$
+Since $c(h(x,y,z)) = 0$ and $x \leq h_1(x,y,z)$ by Lemma~\ref{L:lexfst},
+we know that
+$$x \in f[h_2(x,y,z)] \leftrightarrow x \in f[h_3(x,y,z)].$$
+Since $s \leq h_3(x,y,z)$ we know that $x \in f[h_3(x,y,z)]$,
+and since $h_2(x,y,z) \leq h_2(x,y+1,0)$ we conclude that $x \in f[h_2(x,y+1,0)]$.
+\end{proof}

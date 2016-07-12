@@ -1,0 +1,32 @@
+In Chapter~\ref{Posets} we mentioned that $\omega$ and $\omega^*$
+are the only two countable linear orderings
+that have the $n$-Ramsey property for any $n\geq 2$.
+The case when $n=1$, however, has many more examples.
+It is well known that the well orderings with the 1-Ramsey
+property are exactly the ordinal powers of $\omega$
+(see, for instance, Section 6.8.1 of \cite{Fraisse:ThR}).
+
+We now shift our attention to the finite powers of $\omega$.
+For each $n\in\NN$, we will choose a particular representation of $\omega^n$.
+In particular, we let $\omega^n$ be the lexicographic ordering of $\NN^n$.
+
+\begin{definition}
+For each $n\in\NN$, $\omega^n$\index{$\omega^n$} is the ordering $(\NN^n, \lex)$, \index{$\lex$}
+where
+$$\seq{x_0,\ldots,x_{n-1}}\lex\seq{y_0,\ldots,y_{n-1}}\ \ \Leftrightarrow\ \ (\exists i<n)[x_i<y_i\land(\forall j<i)x_j=y_j].$$
+In other words, $\tup{x}\lex\tup{y}$ if and only if $\tup{x}$
+is smaller than $\tup{y}$ on the first coordinate where they disagree.
+\end{definition}
+
+The statement $RT^1_k(\omega^n)$ then says that for every coloring
+$c:\NN^n\to\{0,1\ldots,k-1\}$ there is a homogeneous set
+$H\subseteq\NN^n$ such that $(H,\lex)$ is isomorphic to $\omega^n$.
+When $(H,\lex)$ is isomorphic to $\omega^n$, it is often said
+that $(H,\lex)$ has order type $\omega^n$.
+There are also other equivalent ways to define that a set
+$(H,\lex)$ has order type $\omega^n$, which give alternate
+versions of $RT^1_k(\omega^n)$.
+In Section~\ref{ElemIndec} we examine a first order definition
+of having order type $\omega^n$ and the resulting indecomposability statement.
+In Section~\ref{Indec&Embed} we examine a second order definition
+of having order type $\omega^n$ and the resulting indecomposability statement.

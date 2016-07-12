@@ -1,0 +1,666 @@
+We now look at a family of partial orderings that have the $(n,k)$-Ramsey property
+for all $n\geq 1,k\geq 2$.
+We call the members of this family \textit{amenable} partial orderings,
+and we define them in Definition~\ref{D:amenable}.
+Groszek first proved that the amenable partial orderings
+have the Ramsey properties \cite{GroszekAmenable}.
+The main result of this section is Theorem~\ref{T:amenableIsRamsey},
+which states that \ACAo\ suffices to prove that
+the amenable partial orderings have the Ramsey properties.
+The reversal of Theorem~\ref{T:amenableIsRamsey}, which is
+stated as Corollary~\ref{C:amenable&ACA}, follows easily
+from Theorem~\ref{T:amenableIsRamsey} and a theorem
+of Chubb, Hirst, and McNichol \cite{CHM}.
+
+Observe that if $RT^2_2(\Po)$ holds, then $\Po$ has a linearization of order type
+$\omega$ or $\omega^*$ (the negative integers, with the usual ordering).
+This follows by looking at the homogeneous set for the coloring $c:\Po\to 2$ defined by letting
+$c(x,y)=0$ if $x\leq_{\Po}y \Rightarrow  x\leq y$, and letting $c(x,y)=1$ otherwise
+(where $\leq$ is the usual ordering on $\NN$).
+It's easy to see that $RT^n(\Po)$ holds if and only if $RT^n(\Po^*)$ holds,
+where $\Po^*$ is the ordering defined by $x\leq_{\Po^*} y$ if and only if $y\leq_\Po x$.
+We therefore make the simplifying assumption that our partial orderings have height $\omega$.
+
+Sometimes we will be interested the function which, given any $n\in\NN$,
+gives the set of all elements of $\Po$ on level $n$.
+This function is not necessarily computable from $\Po$.
+If $\Po$ has finite levels, then this function is, however,
+computable from $\Po$ and any level bounding function $\LB_{\Po}$.
+By a \textit{level bounding function}\index{level bounding function} we mean a
+function $\LB_{\Po}:\NN\to\NN$ such that
+the elements of $\Po$ on level $n$ are contained in $\{0,1,\ldots,\LB_{\Po}(n)\}$.
+
+Given a partial ordering $\Po$ with height $\omega$,
+we define $\Pred(x)$ \index{$\Pred(x)$} to be the set of all predecessors of $x$ and we define
+$\Pred_n(x)$ \index{$\Pred_n(x)$} to be the set of all predecessors of $x$ on level $n$.
+For $x,y\in\Po$, we define $x\equiv_p y$ \index{$\equiv_p $} if $\Pred(x)=\Pred(y)$
+and denote the equivalence class of $x$ by $[x]_p$.
+
+We define a second equivalence relation $\equiv$ \index{$\equiv $} to be the transitive closure
+of the compatibility relation, where $x$ is \textit{compatible} to $y$
+if $x$ and $y$ are on the same level and there is an
+element $z$ such that $x,y\leq_\Po z$.
+We denote the $\equiv$ equivalence class of $x$ by $[x]$.
+
+Given a $\equiv$-equivalence class $a$ in level $n$, we define a finite bipartite
+graph $G_{a}$\index{$G_{a}$} as follows.
+One part of the graph, which we denote by $M(G_a)$\index{$M(G_a)$}, consists of the elements of $a$.
+The second part, denoted $S(G_a)$\index{$S(G_a)$}, is the collection of all subsets $\Pred_n(y)$ such that
+there is an $x\in a$ with $x\leq y$.
+The edge relation is set membership.
+The collection of all graphs $G_{a}$ in $\Po$ is denoted by $\mathcal{G}(\Po)$.
+
+In what follows, we will want to compute
+$\mathcal{G}(\Po)$ from $\Po$ and $\LB_\Po$.
+It may not even be the case, however,
+that the set of $\equiv$ classes of $\Po$
+can be computed from $\Po$ and $\LB_\Po$.
+We therefore assume that $\Po$ omits a certain configuration,
+and then prove that we can compute $\mathcal{G}(\Po)$ from $\Po$ and $\LB_\Po$.
+
+For $x,y\in\Po$, we let $x\perp y$ mean that $x\not\leq_\Po y$ and $y\not\leq_\Po x$,
+and we let $x<_\Po y$ mean that $x\leq_\Po y$ and $x\neq_\Po y$.
+\textbf{For ease of notation, for the rest of this section (\ref{POAmenable}) we
+write $\leq$ and $<$ in place of $\leq_\Po$ and $<_\Po$ when the underlying
+partial ordering $\Po$ is understood.}
+
+\begin{definition}
+A \textit{shed}\index{shed} is a four-tuple $(w,x,y,z)$ of $\Po$ such that:
+$x\perp y$, $x<z$, $y<z$, $w<x$ and $w\not\leq y$.
+\end{definition}
+You can visualize a shed as follows:
+$$\xymatrix{
+  & z\ar@{-}[ld]\ar@{-}[rd] &   \\
+x\ar@{-}[d] &   &  y \\
+w &   &   \\
+}$$
+Note that $x$ and $y$ are \textit{not} necessarily on the same level.
+
+\begin{lem}[\RCAo]
+Let $\Po$ be a partial ordering with height $\omega$
+that has finite levels and which omits sheds.
+Then $\mathcal{G}(\Po)$ is computable from $\Po$ and $\LB_\Po$,
+where $\LB_\Po$ is a level bounding function for $\Po$.
+\end{lem}
+
+\begin{proof}
+First we show that if $w$ and $y$ are on the same level
+and have a common successor, then they have a common immediate successor.
+Suppose otherwise, and let $w,y< z$.
+Since $z$ is not an immediate successor of $w$,
+there is an immediate successor $x$ of $w$ such that $w< x< z$.
+By assumption $y\not\leq x$ since $w$ and $y$ do not
+have a common immediate successor.
+We now have a contradiction, since $(w,x,y,z)$ is a shed.
+
+It follows that the compatibility relation is computable
+from $\Po$ and $\LB_\Po$, since to determine
+if two elements $x$ and $y$ on level $\ell$ are compatible
+we need only check if there is an element
+$z\in\{0,1,\ldots,\LB_\Po(\ell+1)\}$ such that $x,y<z$.
+Therefore there is a $(\Po\oplus\LB_\Po)$-computable function
+which returns $M(G_{[x]})$ on input $x$.
+
+Now we show that if $a$ is an $\equiv$-class on level $n$,
+$w\in a$, and $w< z$, then there is an immediate successor
+$z'$ of $w$ such that $\Pred_n(z')=\Pred_n(z)$.
+Otherwise there is an immediate successor $x$ of $w$ below $z$
+such that there is an element $y\in\Pred_n(z)\backslash\Pred_n(x)$.
+We now have a contradiction, since $(w,x,y,z)$ is a shed.
+
+It follows that there is a $(\Po\oplus\LB_\Po)$-computable function
+which returns $S(G_{[x]})$ on input $x$.
+\end{proof}
+
+Another useful property of partial orderings
+which omits sheds is given by the next lemma.
+
+\begin{lem}[\RCAo]\label{L:shedAvoidingThinsEquivp}
+If $\Po$ omits sheds, then $x\equiv_p y$ whenever $x\equiv y$.
+\end{lem}
+\begin{proof}
+It suffices to show that for every $x$ and $y$ on the same level,
+if there is a $z$ such that $x< z$ and $y< z$, then $x\equiv_p y$.
+Suppose otherwise, and without loss of generality
+let $w\in\Pred(x)\backslash\Pred(y)$.
+We now have a contradiction, since $(w,x,y,z)$ is a shed.
+\end{proof}
+
+Another useful lemma is the following.
+
+\begin{lem}[\RCAo]\label{L:shedAvoidinglevLem}
+Suppose that $\Po$ omits sheds.
+If $x\perp y$ and there is a $z$ such that $x,y<z$,
+then $x$ and $y$ are on the same level.
+\end{lem}
+\begin{proof}
+Suppose otherwise, and without loss of generality
+let the level of $y$ be greater than the level of $x$.
+Then there is an element $w$ on the same level as $y$
+such that $x<w<z$.
+We now have a contradiction, since $(x,w,y,z)$ is a shed.
+\end{proof}
+
+We make a quick detour into graph theory before making our final definitions.
+We will be interested in (finite) bipartite graphs whose partitions
+have distinguished pieces.
+The bipartite graphs $G$ that we consider all have a piece $T_G$ labeled `top'
+and a piece $B_G$ labeled `bottom', so that the disjoint union $G=T_G\cup B_G$
+is the bipartition of $G$.
+An \textit{embedding} of a bipartite graph $G$ into a bipartite graph $H$
+is a map $f:G\to H$ with two properties:
+1) if $x,y\in G$ then there is an edge between $x$ and $y$ if and only if
+there is an edge between $f(x)$ and $f(y)$, and 2) $f$ respects the labels,
+meaning that if $x\in T_G$ then $f(x)\in T_H$, and if $x\in B_G$ then $f(x)\in B_H$.
+We write $G\hookrightarrow H$ to mean that there is an embedding of $G$ into $H$.
+
+Earlier we defined a collection of graphs $\mathcal{G}(\Po)$ corresponding
+to partial ordering $\Po$ with height $\omega$.
+More specifically, given a $\equiv$-equivalence class $a$ in level $n$ of $\Po$,
+we defined a finite bipartite graph $G_{a}=S(G_a)\cup M(G_a)$.
+In what follows, we consider the pieces $S(G_a)$ to be labeled `top',
+the pieces $M(G_a)$ to be labeled `bottom'.
+
+\begin{definition}
+Given finite bipartite graphs $H$ and $G$, we write $H\rightarrow (G)^e_k$\index{$H\rightarrow (G)^e_k$}
+if for every coloring of the edges of $H$ in $k$ colors,
+there is an embedding of $G$ into $H$ with monochromatic edges.
+
+A collection $\mathcal{G}$ of bipartite graphs is \textit{edge-Ramsey}\index{edge-Ramsey} if
+$$(\forall G\in\mathcal{G})(\forall k)(\exists H\in\mathcal{G})(H\rightarrow (G)^e_k),$$
+and has the \textit{joint embedding property}\index{joint embedding property} if
+$$(\forall G_1,G_2\in\mathcal{G})(\exists H\in\mathcal{G})(G_1\hookrightarrow H \ \& \ G_2\hookrightarrow H).$$
+\end{definition}
+
+\begin{definition}
+Let $\Po$ and $\Qo$ be partial orderings with height $\omega$.
+We say that $\mathbb{Q}$ is \textit{dense}\index{dense} in $\Po$ if for every $u\in\mathbb{Q}$ and $z\in\Po$
+there is an $x\geq_\Po z$ such that $G_{[u]}\hookrightarrow G_{[x]}$.
+\end{definition}
+
+\begin{definition}\label{D:amenable}
+We say that a partial ordering $\Po$ is \textit{amenable}\index{amenable} if the following hold:
+$\Po$ has a least element, $\Po$ has height $\omega$, $\Po$ has finite levels,
+$\Po$ is shed-omitting, $\Po$ is dense in itself,
+$\mathcal{G}(\Po)$ is edge-Ramsey and has the joint embedding property,
+and every element of $\Po$ has incompatible successors.
+\end{definition}
+Note that the last requirement of an amenable partial ordering,
+that every element has incompatible successors, is satisfied
+whenever $\Po$ is dense in itself and contains at least one element $\sigma$
+such that $|S(G_{[\sigma]})|\geq 2$.
+
+\begin{thm}[Groszek \cite{GroszekAmenable}, $n\geq 1,k\geq 2$]\label{T:MarciaAmenableIsRamsey}
+Every amenable partial ordering is $(n,k)$-Ramsey.
+\end{thm}
+
+\begin{thm}[$n\geq 1,k\geq 2$]\label{T:amenableIsRamsey}
+The statement of Theorem~\ref{T:MarciaAmenableIsRamsey} holds in \ACAo.
+\end{thm}
+
+The following corollary then follows from Theorem~\ref{T:amenableIsRamsey}.
+
+\begin{cor}\label{C:amenable&ACA}
+Fix $n\geq 3$ and $k\geq 2$.
+The following statement is equivalent to \ACAo, over \RCAo:
+If $\Po$ is an amenable partial ordering, then $RT^n_k(\Po)$ holds.
+\end{cor}
+\begin{proof}
+The result follows from Theorem~\ref{T:binm&ACA} and the theorem
+of Chubb, Hirst, and McNichol \cite{CHM} that $RT^n(\bin)$ implies \ACAo\ over \RCAo.
+\end{proof}
+
+We will prove this theorem with the help of some lemmas.
+Theorem~\ref{T:amenableIsRamsey} will follow immediately from
+Lemmas~\ref{L:denseAboveSigmaInColorI}, \ref{L:reduceHalfDimension}, and \ref{lem:useGraphInduced}.
+
+The first lemma we consider will be useful not only for its application,
+but also for its illustrative proof.
+
+\begin{lem}\label{L:denseIsActuallyDense}
+Let $\Po$ and $\Qo$ be computable, amenable partial orderings and
+suppose that $\LB_\Po$ and $\LB_\Qo$ are computable level bounding functions for $\Po$ and $\Qo$.
+If $\Qo$ is dense in $\Po$, then
+given any $\sigma_0\in\Po$, there is a computable embedding $f:\Qo\to\Po$ that maps
+the least element of $\Qo$, denoted $0_\Qo$, to $\sigma_0$.
+Moreover, there is a computable function which,
+given indices for $\Po$, $\Qo$, $\LB_\Po$ and $\LB_\Qo$,
+returns indices for the range $\Qo'$ of $f$
+and for a level bounding function $\LB_{\Qo'}$ for $\Qo'$.
+\end{lem}
+
+Note that for this lemma, it is not necessary to assume that $\mathcal{G}(\Po)$ and $\mathcal{G}(\Qo)$ are edge-Ramsey,
+nor that $\mathcal{G}(\Po)$ and $\mathcal{G}(\Qo)$ have the joint embedding property.
+
+\begin{proof}
+We use the letters $\alpha$ and $\beta$ to denote elements of $\Qo$,
+the letters $a$ and $b$ to denote $\equiv$-classes of $\Qo$,
+and the letters $u$ and $v$ to denote $\equiv_p$-classes of $\Qo$.
+We use the letters $\sigma$ and $\tau$ to denote elements of $\Po$,
+the letters $s$ and $t$ to denote $\equiv$-classes of $\Po$,
+and the letters $x$ and $y$ to denote $\equiv_p$-classes of $\Po$.
+
+Let $\Qo_n$ denote the set of elements of $\Qo$ on level $n$ and $\Qo_{<n}$
+denote the set of elements of $\Qo$ on levels $<n$.
+Similarly define $\Po_{n}$ and $\Po_{<n}$.
+
+We say that $(j,k)$ is
+an \textit{extendible $n$-embedding} of $\Qo$ into $\Po$ if
+$j$ is an embedding $j:\Qo_{<n}\rightarrow \Po$,
+$k$ is a function $k:\Qo_n\rightarrow \Po_m$ for some $m$, and:
+\begin{itemize}
+\item if $\alpha\in\Qo_{<n}$, $\beta\in\Qo_{n}$, and $\alpha<\beta$ then $j(\alpha)< k(\beta)$,
+\item if $\alpha,\beta\in\Qo_{n}$ and $\Pred(\alpha)=\Pred(\beta)$ then $k(\alpha)=k(\beta)$,
+\item if $\alpha,\beta\in\Qo_{n}$ and $\Pred(\alpha)\neq \Pred(\beta)$ then $k(\alpha)\not\equiv k(\beta)$.
+\end{itemize}
+If $(j',k')$ is an extendible $(n+1)$-embedding and
+$(j,k)$ is an extendible $(n+1)$-embedding,
+we say that $(j',k')$ \textit{extends} $(j,k)$ if
+$j\subseteq j'$ and $j'(\alpha)\geq k(\alpha)$ for $\alpha\in\Qo_n$.
+
+We begin with the $0$-embedding $(j,k)$ where $j=\emptyset$ and $k(0_\Qo)=\sigma_0$.
+We now describe a computable procedure to extend an extendible $n$-embedding to an extendible $(n+1)$-embedding.
+
+Since $k(\alpha)$ is determined by its $\equiv_p$-class, we will abuse notation and
+write $k(u)$ in place of $k(\alpha)$ when $u$ is a $\equiv_p$-class and $\alpha\in u$.
+Since the $\equiv$-classes refine the $\equiv_p$-classes,
+we will also write $k(a)$ when $a$ is a $\equiv$-class.
+
+First we extend $j$ to $j'$ by mapping the $\equiv$-classes $a$
+of $\Qo$ on level $n$ into $\Po$ above the respective $k(a)$.
+Moreover, we will actually embed each graph $G_a$ above $k(a)$.
+To make sure that we can then define $k'$,
+we must make sure that if $\alpha,\beta\in\Qo_n$ and
+$\alpha$ and $\beta$ are incompatible, then
+$j'(\alpha)$ and $j'(\beta)$ are also incompatible.
+Therefore if $a$ and $b$ are distinct $\equiv$-classes
+that we map into $\equiv$-classes $s$ and $t$ respectively,
+then we must make sure that every element of $s$
+is incompatible with every element of $t$.
+We say that elements $\sigma$ and $\tau$
+are strongly incompatible if every element of $[\sigma]$
+is incompatible with every element of $[\tau]$.
+
+We claim that if $\sigma_1$ and $\sigma_2$
+are incompatible, $\sigma_1<\tau_1$, and
+$\sigma_2<\tau_2$, then $\tau_1$ and $\tau_2$
+are strongly incompatible.
+Suppose otherwise, and let $\tau_1',\in[\tau_1]$,
+$\tau_2',\in[\tau_2]$, and $\tau_1',\tau_2'\leq\tau$.
+Since $\tau_1'\equiv\tau_1$, then $\Pred(\tau_1)=\Pred(\tau_1')$,
+so $\sigma_1<\tau_1$.  Similarly $\sigma_2<\tau_2$.
+Notice that $\tau'_1\perp\tau'_2$ since
+$\sigma_1$ and $\sigma_2$ are incompatible.
+If $\tau'_1<\tau$ then $(\sigma_1,\tau_1',\sigma_2,\tau)$
+is a shed.
+Similarly if $\tau'_2<\tau$ then
+$(\sigma_2,\tau_2',\sigma_1,\tau)$ is a shed.
+Since $\Po$ is shed omitting,
+we conclude that $\tau'_1=\tau=\tau'_2$,
+which then contradicts that $\sigma_1$
+and $\sigma_2$ are incompatible.
+
+Therefore to define $j'$ it suffices to find,
+for each $\equiv$-class $a$ on level $n$,
+an element $\sigma_a\geq k(a)$ and
+an embedding $h_{a}:G_a\hookrightarrow G_{[\tau_a]}$
+for some $\tau_a>\sigma_a$,
+such that the set of all $\sigma_a$'s is mutually incompatible.
+For if we have such embeddings, then we
+let $j'(\alpha)=h_{[\alpha]}(\alpha)$.
+To see that $j'$ preserves
+incompatibility, let $\alpha,\beta\in\Qo_n$ and
+suppose that $\alpha\equiv_p\beta$
+and $\alpha\not\equiv\beta$.
+Since $\sigma_{[\alpha]}$ and $\sigma_{[\beta]}$
+are incompatible, $\tau_{[\alpha]}$ and $\tau_{[\beta]}$
+are strongly incompatible.
+Therefore no element of $[\tau_{[\alpha]}]$ is compatible
+with any element of $[\tau_{[\beta]}]$.
+So in particular $j'(\alpha)$ and $j'(\beta)$
+are incompatible.
+From this it follows that $j'$ is one-one.
+Notice also that $j'$ is order-preserving.
+
+Now we show that we can find such $\sigma_a$, $\tau_a$,
+and embeddings $h_{a}$ for each $\equiv$-class $a$ on level $n$.
+First notice that if $a$ and $b$ are contained
+in different $\equiv_p$-classes, then
+$\sigma_a$ and $\sigma_b$ will be incompatible
+provided $\sigma_a\geq k(a)$ and $\sigma_b\geq k(b)$,
+since $k(a)$ and $k(b)$ are incompatible.
+We therefore take a $\equiv_p$-class $u$
+and show how to define $\sigma_a$, $\tau_a$,
+and $h_a$ for all $\equiv$-classes $a$ contained in $u$.
+Let $m$ be the number of $\equiv$-classes contained in $u$.
+Since we assumed that every element in $\Po$ has
+incompatible successors, there are $m$-many
+incompatible successors of $k(u)$.
+Assign to each $\equiv$-class $a$ one such element, denoted by $\sigma_a$.
+Since $\Qo$ is dense in $\Po$, there is a $\tau_a> \sigma_a$ and an $h_a$
+such that $h_a:G_{a}\hookrightarrow G_{[\tau_a]}$.
+
+It remains only to show how to define $k'$.
+Given a $\equiv_p$-class $u$ of $\Qo_{n+1}$,
+let $\alpha\in u$ and
+let $b$ be the $\equiv_p$-class on level
+$n$ of $\Qo_n$ such that $\Pred_n(\alpha)\subseteq b$.
+Let $m$ be the level of the element $\tau_b$
+that was defined above.
+Let $\tau\in\Po_{m+1}$ be such that
+$h_b(\Pred_n(\alpha))=\Pred_{m+1}(\tau)$.
+If we then let $\overline{k}(\alpha')=\tau$
+for all $\alpha'\in u$,
+we claim that $\overline{k}$ satisfies most of
+the requirements that we need $k'$ to satisfy.
+
+If $\alpha\in\Qo_n$, $\beta\in\Qo_{n+1}$,
+and $\alpha<\beta$, we will show that $j'(\alpha)<\overline{k}(\beta)$.
+Since $\alpha<\beta$, then $\alpha\in\Pred_n(\beta)$.
+Therefore $h_{[\alpha]}(\alpha)\in\Pred_{m}(\overline{k}(\beta))$,
+and so $j'(\alpha)<\overline{k}(\beta)$.
+If $\alpha,\beta\in\Qo_{n+1}$ and $\Pred(\alpha)=\Pred(\beta)$ then
+$\overline{k}(\alpha)=\overline{k}(\beta)$ since we defined $\overline{k}$ to be constant
+on the $\equiv_p$-classes.
+Finally, assume $\alpha_1,\alpha_2\in\Qo_{n+1}$ and
+$\Pred(\alpha_1)\neq \Pred(\alpha_2)$.
+We will show that $\overline{k}(\alpha_1)$ and $\overline{k}(\alpha_2)$ are incompatible.
+There are two cases, namely whether or not
+there is a $\equiv$-class $b$ in $\Qo_n$
+such that $\Pred_n(\alpha_1),\Pred_n(\alpha_2)\subseteq b$.
+Suppose there were such a $b$ and that there was a $\tau$ such that
+$\overline{k}(\alpha_1),\overline{k}(\alpha_1)\leq\tau$.
+Since $\Pred(\alpha_1)\neq \Pred(\alpha_2)$ and since
+$h_b:G_b\hookrightarrow G_{[\tau_b]}$ is an embedding,
+there is an elements $\sigma\in [\tau_b]$ such that,
+without loss of generality, $\sigma<\overline{k}(\alpha_1)$
+and $\sigma\not\leq \overline{k}(\alpha_2)$.
+Then $\tau$ cannot be distinct from $\overline{k}(\alpha_1)$ and $\overline{k}(\alpha_1)$,
+since otherwise $(\sigma,\overline{k}(\alpha_1),\overline{k}(\alpha_2),\tau)$ would be a shed.
+But $\overline{k}(\alpha_1)$ and $\overline{k}(\alpha_2)$ are on the same level,
+so then $\tau=\overline{k}(\alpha_1)=\overline{k}(\alpha_2)$,
+contradicting that $h_b$ is an embedding.
+In the second case, there is no
+$\equiv$-class $b$ in $\Qo_n$
+such that $\Pred_n(\alpha_1),\Pred_n(\alpha_2)\subseteq b$.
+Therefore there are distinct $\equiv$-classes $b_1$ and $b_2$ in $\Qo_n$
+such that $\Pred_n(\alpha_1)\subseteq b_1$ and $\Pred_n(\alpha_2)\subseteq b_2$.
+Recall that we embedded $b_1$ and $b_2$ into
+$[\tau_{b_1}]$ and $[\tau_{b_2}]$, where
+$\tau_{b_1}$ and $\tau_{b_2}$ are strongly incompatible elements.
+Since $\overline{k}(\alpha_1)\geq \tau_{b_1}'$ for some $\tau_{b_1}'\in[\tau_{b_1}]$,
+and $\overline{k}(\alpha_2)\geq \tau_{b_2}'$ for some $\tau_{b_2}'\in[\tau_{b_2}]$,
+we conclude that $\overline{k}(\alpha_1)$ and $\overline{k}(\alpha_2)$ are incompatible.
+
+Finally, we define $k'$.
+Let $m$ be the maximum level of range of $\overline{k}$.
+For each $\equiv_p$-class $u$ of $\Qo_{n+1}$,
+choose $\alpha\in u$ and let $k'(\alpha)$
+be any element $\sigma$ of $\Po_{m}$ such that $\overline{k}(\alpha)\leq\sigma$.
+Then $k'$ satisfies the same requirements that were
+just proved for $\overline{k}$, and has the additional property
+that its range is contained in a single level.
+This ends the construction.
+
+We have therefore described a computable procedure to build the
+embedding $f$ level by level.  More precisely, if $\sigma$ is on level $n$,
+we let $f(\sigma)=j(\sigma)$, where $(j,k)$ is the $(n+1)$-th extendible extension
+of $(\emptyset,\{(0_\Qo,\sigma_0)\})$.
+Moreover, given indices for $\Po$, $\Qo$, $\LB_\Po$ and $\LB_\Qo$,
+we have described a procedure to compute
+indices for the range $\Qo'$ of $f$
+and for a level bounding function $\LB_{\Qo'}$ for $\Qo'$.
+\end{proof}
+
+We now define a special class of colorings.
+
+\begin{definition}
+A coloring of pairs $c:[\Po]^2\to k$ is called a \textit{graph induced coloring}\index{graph induced coloring}
+if the color of $\langle\sigma,\tau\rangle$ is determined by $\sigma$ and $\Pred_n(\tau)$,
+where $n$ is the level of $\sigma$.
+\end{definition}
+
+Graph induced colorings are notable because they induce a coloring of the graphs in $\mathcal{G}(\Po)$.
+The induced coloring of graphs is given by coloring an edge $(\sigma,\Pred_n(\tau))$ of $G_a$
+with the color $c(\sigma,\tau)$,
+where $a$ is an $\equiv$-class on level $n$, $\sigma\in a$, and $\tau\geq\sigma$.
+Notice that the induced graph colorings are computable from the original coloring and $\mathcal{G}(\Po)$.
+
+\begin{lem}[RCA$_0$+I$\BSigma^0_2$]\label{L:denseAboveSigmaInColorI}
+Suppose that $\Po$ is amenable, $\LB_\Po$ is a level bounding function for $\Po$,
+and $c:[\Po]^2\to k$ is a graph induced coloring.
+Then there there is a color $i\leq k$ and a $\sigma\in\Po$ such that for each $\equiv$-class $a$,
+the set of $\tau$ such that there is a homogeneous embedding
+$h:G_a\hookrightarrow G_{[\tau]}$ in color $i$ is dense in $\Po$ above $\sigma$.
+\end{lem}
+
+\begin{proof}
+Given an $\equiv$-class $a$, a $\tau\in\Po$, and a color $i\leq k$,
+let $\theta(a,\tau,i)$ be the statement that there is a color $i$
+homomorphism $h:G_a\hookrightarrow G_{[\tau]}$.
+Let $F$ be the set of all $i<k$ such that
+$$\exists\sigma\exists a(\forall\tau\geq\sigma)(\forall j< i)\neg\theta(a,\tau,j).$$
+Notice that $F$ exists by bounded $\BSigma^0_2$ comprehension, which is equivalent to I$\BSigma^0_2$.
+Let $i$ be the maximal element of $F$, and let $\sigma_0$ and $a_0$ be such that
+$(\forall\tau\geq\sigma_0)(\forall j<i)(\neg\theta(a_0,\tau,j))$.
+
+We claim that for each $\equiv$-class $a$,
+the set of $\tau$ such that there is a homogeneous embedding
+$h:G_a\hookrightarrow G_{[\tau]}$ in color $i$ is dense in $\Po$ above $\sigma_0$.
+Suppose, for the sake of contradiction, that there is a $\sigma_1\geq\sigma_0$
+and an $\equiv$-class $a_1$ such that for no $\tau\geq\sigma_1$ is there a color
+$i$ homogeneous copy of $G_{a_1}$.
+Since $\mathcal{G}(\Po)$ has the joint embedding property, there is an $\equiv$-class $a_2$ such that
+$G_{a_0}\hookrightarrow G_{a_2}$ and $G_{a_1}\hookrightarrow G_{a_2}$.
+Therefore $(\forall\tau\geq\sigma_1)(\forall j<i+1)(\neg\theta(a_2,\tau,j))$,
+contradicting the maximality of $i$ in $F$.
+\end{proof}
+
+\begin{lem}\label{L:GraphInducedColoringSolutions}
+Let $\Po$ be a computable amenable partial ordering and $\LB_\Po$ be a computable level bounding function for $\Po$.
+Let $c$ be a graph induced coloring of $\Po$ in $k$ colors.
+Then there is a computable, monochromatic embedding $f$ of $\Po$ into itself such that
+range $\Po'$ of $f$ is computable, as is a level bounding function $\LB_{\Po'}$ for $\Po'$.
+\end{lem}
+
+\begin{proof}
+By Lemma~\ref{L:denseAboveSigmaInColorI}
+there there is a color $i\leq k$ and a $\sigma\in\Po$ such that for each $\equiv$-class $a$,
+the set of $\tau$ such that there is a homogeneous embedding
+$h:G_a\hookrightarrow G_{[\tau]}$ in color $i$ is dense in $\Po$ above $\sigma$.
+
+We now proceed, exactly as in Lemma~\ref{L:denseIsActuallyDense}, to build an embedding of
+$\Po$ above $\sigma$, except that at the point in the construction where we choose $h_a$ and $\sigma_a$
+such that $h_{a}:G_{a}\hookrightarrow G_{[\sigma_a]}$ for some $\sigma_a\geq k(a)$,
+we ensure that $h_a$ is monochromatic in color $i$.
+We are guaranteed such an $h_a$ and $\sigma_a$ by our choice of $i$ and $\sigma$ from Lemma~\ref{L:denseAboveSigmaInColorI}.
+\end{proof}
+
+\begin{lem}\label{L:nEquals1}
+Let $\Po$ be a computable amenable partial ordering and $\LB_\Po$ be a computable level bounding function for $\Po$.
+Let $c$ be a singleton coloring of $\Po$ in $k$ colors.
+Then there is a computable, monochromatic embedding $f$ of $\Po$ into itself such that
+range $\Po'$ of $f$ is computable, as is a level bounding function $\LB_{\Po'}$ for $\Po'$.
+\end{lem}
+
+\begin{proof}
+The lemma follows from Lemma~\ref{L:GraphInducedColoringSolutions} by considering
+the graph induced coloring $c'$ of $\Po$ defined by letting $c'(\langle\sigma,\tau\rangle)=c(\sigma)$.
+\end{proof}
+
+We make some final definitions for use in the last two lemmas.
+An \textit{instruction} is either an element $\tau\in\Po$, or
+a triple $(e,\sigma,i)$ where $e$ is an index for a computable,
+graph induced coloring of $\Po$, and $\sigma$ and $i$ are
+such that for each $\equiv$-class $a$,
+the set of $\rho$ such that there is a homogeneous embedding
+$h:G_a\hookrightarrow G_{[\rho]}$ in color $i$ is dense in $\Po$ above $\sigma$.
+
+Let $\Po_{\langle\tau\rangle}$ be the copy of $\Po$ above $\tau$ as given
+by Lemma~\ref{L:denseIsActuallyDense}, and
+$\Po_{\langle(e,\sigma,i)\rangle}$ be the monochromatic copy of $\Po$
+given by Lemma~\ref{L:GraphInducedColoringSolutions}.
+Moreover, if $s$ is a sequence of instructions,
+then we let $\Po_{s^\frown\langle\tau\rangle}$ be the copy of $\Po$ in $\Po_{s}$
+above $\tau$ as given by Lemma~\ref{L:denseIsActuallyDense},
+and $\Po_{s^\frown\langle(e,\sigma,i)\rangle}$ be the monochromatic copy of $\Po$ in $\Po_s$
+given by Lemma~\ref{L:GraphInducedColoringSolutions}.
+Assuming that $\Po$ is computable and that there is a computable
+level bounding function $\LB_\Po$ for $\Po$,
+Lemmas~\ref{L:denseIsActuallyDense} and \ref{L:GraphInducedColoringSolutions}
+not only guarantee that $\Po_s$ is defined for every sequence of instructions $s$,
+but also that each $\Po_s$ has a computable level bounding function
+whose index can be uniformly computed from $s$.
+
+\begin{lem}[ACA$_0$]\label{L:reduceHalfDimension}
+Suppose that $\Po$ is amenable and that $c$ is a $(m+1)$-ary coloring of $\Po$ in $k$ colors.
+Then there is an embedding $J$ of $\Po$ into itself whose image $\Qo=J(\Po)$
+satisfies the following:
+the color of each $(m+1)$-chain
+$\langle \tau_1,\tau_2,\ldots,\tau_{m+1}\rangle$ in $\Qo$ depends only on
+$\langle \tau_1,\tau_2,\ldots,\tau_m,\Pred_{lev(\tau_m)}(\tau_{m+1})\rangle$
+(where $\Pred$ refers to the predecessor function in $\Qo$).
+\end{lem}
+
+\begin{proof}
+Notice that in \ACAo\ there exists a level bounding function $\LB_\Po$ for $\Po$.
+In \ACAo\ we also have the function $g$ which,
+given an index for a computable (in $\Po\oplus\LB_\Po$), isomorphic copy $\Po'$ of $\Po$,
+an index for a computable (in $\Po\oplus\LB_\Po$) level bounding function for $\Po'$,
+and an index for a computable (in $\Po\oplus\LB_\Po$) graph induced coloring of $\Po'$,
+returns a pair $(\sigma,i)$, where $\sigma$ and $i$ are as in Lemma~\ref{L:denseAboveSigmaInColorI}.
+
+We now construct an embedding of $\Po$ into itself that satisfies the lemma
+and is computable in $\Po\oplus\LB_\Po\oplus g$.
+Our construction will be similar to that of Lemma~\ref{L:denseIsActuallyDense}.
+We define a \textit{color-extendible} $n$-embedding to be a triple $(j,k,\ell)$, where
+\begin{itemize}
+\item $(j,k)$ is an extendible $n$-embedding,
+\item $\ell$ is a function defined on the $\equiv_p$-classes on level $n$ of $\Po$
+such that $\ell(u)$ is a sequence of instructions for a copy of $\Po$ above $k(u)$,
+\item if $\overline{\tau}=\langle \tau,\ldots,\tau_m\rangle$ is an $m$-chain in the range of $j$
+	and $\sigma_1,\sigma_2\in\Po_{\ell(u)}$ for some $\equiv_p$-class $u$ on level $n$,
+	then $c(\overline{\tau}^\frown\langle\sigma_1\rangle)=c(\overline{\tau}^\frown\langle\sigma_2\rangle)$.
+\end{itemize}
+
+We say that a color-extendible $(n+1)$-embedding $(j',k',\ell')$ of $\Po$
+extends the color-extendible $n$-embedding $(j,k,\ell)$ if
+\begin{itemize}
+\item $(j',k')$ extends $(j,k)$ as extendible embeddings,
+\item if $\alpha\in\Po_n$ and $\beta$ is an immediate successor of $\alpha$,
+	\begin{itemize}
+	\item then $j'(\alpha),k'(\beta)\in \Po_{\ell([\alpha]_p)}$,
+	\item $\ell'([\beta]_p)$ extends $\ell([\alpha]_p)$
+	\end{itemize}
+\end{itemize}
+
+Let $(j,k,\ell)$ be a color-extendible $n$-embedding of $\Po$.
+We describe an $X$-computable procedure which extends $(j,k,\ell)$ to a
+color-extendible $(n+1)$-embedding $(j',k',\ell')$ of $\Po$.
+
+The first thing we do is
+extend the extendible $n$-embedding $(j,k)$ to $(j',k')$.
+We proceed exactly as in the proof of Lemma~\ref{L:denseIsActuallyDense},
+except that except that instead of merely choosing $j'$ and $k'$
+above $k(\alpha)$, we choose $j'$ and $k'$ above $k(\alpha)$
+inside $\Po_{\ell([\alpha]_p)}$
+
+It remains only to show how to define $\ell'$.
+Let $u$ be an $\equiv_p$-class on level $(n+1)$,
+and $\alpha$ be any immediate predecessor of some $\beta\in u$.
+Let $S$ be the set of all $m$-chains in the range of $j$ below $u$.
+Let $\Po'$ the copy of $\Po$ above $k'(u)$ in $\Po_{\ell([\alpha]_p)}$ as given by Lemma~\ref{L:denseIsActuallyDense}.
+Let $c'$ be the singleton coloring of $\Po'$ in $2^{|S|}$ colors
+defined by
+$$c'(\rho)=\left\langle c(\overline{\upsilon}^\frown\langle\rho\rangle)\ :\ \overline{\upsilon}\in S\right\rangle.$$
+Note that there is a uniform (in $X$) procedure that takes
+$\ell(u)$ and returns an index $e$ for $c'$.
+We now use $g$ to obtain the $i$ and $\tau$ given by Lemma~\ref{L:denseAboveSigmaInColorI} for $c'$,
+and we let $\ell'(u)=\ell([\alpha]_p)^\frown\langle k'(u),(e,\tau,i)\rangle$.
+
+This ends the construction.
+We therefore have sequence $\big((j_n,k_n,\ell_n)\big)_{n=1}^\infty$
+such that for each $n$, $(j_n,k_n,\ell_n)$ is a color-extendible $n$-embedding
+and $(j_{n+1},k_{n+1},\ell_{n+1})$ extends $(j_n,k_n,\ell_n)$.
+
+We claim that $J=\bigcup j_n$ is an embedding which satisfies the lemma.
+For suppose that $\langle\tau_1,\tau_2,\ldots,\tau_m\rangle$ is an $m$-chain
+in the range of $J$ and that $\sigma_1,\sigma_2\geq\tau_m$ are also in the
+range of $J$ and that $\sigma_1\equiv_p\sigma_2$.
+Let $n$ be the level of $\tau_m$.
+Since $\sigma_1\equiv_p\sigma_2$, there is a an $\equiv_p$-class
+$u$ on level $n$ of $\Po$ such that $\sigma_1,\sigma_2\in\Po_{\ell_n(u)}$.
+Therefore
+$$c(\langle\tau_1,\tau_2,\ldots,\tau_m,\sigma_1\rangle)=c(\langle\tau_1,\tau_2,\ldots,\tau_m,\sigma_2\rangle).$$
+\end{proof}
+
+\begin{lem}[ACA$_0$]\label{lem:useGraphInduced}
+Suppose that $\Po$ is amenable and that $c$ is a $(m+2)$-ary coloring of $\Po$ in $k$ colors
+such that the color of each $\langle \tau_1,\tau_2,\ldots,\tau_{m+2}\rangle$ depends only on
+$\langle \tau_1,\tau_2,\ldots,\tau_{m+1},\Pred_{\tau_{m+1}}(\tau_{m+2})\rangle$.
+Then there is an embedding of $\Po$ into itself such that the color of each
+$\langle \tau_1,\tau_2,\ldots,\tau_{m+2}\rangle$ depends only on
+$\langle \tau_1,\tau_2,\ldots,\tau_{m},\Pred_{\tau_{m}}(\tau_{m+1})\rangle$.
+\end{lem}
+
+\begin{proof}
+The proof of Lemma~\ref{lem:useGraphInduced} is nearly
+identical to the proof of Lemma~\ref{L:reduceHalfDimension}.
+
+We slightly change the definition of a \textit{color-extendible} $n$-embedding
+by changing the requirement
+\begin{itemize}
+\item if $\overline{\tau}=\langle \tau,\ldots,\tau_m\rangle$ is an $m$-chain in the range of $j$
+	and $\sigma_1,\sigma_2\in\Po_{\ell(u)}$ for some $\equiv_p$-class $u$ on level $n$,
+	then $c(\overline{\tau}^\frown\langle\sigma_1\rangle)=c(\overline{x}^\frown\langle\sigma_2\rangle)$.
+\end{itemize}
+to
+\begin{itemize}
+\item if $\overline{\tau}=\langle \tau,\ldots,\tau_m\rangle$ is an $m$-chain in the range of $j$
+	and $\sigma_1,\sigma_2,\sigma_3,\sigma_4\in\Po_{\ell(u)}$ for some $\equiv_p$-class $u$ on level $n$,
+	then $c(\overline{\tau}^\frown\langle\sigma_1,\sigma_2\rangle)=c(\overline{\tau}^\frown\langle\sigma_3,\sigma_4\rangle)$.
+\end{itemize}
+
+Let $(j,k,\ell)$ be a color-extendible $n$-embedding of $\Po$.
+We describe a $\Po\oplus\LB_\Po\oplus g$-computable procedure which extends $(j,k,\ell)$ to a
+color-extendible $(n+1)$-embedding $(j',k',\ell')$ of $\Po$,
+where $g$ is the same function as in the proof of Lemma~\ref{L:reduceHalfDimension}.
+
+The first thing we do is
+extend the extendible $n$-embedding $(j,k)$ to $(j',k')$.
+We proceed exactly as in the proof of Lemma~\ref{L:denseIsActuallyDense},
+except that except that instead of merely choosing $j'$ and $k'$
+above $k(\alpha)$, we choose $j'$ and $k'$ above $k(\alpha)$
+inside $\Po_{\ell([\alpha]_p)}$.
+
+It remains only to show how to define $\ell'$.
+Let $u$ be an $\equiv_p$-class on level $(n+1)$,
+and $\alpha$ be any immediate predecessor of some $\beta\in u$.
+Let $S$ be the set of all $m$-chains in the range of $j$ below $u$.
+Let $\Po'$ the copy of $\Po$ above $k'(u)$ in $\Po_{\ell([\alpha]_p)}$ as given by Lemma~\ref{L:denseIsActuallyDense}.
+Let $c'$ be the graph induced coloring of $\Po'$ in $2^{|S|}$ colors
+defined by
+$$c'(\rho_1,\rho_2)=\left\langle c(\overline{\upsilon}^\frown\langle\rho_1,\rho_2\rangle)\ :\ \overline{\upsilon}\in S\right\rangle.$$
+Notice $c'$ is computable in $\Po\oplus\LB_\Po\oplus g$,
+so there is an index $e$ for $c'$.
+We now use $g$ to obtain the $i$ and $\tau$ given by Lemma~\ref{L:denseAboveSigmaInColorI} for $c'$,
+and we let $\ell'(u)=\ell([\alpha]_p)^\frown\langle k'(u),(e,\tau,i)\rangle$.
+
+This ends the construction.
+We therefore have sequence $\big((j_n,k_n,\ell_n)\big)_{n=1}^\infty$
+such that for each $n$, $(j_n,k_n,\ell_n)$ is a color-extendible $n$-embedding
+and $(j_{n+1},k_{n+1},\ell_{n+1})$ extends $(j_n,k_n,\ell_n)$.
+
+We claim that $J=\bigcup j_n$ is an embedding which satisfies the lemma.
+For suppose that $\langle\tau_1,\tau_2,\ldots,\tau_m\rangle$ is an $m$-chain
+in the range of $J$ and that $\sigma_1,\sigma_2,\sigma_3,\sigma_4\geq\tau_m$ are also in the
+range of $J$ and that $\sigma_1\equiv_p\sigma_3$.
+Let $n$ be the level of $\tau_m$.
+Since $\sigma_1\equiv_p\sigma_3$, there is a an $\equiv_p$-class
+$u$ on level $n$ of $\Po$ such that $\sigma_1,\sigma_3\in\Po_{\ell_n(u)}$.
+Therefore
+$$c(\langle\tau_1,\tau_2,\ldots,\tau_m,\sigma_1,\sigma_2\rangle)=c(\langle\tau_1,\tau_2,\ldots,\tau_m,\sigma_3,,\sigma_4\rangle).$$
+\end{proof}
+
+Note that Theorem~\ref{T:amenableIsRamsey} follows immediately from
+Lemmas~\ref{L:denseAboveSigmaInColorI}, \ref{L:reduceHalfDimension}, and \ref{lem:useGraphInduced}.
